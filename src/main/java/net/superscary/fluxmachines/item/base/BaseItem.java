@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.item;
+package net.superscary.fluxmachines.item.base;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

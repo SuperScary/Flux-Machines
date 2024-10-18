@@ -8,7 +8,9 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
-import net.superscary.fluxmachines.item.BaseItem;
+import net.superscary.fluxmachines.item.base.BaseFood;
+import net.superscary.fluxmachines.item.base.BaseItem;
+import net.superscary.fluxmachines.item.base.DuraciteArmorItem;
 import net.superscary.fluxmachines.util.keys.Keys;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
 import org.jetbrains.annotations.Nullable;
@@ -29,6 +31,14 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> DURACITE_DUST = item("duracite_dust", BaseItem::new);
     public static final ItemDefinition<BaseItem> DURACITE_INGOT = item("duracite_ingot", BaseItem::new);
     public static final ItemDefinition<BaseItem> DURACITE_NUGGET = item("duracite_nugget", BaseItem::new);
+
+    public static final ItemDefinition<DuraciteArmorItem> DURACITE_HELMET = item("duracite_helmet", DuraciteArmorItem.DuraciteHelmet::new);
+    public static final ItemDefinition<DuraciteArmorItem> DURACITE_CHESTPLATE = item("duracite_chestplate", DuraciteArmorItem.DuraciteChestplate::new);
+    public static final ItemDefinition<DuraciteArmorItem> DURACITE_LEGGINGS = item("duracite_leggings", DuraciteArmorItem.DuraciteLeggings::new);
+    public static final ItemDefinition<DuraciteArmorItem> DURACITE_BOOTS = item("duracite_boots", DuraciteArmorItem.DuraciteBoots::new);
+
+    public static final ItemDefinition<BaseFood> HONEY_BUN = item("honey_bun", BaseFood.HoneyBun::new);
+    public static final ItemDefinition<BaseFood> HARD_BOILED_EGG = item("hard_boiled_egg", BaseFood.HardBoiledEgg::new);
 
     public static List<ItemDefinition<?>> getItems () {
         return Collections.unmodifiableList(ITEMS);

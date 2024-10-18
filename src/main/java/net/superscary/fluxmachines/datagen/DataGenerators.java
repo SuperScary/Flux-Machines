@@ -7,6 +7,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.datagen.providers.data.AchievementProvider;
+import net.superscary.fluxmachines.datagen.providers.data.CompostableProvider;
 import net.superscary.fluxmachines.datagen.providers.lang.FMEnLangProvider;
 import net.superscary.fluxmachines.datagen.providers.loot.FMLootTableProvider;
 import net.superscary.fluxmachines.datagen.providers.models.BlockModelProvider;
@@ -60,6 +62,9 @@ public class DataGenerators {
         //pack.addProvider(bindRegistries(CrusherRecipes::new, registries));
         //pack.addProvider(bindRegistries(SawmillRecipes::new, registries));
         //pack.addProvider(bindRegistries(FluidInfusingRecipes::new, registries));
+
+        pack.addProvider(packOutput -> new CompostableProvider(packOutput, registries));
+        pack.addProvider(packOutput -> new AchievementProvider(packOutput, registries, existingFileHelper));
 
         // LOCALIZATION MUST RUN LAST
         pack.addProvider(output -> localization);

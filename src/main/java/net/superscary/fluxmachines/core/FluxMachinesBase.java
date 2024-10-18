@@ -12,8 +12,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import net.superscary.fluxmachines.init.InitBlocks;
-import net.superscary.fluxmachines.init.InitItems;
+import net.superscary.fluxmachines.item.material.FMArmorMaterials;
 import net.superscary.fluxmachines.registries.FMBlockEntities;
 import net.superscary.fluxmachines.registries.FMBlocks;
 import net.superscary.fluxmachines.registries.FMItems;
@@ -32,6 +31,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         }
         INSTANCE = this;
 
+        FMArmorMaterials.REGISTRY.register(modEventBus);
         FMBlocks.REGISTRY.register(modEventBus);
         FMItems.REGISTRY.register(modEventBus);
         FMBlockEntities.REGISTRY.register(modEventBus);
@@ -39,15 +39,9 @@ public abstract class FluxMachinesBase implements FluxMachines {
         modEventBus.addListener(Tab::initExternal);
 
         modEventBus.addListener((RegisterEvent event) -> {
-
             if (event.getRegistryKey() == Registries.CREATIVE_MODE_TAB) {
                 registerCreativeTabs();
             }
-
-            if (!event.getRegistryKey().equals(Registries.BLOCK)) {
-                return;
-            }
-
         });
 
         modEventBus.addListener(this::commonSetup);

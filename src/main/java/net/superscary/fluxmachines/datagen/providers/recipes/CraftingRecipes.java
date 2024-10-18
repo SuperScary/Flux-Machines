@@ -6,9 +6,10 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 import net.superscary.fluxmachines.core.FluxMachines;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,18 +25,31 @@ public class CraftingRecipes extends FMRecipeProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName () {
         return "FluxMachines Crafting Recipes";
     }
 
     @Override
-    protected void buildRecipes(@NotNull RecipeOutput consumer) {
+    protected void buildRecipes (@NotNull RecipeOutput consumer) {
         duraciteRecipes(consumer);
         machineParts(consumer);
+        misc(consumer);
+    }
+
+    protected void misc (RecipeOutput consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, HONEY_BUN, 1)
+                .pattern("G ")
+                .pattern("HM")
+                .define('G', Items.HONEY_BOTTLE)
+                .define('H', Items.BREAD)
+                .define('M', Tags.Items.BUCKETS_MILK)
+                .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+                .save(consumer, FluxMachines.getResource("misc/honey_bun"));
     }
 
     /**
      * Machine Parts
+     *
      * @param consumer output
      */
     protected void machineParts (RecipeOutput consumer) {
@@ -45,13 +59,14 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .pattern("DWD")
                 .define('D', DURACITE_INGOT)
                 .define('W', ItemTags.PLANKS)
-                .define('G', Blocks.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
                 .save(consumer, FluxMachines.getResource("machine_part/machine_casing"));
     }
 
     /**
      * Duracite Recipes
+     *
      * @param consumer output
      */
     protected void duraciteRecipes (RecipeOutput consumer) {
@@ -93,6 +108,40 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .requires(DURACITE_INGOT)
                 .unlockedBy("has_duracite_ingot", has(DURACITE_BLOCK))
                 .save(consumer, FluxMachines.getResource("mat/duracite_nugget_from_ingot"));
+
+        /*
+         * Armor
+         */
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, DURACITE_HELMET, 1)
+                .pattern("DDD")
+                .pattern("D D")
+                .define('D', DURACITE_INGOT)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("armor/duracite_helmet"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, DURACITE_CHESTPLATE, 1)
+                .pattern("D D")
+                .pattern("DDD")
+                .pattern("DDD")
+                .define('D', DURACITE_INGOT)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("armor/duracite_chestplate"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, DURACITE_LEGGINGS, 1)
+                .pattern("DDD")
+                .pattern("D D")
+                .pattern("D D")
+                .define('D', DURACITE_INGOT)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("armor/duracite_leggings"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, DURACITE_BOOTS, 1)
+                .pattern("D D")
+                .pattern("D D")
+                .define('D', DURACITE_INGOT)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("armor/duracite_boots"));
+
     }
 
 }

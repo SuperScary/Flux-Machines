@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
 
 public final class FMBlockEntities {
 
@@ -26,7 +25,7 @@ public final class FMBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, FluxMachines.MODID);
 
-    public static final DeferredBlockEntityType<MachineCasingBlockEntity> MACHINE_CASING = create("machine_casing_be", MachineCasingBlockEntity.class, MachineCasingBlockEntity::new, FMBlocks.MACHINE_CASING);
+    public static final DeferredBlockEntityType<MachineCasingBlockEntity> MACHINE_CASING = create("machine_casing", MachineCasingBlockEntity.class, MachineCasingBlockEntity::new, FMBlocks.MACHINE_CASING);
 
     /**
      * Get all block entity types whose implementations extends the given base class.
@@ -55,7 +54,7 @@ public final class FMBlockEntities {
         return result;
     }
 
-    @SuppressWarnings("unchcecked")
+    @SuppressWarnings("unchecked")
     @SafeVarargs
     private static <T extends FMBaseBlockEntity> DeferredBlockEntityType<T> create (String id, Class<T> entityClass, BlockEntityFactory<T> factory, BlockDefinition<? extends FMBaseEntityBlock<?>>... blockDefinitions) {
         Preconditions.checkArgument(blockDefinitions.length > 0);
@@ -82,7 +81,7 @@ public final class FMBlockEntities {
 
     @FunctionalInterface
     interface BlockEntityFactory<T extends FMBaseBlockEntity> {
-        T create(BlockEntityType<T> type, BlockPos pos, BlockState state);
+        T create (BlockEntityType<T> type, BlockPos pos, BlockState state);
     }
 
 }

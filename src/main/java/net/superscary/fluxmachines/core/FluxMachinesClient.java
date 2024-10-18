@@ -21,6 +21,7 @@ public class FluxMachinesClient extends FluxMachinesBase {
         return Minecraft.getInstance().level;
     }
 
+    // TODO: Deprecated method to allow transparency.
     private void clientSetup (FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(FMBlocks.MACHINE_CASING.block(), RenderType.CUTOUT);
     }

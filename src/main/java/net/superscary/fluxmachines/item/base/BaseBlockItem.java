@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.item;
+package net.superscary.fluxmachines.item.base;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;

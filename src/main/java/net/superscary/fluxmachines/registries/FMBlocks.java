@@ -13,7 +13,7 @@ import net.superscary.fluxmachines.block.base.DecorativeBlock;
 import net.superscary.fluxmachines.block.machine.MachineCasingBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
-import net.superscary.fluxmachines.item.BaseBlockItem;
+import net.superscary.fluxmachines.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.util.block.BlockDefinition;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
 import org.jetbrains.annotations.Nullable;
