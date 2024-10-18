@@ -1,47 +1,51 @@
 package net.superscary.fluxmachines.util.item;
 
-import com.google.common.base.Preconditions;
+import com.google.common.base.Supplier;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.registries.DeferredItem;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+public class ItemDefinition<T extends Item> implements ItemLike, Supplier<T> {
 
-public class ItemDefinition<T extends Item> implements ItemLike {
+    private final String englishName;
+    private final DeferredItem<T> item;
 
-    private final ResourceLocation id;
-    private final String name;
-    private final T item;
-
-    public ItemDefinition (String name, ResourceLocation id, T item) {
-        Objects.requireNonNull(id, "ID cannot be null.");
-        this.id = id;
-        this.name = name;
+    public ItemDefinition (String englishName, DeferredItem<T> item) {
+        this.englishName = englishName;
         this.item = item;
     }
 
-    public String getName () {
-        return this.name;
+    public String getEnglishName () {
+        return englishName;
     }
 
     public ResourceLocation id () {
-        return this.id;
+        return this.item.getId();
     }
 
     public ItemStack stack () {
         return stack(1);
     }
 
-    public ItemStack stack (int size) {
-        Preconditions.checkArgument(size > 0);
-        return new ItemStack(this, size);
+    public ItemStack stack (int stackSize) {
+        return new ItemStack((ItemLike) item, stackSize);
+    }
+
+    public Holder<Item> holder () {
+        return item;
+    }
+
+    @Override
+    public T get () {
+        return item.get();
     }
 
     @Override
     public @NotNull T asItem () {
-        return this.item;
+        return item.get();
     }
-
 }

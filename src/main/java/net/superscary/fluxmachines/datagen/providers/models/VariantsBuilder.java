@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.datagen.models;
+package net.superscary.fluxmachines.datagen.providers.models;
 
 import com.google.gson.JsonObject;
 import net.minecraft.world.level.block.Block;
@@ -21,9 +21,7 @@ public class VariantsBuilder implements IGeneratedBlockState {
         this.blockStateDef.add("variants", variantsDef);
     }
 
-    private static <T extends Comparable<T>> void appendStateProperty (BlockState blockState,
-                                                                       Property<T> property,
-                                                                       StringBuilder stateText) {
+    private static <T extends Comparable<T>> void appendStateProperty (BlockState blockState, Property<T> property, StringBuilder stateText) {
         stateText.append(property.getName());
         stateText.append('=');
         stateText.append(property.getName(blockState.getValue(property)));

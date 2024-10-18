@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.datagen.tag;
+package net.superscary.fluxmachines.datagen.providers.tag;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.MACHINE_CASING;
+import static net.superscary.fluxmachines.registries.FMBlocks.*;
 
 public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvider {
 
@@ -23,10 +23,20 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
     @Override
     protected void addTags (HolderLookup.@NotNull Provider provider) {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(MACHINE_CASING.block());
+                .add(MACHINE_CASING.block())
+                .add(DURACITE_ORE.block())
+                .add(DURACITE_NETHER_ORE.block())
+                .add(DURACITE_DEEPSLATE_ORE.block())
+                .add(DURACITE_BLOCK_RAW.block())
+                .add(DURACITE_BLOCK.block());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(MACHINE_CASING.block());
+                .add(MACHINE_CASING.block())
+                .add(DURACITE_ORE.block())
+                .add(DURACITE_NETHER_ORE.block())
+                .add(DURACITE_DEEPSLATE_ORE.block())
+                .add(DURACITE_BLOCK_RAW.block())
+                .add(DURACITE_BLOCK.block());
     }
 
 }

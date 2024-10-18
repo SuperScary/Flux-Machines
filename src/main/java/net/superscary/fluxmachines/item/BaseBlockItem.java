@@ -8,7 +8,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.superscary.fluxmachines.block.BaseBlock;
+import net.superscary.fluxmachines.block.base.BaseBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

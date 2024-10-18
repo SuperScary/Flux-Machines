@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.datagen.lang;
+package net.superscary.fluxmachines.datagen.providers.lang;
 
 import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.common.data.LanguageProvider;

@@ -7,11 +7,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.superscary.fluxmachines.block.BaseBlock;
+import net.superscary.fluxmachines.block.base.BaseBlock;
 import net.superscary.fluxmachines.item.BaseBlockItem;
 import net.superscary.fluxmachines.item.BaseItem;
 import net.superscary.fluxmachines.registries.FMItems;
-import net.superscary.fluxmachines.util.CreativeKeys;
+import net.superscary.fluxmachines.util.keys.Keys;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class Tab {
                 .icon(FMItems.DURACITE_INGOT::stack)
                 .displayItems(Tab::buildDisplayItems)
                 .build();
-        Registry.register(registry, CreativeKeys.MAIN, tab);
+        Registry.register(registry, Keys.MAIN, tab);
     }
 
     public static void initExternal (BuildCreativeModeTabContentsEvent contents) {

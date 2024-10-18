@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.datagen.tag;
+package net.superscary.fluxmachines.datagen.providers.tag;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

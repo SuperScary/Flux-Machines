@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.block;
+package net.superscary.fluxmachines.block.base;
 
 public class DecorativeBlock extends BaseBlock {
 

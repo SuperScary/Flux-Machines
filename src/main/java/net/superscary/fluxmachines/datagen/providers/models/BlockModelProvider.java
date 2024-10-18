@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.datagen.models;
+package net.superscary.fluxmachines.datagen.providers.models;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.Direction;

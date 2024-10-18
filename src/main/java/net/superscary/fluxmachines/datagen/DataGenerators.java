@@ -7,11 +7,15 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.datagen.lang.FMEnLangProvider;
-import net.superscary.fluxmachines.datagen.models.BlockModelProvider;
-import net.superscary.fluxmachines.datagen.models.FMItemModelProvider;
-import net.superscary.fluxmachines.datagen.tag.FMBlockTagGenerator;
-import net.superscary.fluxmachines.datagen.tag.FMItemTagGenerator;
+import net.superscary.fluxmachines.datagen.providers.lang.FMEnLangProvider;
+import net.superscary.fluxmachines.datagen.providers.loot.FMLootTableProvider;
+import net.superscary.fluxmachines.datagen.providers.models.BlockModelProvider;
+import net.superscary.fluxmachines.datagen.providers.models.FMItemModelProvider;
+import net.superscary.fluxmachines.datagen.providers.recipes.BlastingRecipes;
+import net.superscary.fluxmachines.datagen.providers.recipes.CraftingRecipes;
+import net.superscary.fluxmachines.datagen.providers.recipes.SmeltingRecipes;
+import net.superscary.fluxmachines.datagen.providers.tag.FMBlockTagGenerator;
+import net.superscary.fluxmachines.datagen.providers.tag.FMItemTagGenerator;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
@@ -31,7 +35,7 @@ public class DataGenerators {
         //pack.addProvider(output -> new FMWorldGenProvider(output, registries));
 
         // LOOT TABLE
-        //pack.addProvider(bindRegistries(FMBlockLootTables::new, registries));
+        pack.addProvider(bindRegistries(FMLootTableProvider::new, registries));
 
         // POI
         //pack.addProvider(pOutput -> new FMPoiTypeTagsProvider(pOutput, registries, existingFileHelper));
@@ -49,9 +53,9 @@ public class DataGenerators {
         //pack.addProvider(pOutput -> new AdvancementProvider(pOutput, registries, existingFileHelper, List.of(new FMAdvancementProvider())));
 
         // RECIPES
-        //pack.addProvider(bindRegistries(CraftingRecipes::new, registries));
-        //pack.addProvider(bindRegistries(SmeltingRecipes::new, registries));
-        //pack.addProvider(bindRegistries(BlastingRecipes::new, registries));
+        pack.addProvider(bindRegistries(CraftingRecipes::new, registries));
+        pack.addProvider(bindRegistries(SmeltingRecipes::new, registries));
+        pack.addProvider(bindRegistries(BlastingRecipes::new, registries));
         //pack.addProvider(bindRegistries(CompressorRecipes::new, registries));
         //pack.addProvider(bindRegistries(CrusherRecipes::new, registries));
         //pack.addProvider(bindRegistries(SawmillRecipes::new, registries));

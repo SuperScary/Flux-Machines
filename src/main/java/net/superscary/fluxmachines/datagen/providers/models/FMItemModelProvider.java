@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.datagen.models;
+package net.superscary.fluxmachines.datagen.providers.models;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
