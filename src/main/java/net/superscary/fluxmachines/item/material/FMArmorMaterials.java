@@ -25,7 +25,7 @@ public class FMArmorMaterials {
                 map.put(ArmorItem.Type.CHESTPLATE, 7);
                 map.put(ArmorItem.Type.HELMET, 2);
                 //map.put(ArmorItem.Type.BODY, 4); im guessing this is the shield?
-            }), 10, SoundEvents.ARMOR_EQUIP_GENERIC, () -> Ingredient.of(FMItems.DURACITE_INGOT),
+            }), 10, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(FMItems.DURACITE_INGOT),
             List.of(new ArmorMaterial.Layer(FluxMachines.getResource("duracite"))), 0.5f, .05f));
 
 }

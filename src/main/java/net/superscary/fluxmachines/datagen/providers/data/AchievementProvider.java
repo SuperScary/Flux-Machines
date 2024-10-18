@@ -7,12 +7,10 @@ import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.core.FluxMachines;
@@ -24,6 +22,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+import static net.superscary.fluxmachines.registries.FMItems.DURACITE_INGOT;
 import static net.superscary.fluxmachines.registries.FMItems.HARD_BOILED_EGG;
 
 public class AchievementProvider extends AdvancementProvider {
@@ -43,6 +42,7 @@ public class AchievementProvider extends AdvancementProvider {
 
             Advancement.Builder builder = Advancement.Builder.advancement();
             buildDontFeedThatToAChicken(parent, builder, consumer, existingFileHelper);
+            buildStrongerThanIron(parent, builder, consumer, existingFileHelper);
         }
 
         private static void buildParents (Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
@@ -61,7 +61,7 @@ public class AchievementProvider extends AdvancementProvider {
                     .save(consumer, FluxMachines.getResource("advancements/root"), existingFileHelper);
 
             parent = Advancement.Builder.advancement()
-                    .display(FMItems.DURACITE_INGOT,
+                    .display(Items.MAP,
                             Component.translatable("advancement.fluxmachines.newworld.title"),
                             Component.translatable("advancement.fluxmachines.newworld.desc"),
                             null,
@@ -78,6 +78,7 @@ public class AchievementProvider extends AdvancementProvider {
 
         /**
          * I honestly only made this as a test. But I'm leaving it in because it's kind of funny?
+         *
          * @param builder
          * @param consumer
          * @param existingFileHelper
@@ -91,12 +92,28 @@ public class AchievementProvider extends AdvancementProvider {
                     AdvancementType.GOAL,
                     true,
                     true,
-                    false);
+                    true);
 
-            builder.addCriterion("feed_chicken", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(HARD_BOILED_EGG),
-                    Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.CHICKEN)))));
-            builder.requirements(AdvancementRequirements.allOf(List.of("feed_chicken")));
+            builder.requirements(AdvancementRequirements.Strategy.OR);
+            builder.addCriterion("feed_chicken_hbe", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(HARD_BOILED_EGG), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.CHICKEN)))));
+            builder.addCriterion("feed_chicken_chicken", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.COOKED_CHICKEN), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.CHICKEN)))));
+            builder.addCriterion("feed_chicken_raw_chicken", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.CHICKEN), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.CHICKEN)))));
             builder.save(consumer, FluxMachines.getResource("advancements/dont_feed_that_to_a_chicken"), existingFileHelper);
+        }
+
+        private static void buildStrongerThanIron (AdvancementHolder parent, Advancement.Builder builder, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
+            builder.parent(parent);
+            builder.display(DURACITE_INGOT.stack(),
+                    Component.translatable("advancement.fluxmachines.strongerthaniron.title"),
+                    Component.translatable("advancement.fluxmachines.strongerthaniron.desc"),
+                    null,
+                    AdvancementType.TASK,
+                    true,
+                    true,
+                    false);
+            builder.requirements(AdvancementRequirements.Strategy.OR);
+            builder.addCriterion("obtain_duracite_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(DURACITE_INGOT)));
+            builder.save(consumer, FluxMachines.getResource("advancements/stronger_than_iron"), existingFileHelper);
         }
 
     }

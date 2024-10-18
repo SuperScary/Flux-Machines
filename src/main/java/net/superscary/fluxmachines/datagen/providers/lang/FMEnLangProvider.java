@@ -39,6 +39,14 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(DURACITE_CHESTPLATE.asItem(), "Duracite Chestplate");
         add(DURACITE_LEGGINGS.asItem(), "Duracite Leggings");
         add(DURACITE_BOOTS.asItem(), "Duracite Boots");
+        add(DURACITE_SWORD.asItem(), "Duracite Sword");
+        add(DURACITE_PICKAXE.asItem(), "Duracite Pickaxe");
+        add(DURACITE_SHOVEL.asItem(), "Duracite Shovel");
+        add(DURACITE_AXE.asItem(), "Duracite Axe");
+        add(DURACITE_HOE.asItem(), "Duracite Hoe");
+        add(DURACITE_PAXEL.asItem(), "Duracite Paxel");
+        add(DURACITE_HAMMER.asItem(), "Duracite Hammer");
+
         add(HONEY_BUN.asItem(), "Honey Bun");
         add(HARD_BOILED_EGG.asItem(), "Hard Boiled Egg");
     }
@@ -51,6 +59,11 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("advancement.fluxmachines.newworld.desc", "It's ok to close your eyes.");
         add("advancement.fluxmachines.why.title", "Why would you do that?");
         add("advancement.fluxmachines.why.desc", "You aren't Eduardo Saverin.");
+        add("advancement.fluxmachines.strongerthaniron.title", "Stronger Than Iron");
+        add("advancement.fluxmachines.strongerthaniron.desc", "Heavier too...");
+
+        add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");
+        add("armor.status.effect.kb2.tooltip", "§8- Knockback II§r");
     }
 
 }

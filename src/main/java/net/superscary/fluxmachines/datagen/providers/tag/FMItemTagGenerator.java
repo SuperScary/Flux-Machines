@@ -3,6 +3,7 @@ package net.superscary.fluxmachines.datagen.providers.tag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
@@ -10,6 +11,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.registries.FMItems;
+import net.superscary.fluxmachines.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;

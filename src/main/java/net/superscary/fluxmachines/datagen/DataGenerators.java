@@ -18,10 +18,12 @@ import net.superscary.fluxmachines.datagen.providers.recipes.CraftingRecipes;
 import net.superscary.fluxmachines.datagen.providers.recipes.SmeltingRecipes;
 import net.superscary.fluxmachines.datagen.providers.tag.FMBlockTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.tag.FMItemTagGenerator;
+import net.superscary.fluxmachines.datagen.providers.worldgen.WorldGenProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = FluxMachines.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
@@ -34,7 +36,7 @@ public class DataGenerators {
         var localization = new FMEnLangProvider(generator);
 
         // WORLD GEN
-        //pack.addProvider(output -> new FMWorldGenProvider(output, registries));
+        pack.addProvider(output -> new WorldGenProvider(output, registries));
 
         // LOOT TABLE
         pack.addProvider(bindRegistries(FMLootTableProvider::new, registries));
@@ -50,9 +52,6 @@ public class DataGenerators {
         // MODELS & STATES
         pack.addProvider(pOutput -> new BlockModelProvider(pOutput, existingFileHelper));
         pack.addProvider(pOutput -> new FMItemModelProvider(pOutput, existingFileHelper));
-
-        // MISC
-        //pack.addProvider(pOutput -> new AdvancementProvider(pOutput, registries, existingFileHelper, List.of(new FMAdvancementProvider())));
 
         // RECIPES
         pack.addProvider(bindRegistries(CraftingRecipes::new, registries));

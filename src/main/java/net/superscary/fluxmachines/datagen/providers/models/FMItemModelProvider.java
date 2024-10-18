@@ -47,12 +47,20 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
     @Override
     protected void registerModels () {
-        flatSingleLayer(RAW_DURACITE, "item/duracite_raw");
-        flatSingleLayer(DURACITE_DUST, "item/duracite_dust");
-        flatSingleLayer(DURACITE_INGOT, "item/duracite_ingot");
-        flatSingleLayer(DURACITE_NUGGET, "item/duracite_nugget");
-        flatSingleLayer(HONEY_BUN, "item/honey_bun");
-        flatSingleLayer(HARD_BOILED_EGG, "item/hard_boiled_egg");
+        handheldItem(RAW_DURACITE.asItem());
+        handheldItem(DURACITE_DUST.asItem());
+        handheldItem(DURACITE_INGOT.asItem());
+        handheldItem(DURACITE_NUGGET.asItem());
+        handheldItem(DURACITE_SWORD.asItem());
+        handheldItem(DURACITE_PICKAXE.asItem());
+        handheldItem(DURACITE_SHOVEL.asItem());
+        handheldItem(DURACITE_AXE.asItem());
+        handheldItem(DURACITE_HOE.asItem());
+        handheldItem(DURACITE_PAXEL.asItem());
+        handheldItem(DURACITE_HAMMER.asItem());
+
+        basicItem(HONEY_BUN.asItem());
+        basicItem(HARD_BOILED_EGG.asItem());
 
         trimmedArmorItem(DURACITE_HELMET);
         trimmedArmorItem(DURACITE_CHESTPLATE);

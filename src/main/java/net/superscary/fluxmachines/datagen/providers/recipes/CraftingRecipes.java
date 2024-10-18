@@ -142,6 +142,77 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
                 .save(consumer, FluxMachines.getResource("armor/duracite_boots"));
 
+        /*
+         * TOOLS
+         */
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, DURACITE_SWORD, 1)
+                .pattern("D")
+                .pattern("D")
+                .pattern("S")
+                .define('D', DURACITE_INGOT)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/duracite_sword"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DURACITE_PICKAXE, 1)
+                .pattern("DDD")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('D', DURACITE_INGOT)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/duracite_pickaxe"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DURACITE_SHOVEL, 1)
+                .pattern("D")
+                .pattern("S")
+                .pattern("S")
+                .define('D', DURACITE_INGOT)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/duracite_shovel"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DURACITE_AXE, 1)
+                .pattern("DD")
+                .pattern("DS")
+                .pattern(" S")
+                .define('D', DURACITE_INGOT)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/duracite_axe"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DURACITE_HOE, 1)
+                .pattern("DD")
+                .pattern(" S")
+                .pattern(" S")
+                .define('D', DURACITE_INGOT)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/duracite_hoe"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DURACITE_PAXEL, 1)
+                .pattern("PAQ")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('P', DURACITE_PICKAXE)
+                .define('A', DURACITE_AXE)
+                .define('Q', DURACITE_SHOVEL)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_pickaxe", has(DURACITE_PICKAXE))
+                .unlockedBy("has_duracite_axe", has(DURACITE_AXE))
+                .unlockedBy("has_duracite_shovel", has(DURACITE_SHOVEL))
+                .save(consumer, FluxMachines.getResource("tool/duracite_paxel"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DURACITE_HAMMER, 1)
+                .pattern("DdD")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('D', DURACITE_BLOCK)
+                .define('d', DURACITE_INGOT)
+                .define('S', Items.STICK)
+                .unlockedBy("has_duracite_block", has(DURACITE_BLOCK))
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/duracite_hammer"));
     }
 
 }
