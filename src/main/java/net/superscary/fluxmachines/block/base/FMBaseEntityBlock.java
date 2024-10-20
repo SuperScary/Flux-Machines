@@ -1,5 +1,6 @@
 package net.superscary.fluxmachines.block.base;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,6 +31,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     private Class<T> blockEntityClass;
     private BlockEntityType<T> blockEntityType;
 
+    private MapCodec<BaseBlock> codec = getCodec();
+
     public FMBaseEntityBlock (Properties properties) {
         super(properties);
     }
@@ -54,6 +57,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
 
         return null;
     }
+
+    public abstract MapCodec<BaseBlock> getCodec ();
 
     public BlockEntityType<T> getBlockEntityType () {
         return blockEntityType;
@@ -101,4 +106,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
         return ItemInteractionResult.SUCCESS;
     }
 
+    @Override
+    protected MapCodec<? extends Block> codec () {
+        return codec;
+    }
 }
