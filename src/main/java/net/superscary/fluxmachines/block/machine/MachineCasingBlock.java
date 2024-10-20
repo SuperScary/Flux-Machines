@@ -1,9 +1,8 @@
 package net.superscary.fluxmachines.block.machine;
 
-import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
-import net.superscary.fluxmachines.blockentity.machine.MachineCasingBlockEntity;
+import net.superscary.fluxmachines.block.base.TransparentBaseBlock;
 
-public class MachineCasingBlock extends FMBaseEntityBlock<MachineCasingBlockEntity> {
+public class MachineCasingBlock extends TransparentBaseBlock {
 
     public MachineCasingBlock (Properties properties) {
         super(properties);

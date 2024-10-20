@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.block.base.BaseBlock;
 import net.superscary.fluxmachines.block.base.DecorativeBlock;
+import net.superscary.fluxmachines.block.base.TransparentBaseBlock;
+import net.superscary.fluxmachines.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.block.machine.MachineCasingBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
@@ -33,9 +35,11 @@ public class FMBlocks {
     public static final BlockDefinition<DropExperienceBlock> DURACITE_ORE = reg("duracite_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.IRON_ORE.properties().requiresCorrectToolForDrops()));
     public static final BlockDefinition<DropExperienceBlock> DURACITE_DEEPSLATE_ORE = reg("duracite_deepslate_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.DEEPSLATE_IRON_ORE.properties().requiresCorrectToolForDrops()));
     public static final BlockDefinition<DropExperienceBlock> DURACITE_NETHER_ORE = reg("duracite_nether_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.NETHER_GOLD_ORE.properties().requiresCorrectToolForDrops()));
-    public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK_RAW = reg("duracite_block_raw", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
-    public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK = reg("duracite_block", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
-    public static final BlockDefinition<MachineCasingBlock> MACHINE_CASING = reg("machine_casing", () -> new MachineCasingBlock(Blocks.IRON_BLOCK.properties()));
+    public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK_RAW = reg("duracite_block_raw", DecorativeBlock::new);
+    public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK = reg("duracite_block", DecorativeBlock::new);
+    public static final BlockDefinition<DecorativeBlock> MACHINE_CASING = reg("machine_casing", DecorativeBlock::new);
+
+    public static final BlockDefinition<FluxFurnaceBlock> FLUX_FURNACE = reg("flux_furnace", FluxFurnaceBlock::new);
 
     public static List<BlockDefinition<?>> getBlocks () {
         return Collections.unmodifiableList(BLOCKS);

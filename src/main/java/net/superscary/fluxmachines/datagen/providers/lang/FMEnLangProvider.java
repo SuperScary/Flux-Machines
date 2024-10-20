@@ -3,6 +3,7 @@ package net.superscary.fluxmachines.datagen.providers.lang;
 import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.superscary.fluxmachines.api.data.IDataProvider;
+import net.superscary.fluxmachines.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 
 import static net.superscary.fluxmachines.registries.FMBlocks.*;
@@ -28,6 +29,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(DURACITE_BLOCK_RAW.block(), "Raw Duracite Block");
         add(DURACITE_BLOCK.block(), "Duracite Block");
         add(MACHINE_CASING.block(), "Machine Casing");
+        add(FLUX_FURNACE.block(), "Flux Furnace");
     }
 
     protected void items () {
@@ -61,6 +63,8 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("advancement.fluxmachines.why.desc", "You aren't Eduardo Saverin.");
         add("advancement.fluxmachines.strongerthaniron.title", "Stronger Than Iron");
         add("advancement.fluxmachines.strongerthaniron.desc", "Heavier too...");
+        add("advancement.fluxmachines.justincase.title", "Just in case...");
+        add("advancement.fluxmachines.justincase.desc", "You'll probably need it.");
 
         add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");
         add("armor.status.effect.kb2.tooltip", "§8- Knockback II§r");

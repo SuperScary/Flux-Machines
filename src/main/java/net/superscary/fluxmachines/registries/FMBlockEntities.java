@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.blockentity.base.FMBaseBlockEntity;
-import net.superscary.fluxmachines.blockentity.machine.MachineCasingBlockEntity;
+import net.superscary.fluxmachines.blockentity.machine.FluxFurnaceBlockEntity;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.util.DeferredBlockEntityType;
 import net.superscary.fluxmachines.util.block.BlockDefinition;
@@ -25,7 +25,7 @@ public final class FMBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, FluxMachines.MODID);
 
-    public static final DeferredBlockEntityType<MachineCasingBlockEntity> MACHINE_CASING = create("machine_casing", MachineCasingBlockEntity.class, MachineCasingBlockEntity::new, FMBlocks.MACHINE_CASING);
+    public static final DeferredBlockEntityType<FluxFurnaceBlockEntity> FLUX_FURNACE = create("flux_furnace", FluxFurnaceBlockEntity.class, FluxFurnaceBlockEntity::new, FMBlocks.FLUX_FURNACE);
 
     /**
      * Get all block entity types whose implementations extends the given base class.

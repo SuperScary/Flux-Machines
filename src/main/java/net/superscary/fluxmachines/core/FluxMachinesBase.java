@@ -16,6 +16,7 @@ import net.superscary.fluxmachines.item.material.FMArmorMaterials;
 import net.superscary.fluxmachines.registries.FMBlockEntities;
 import net.superscary.fluxmachines.registries.FMBlocks;
 import net.superscary.fluxmachines.registries.FMItems;
+import net.superscary.fluxmachines.registries.FMMenus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -35,6 +36,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         FMBlocks.REGISTRY.register(modEventBus);
         FMItems.REGISTRY.register(modEventBus);
         FMBlockEntities.REGISTRY.register(modEventBus);
+        FMMenus.REGISTRY.register(modEventBus);
 
         modEventBus.addListener(Tab::initExternal);
 

@@ -36,6 +36,8 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItem(DURACITE_BLOCK);
         blockWithItem(MACHINE_CASING);
 
+        machine(FLUX_FURNACE, "flux_furnace");
+
         //stairsBlock(KineticBlocks.BRICK_STAIRS.block(), blockTexture(KineticBlocks.BRICK.block()));
         //slabBlock(KineticBlocks.BRICK_SLAB.block(), blockTexture(KineticBlocks.BRICK.block()), blockTexture(KineticBlocks.BRICK.block()));
         //blockItem(KineticBlocks.BRICK_STAIRS);

@@ -34,6 +34,7 @@ public class CraftingRecipes extends FMRecipeProvider {
         duraciteRecipes(consumer);
         machineParts(consumer);
         misc(consumer);
+        machine(consumer);
     }
 
     protected void misc (RecipeOutput consumer) {
@@ -47,9 +48,21 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .save(consumer, FluxMachines.getResource("misc/honey_bun"));
     }
 
+    protected void machine (RecipeOutput consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, FLUX_FURNACE, 1)
+                .pattern("DRD")
+                .pattern("DBD")
+                .pattern("DFD")
+                .define('D', DURACITE_INGOT)
+                .define('R', Items.REDSTONE_TORCH)
+                .define('B', MACHINE_CASING)
+                .define('F', Blocks.FURNACE)
+                .unlockedBy("has_casing", has(MACHINE_CASING))
+                .save(consumer, FluxMachines.getResource("machine/flux_furnace"));
+    }
+
     /**
      * Machine Parts
-     *
      * @param consumer output
      */
     protected void machineParts (RecipeOutput consumer) {

@@ -15,10 +15,12 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.util.block.BlockDefinition;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
 
 import java.util.LinkedHashMap;
 
+import static net.superscary.fluxmachines.registries.FMBlocks.FLUX_FURNACE;
 import static net.superscary.fluxmachines.registries.FMItems.*;
 
 public class FMItemModelProvider extends ItemModelProvider implements IDataProvider {
@@ -61,6 +63,8 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
         basicItem(HONEY_BUN.asItem());
         basicItem(HARD_BOILED_EGG.asItem());
+
+        blockOff(FLUX_FURNACE);
 
         trimmedArmorItem(DURACITE_HELMET);
         trimmedArmorItem(DURACITE_CHESTPLATE);
@@ -109,6 +113,10 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
                         .texture("layer0", ResourceLocation.fromNamespaceAndPath(MOD_ID, "item/" + itemDeferredItem.id().getPath()));
             });
         }
+    }
+
+    private ItemModelBuilder blockOff (BlockDefinition<?> block) {
+        return withExistingParent(block.id().getPath(), FluxMachines.getResource("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off"));
     }
 
     private ItemModelBuilder flatSingleLayer (ItemDefinition<?> item, String texture) {

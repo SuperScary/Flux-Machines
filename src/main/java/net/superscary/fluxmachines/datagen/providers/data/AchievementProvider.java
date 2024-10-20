@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.registries.FMBlocks;
 import net.superscary.fluxmachines.registries.FMItems;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,6 +36,8 @@ public class AchievementProvider extends AdvancementProvider {
 
         static AdvancementHolder main;
         static AdvancementHolder parent;
+        static AdvancementHolder strongerThanIron;
+        static AdvancementHolder buildCasing;
 
         @Override
         public void generate (HolderLookup.@NotNull Provider provider, @NotNull Consumer<AdvancementHolder> consumer, @NotNull ExistingFileHelper existingFileHelper) {
@@ -42,7 +45,6 @@ public class AchievementProvider extends AdvancementProvider {
 
             Advancement.Builder builder = Advancement.Builder.advancement();
             buildDontFeedThatToAChicken(parent, builder, consumer, existingFileHelper);
-            buildStrongerThanIron(parent, builder, consumer, existingFileHelper);
         }
 
         private static void buildParents (Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
@@ -74,6 +76,37 @@ public class AchievementProvider extends AdvancementProvider {
                     .requirements(AdvancementRequirements.Strategy.OR)
                     .addCriterion("spawn", PlayerTrigger.TriggerInstance.tick())
                     .save(consumer, FluxMachines.getResource("advancements/newworld"), existingFileHelper);
+
+            strongerThanIron = Advancement.Builder.advancement()
+                    .display(DURACITE_INGOT,
+                            Component.translatable("advancement.fluxmachines.strongerthaniron.title"),
+                            Component.translatable("advancement.fluxmachines.strongerthaniron.desc"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .parent(parent)
+                    .requirements(AdvancementRequirements.Strategy.OR)
+                    .addCriterion("has_duracite", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(DURACITE_INGOT)))
+                    .save(consumer, FluxMachines.getResource("advancements/stronger_than_iron"), existingFileHelper);
+
+            buildCasing = Advancement.Builder.advancement()
+                    .display(FMBlocks.MACHINE_CASING.block(),
+                            Component.translatable("advancement.fluxmachines.justincase.title"),
+                            Component.translatable("advancement.fluxmachines.justincase.desc"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .parent(strongerThanIron)
+                    .requirements(AdvancementRequirements.Strategy.OR)
+                    .addCriterion("has_machine_casing", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(FMBlocks.MACHINE_CASING)))
+                    .save(consumer, FluxMachines.getResource("advancements/just_in_case"), existingFileHelper);
+
         }
 
         /**
@@ -99,21 +132,6 @@ public class AchievementProvider extends AdvancementProvider {
             builder.addCriterion("feed_chicken_chicken", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.COOKED_CHICKEN), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.CHICKEN)))));
             builder.addCriterion("feed_chicken_raw_chicken", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.CHICKEN), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.CHICKEN)))));
             builder.save(consumer, FluxMachines.getResource("advancements/dont_feed_that_to_a_chicken"), existingFileHelper);
-        }
-
-        private static void buildStrongerThanIron (AdvancementHolder parent, Advancement.Builder builder, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
-            builder.parent(parent);
-            builder.display(DURACITE_INGOT.stack(),
-                    Component.translatable("advancement.fluxmachines.strongerthaniron.title"),
-                    Component.translatable("advancement.fluxmachines.strongerthaniron.desc"),
-                    null,
-                    AdvancementType.TASK,
-                    true,
-                    true,
-                    false);
-            builder.requirements(AdvancementRequirements.Strategy.OR);
-            builder.addCriterion("obtain_duracite_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(DURACITE_INGOT)));
-            builder.save(consumer, FluxMachines.getResource("advancements/stronger_than_iron"), existingFileHelper);
         }
 
     }

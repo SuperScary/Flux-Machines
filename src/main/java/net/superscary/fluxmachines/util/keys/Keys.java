@@ -16,6 +16,7 @@ public class Keys {
     public static final String MAX_PROGRESS = "max_progress";
     public static final String RF_AMOUNT = "rf_amount";
     public static final String PROGRESS = "progress";
+    public static final String CRAFTING = "crafting";
 
     private Keys () {
 
