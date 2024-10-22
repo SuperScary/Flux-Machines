@@ -49,7 +49,7 @@ public class AchievementProvider extends AdvancementProvider {
 
         private static void buildParents (Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
             main = Advancement.Builder.advancement()
-                    .display(FMItems.DURACITE_INGOT, // TODO: Change to wrench when its actually made
+                    .display(FMItems.WRENCH,
                             Component.translatable("advancement.fluxmachines.title"),
                             Component.translatable("advancement.fluxmachines.desc"),
                             ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png"),

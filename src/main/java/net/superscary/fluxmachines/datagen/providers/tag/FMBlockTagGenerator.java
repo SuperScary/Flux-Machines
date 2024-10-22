@@ -30,7 +30,8 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(DURACITE_NETHER_ORE.block())
                 .add(DURACITE_DEEPSLATE_ORE.block())
                 .add(DURACITE_BLOCK_RAW.block())
-                .add(DURACITE_BLOCK.block());
+                .add(DURACITE_BLOCK.block())
+                .add(FLUX_FURNACE.block());
 
         this.tag(Tags.Blocks.ORES)
                 .add(DURACITE_ORE.block())
@@ -43,7 +44,8 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(DURACITE_NETHER_ORE.block())
                 .add(DURACITE_DEEPSLATE_ORE.block())
                 .add(DURACITE_BLOCK_RAW.block())
-                .add(DURACITE_BLOCK.block());
+                .add(DURACITE_BLOCK.block())
+                .add(FLUX_FURNACE.block());
 
         this.tag(FMTag.Blocks.NEEDS_DURACITE_TOOL)
                 .addTag(BlockTags.NEEDS_IRON_TOOL);
@@ -55,6 +57,10 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .addTag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(BlockTags.MINEABLE_WITH_SHOVEL);
+
+        this.tag(FMTag.Blocks.WRENCHABLE)
+                .add(MACHINE_CASING.block())
+                .add(FLUX_FURNACE.block());
 
     }
 

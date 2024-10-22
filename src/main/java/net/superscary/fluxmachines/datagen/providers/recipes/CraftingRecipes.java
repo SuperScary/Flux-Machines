@@ -46,6 +46,16 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .define('M', Tags.Items.BUCKETS_MILK)
                 .unlockedBy("has_milk", has(Items.MILK_BUCKET))
                 .save(consumer, FluxMachines.getResource("misc/honey_bun"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, WRENCH, 1)
+                .pattern("I I")
+                .pattern(" G ")
+                .pattern(" D ")
+                .define('D', DURACITE_INGOT)
+                .define('I', Items.IRON_INGOT)
+                .define('G', Items.GOLD_INGOT)
+                .unlockedBy("has_duracite", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("tool/wrench"));
     }
 
     protected void machine (RecipeOutput consumer) {
@@ -63,6 +73,7 @@ public class CraftingRecipes extends FMRecipeProvider {
 
     /**
      * Machine Parts
+     *
      * @param consumer output
      */
     protected void machineParts (RecipeOutput consumer) {

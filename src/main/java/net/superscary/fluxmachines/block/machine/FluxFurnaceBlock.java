@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -16,6 +15,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -28,6 +28,7 @@ import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.blockentity.machine.FluxFurnaceBlockEntity;
 import net.superscary.fluxmachines.registries.FMBlocks;
+import net.superscary.fluxmachines.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +39,7 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
     }
 
     public FluxFurnaceBlock (Properties properties) {
-        this ();
+        this();
     }
 
     @Override
@@ -48,10 +49,10 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
 
     @Override
     protected ItemInteractionResult useItemOn (ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!level.isClientSide()) {
+        if (!level.isClientSide() && !stack.is(FMTag.Items.WRENCH)) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof FluxFurnaceBlockEntity blockEntity) {
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.fluxmachines.flux_furnace")), pos);
+                player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.fluxmachines.flux_furnace")), pos);
             } else {
                 throw new IllegalStateException("Container provider is missing.");
             }
@@ -61,7 +62,7 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
     }
 
     @Override
-    protected void tick (BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    protected void tick (@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         super.tick(state, level, pos, random);
         var entity = getBlockEntity(level, pos);
         if (entity != null) {
@@ -71,29 +72,48 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker (Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker (@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         return ((level1, blockPos, blockState, t) -> {
-           if (t instanceof FMBasePoweredBlockEntity) ((FMBasePoweredBlockEntity) t).tick(level1, blockPos, blockState);
+            if (t instanceof FMBasePoweredBlockEntity)
+                ((FMBasePoweredBlockEntity) t).tick(level1, blockPos, blockState);
         });
     }
 
     @Override
-    public void animateTick (BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource randomSource) {
+    public int getLightEmission (BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        return state.getValue(BlockStateProperties.POWERED) ? 10 : 0;
+    }
+
+    @Override
+    public boolean hasDynamicLightEmission (@NotNull BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected boolean useShapeForLightOcclusion (@NotNull BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void animateTick (BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!state.getValue(BlockStateProperties.POWERED)) {
             return;
         }
 
         double xPos = (double) pos.getX() + 0.5;
-        double yPos = (double) pos.getY();
+        double yPos = pos.getY();
         double zPos = (double) pos.getZ() + 0.5;
-        level.playLocalSound(pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1f, 1f, false);
+
+        if (random.nextDouble() < 0.1) {
+            level.playLocalSound(xPos, yPos, zPos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+        }
 
         Direction direction = state.getValue(BlockStateProperties.FACING);
         Direction.Axis axis = direction.getAxis();
 
-        double defaultOffset = randomSource.nextDouble() * 0.6 - 0.3;
+        double defaultOffset = random.nextDouble() * 0.6 - 0.3;
         double xOffsets = axis == Direction.Axis.X ? (double) direction.getStepX() * 0.52 : defaultOffset;
-        double yOffsets = randomSource.nextDouble() * 6.0 / 8.0;
+        double yOffsets = random.nextDouble() * 6.0 / 8.0;
         double zOffsets = axis == Direction.Axis.Z ? (double) direction.getStepZ() * 0.52 : defaultOffset;
 
         if (level.getBlockEntity(pos) instanceof FluxFurnaceBlockEntity entity && !entity.getInventory().getStackInSlot(0).isEmpty()) {

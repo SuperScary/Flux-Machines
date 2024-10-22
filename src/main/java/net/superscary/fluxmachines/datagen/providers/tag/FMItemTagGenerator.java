@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
+import static net.superscary.fluxmachines.registries.FMItems.WRENCH;
+
 public class FMItemTagGenerator extends ItemTagsProvider implements IDataProvider {
 
     public FMItemTagGenerator (PackOutput packOutput, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> completableFuture, @Nullable ExistingFileHelper existingFileHelper) {
@@ -38,6 +40,8 @@ public class FMItemTagGenerator extends ItemTagsProvider implements IDataProvide
                 .add(FMItems.HARD_BOILED_EGG.asItem())
                 .add(FMItems.HONEY_BUN.asItem());
 
+        this.tag(FMTag.Items.WRENCH)
+                .add(WRENCH.asItem());
     }
 
     @Override

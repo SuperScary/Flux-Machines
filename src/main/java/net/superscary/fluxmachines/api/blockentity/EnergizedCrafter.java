@@ -10,6 +10,10 @@ public interface EnergizedCrafter {
 
     boolean canInsertAmount (int count);
 
+    /**
+     * FE/t - The Forge Energy used per tick operation.
+     * @return any amount
+     */
     int getEnergyAmount ();
 
 }

@@ -15,8 +15,6 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
-import net.superscary.fluxmachines.api.orientation.BlockOrientation;
-import net.superscary.fluxmachines.api.orientation.IOrientationStrategy;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.util.block.BlockDefinition;
 
@@ -38,50 +36,6 @@ public abstract class FMBlockStateProvider extends BlockStateProvider implements
                 .select(Direction.SOUTH, applyRotation(Variant.variant(), baseRotX, baseRotY + 180, 0))
                 .select(Direction.WEST, applyRotation(Variant.variant(), baseRotX, baseRotY + 270, 0))
                 .select(Direction.EAST, applyRotation(Variant.variant(), baseRotX, baseRotY + 90, 0));
-    }
-
-    protected static PropertyDispatch createFacingSpinDispatch (int baseRotX, int baseRotY) {
-        return PropertyDispatch.properties(BlockStateProperties.FACING, IOrientationStrategy.SPIN)
-                .generate((facing, spin) -> {
-                    var orientation = BlockOrientation.get(facing, spin);
-                    return applyRotation(
-                            Variant.variant(),
-                            orientation.getAngleX() + baseRotX,
-                            orientation.getAngleY() + baseRotY,
-                            orientation.getAngleZ());
-                });
-    }
-
-    protected static PropertyDispatch createFacingSpinDispatch () {
-        return createFacingSpinDispatch(0, 0);
-    }
-
-    protected static void withOrientations (MultiPartGenerator multipart, Variant baseVariant) {
-        withOrientations(multipart, Condition::condition, baseVariant);
-    }
-
-    protected static void withOrientations (MultiPartGenerator multipart,
-                                            Supplier<Condition.TerminalCondition> baseCondition, Variant baseVariant) {
-        var defaultState = multipart.getBlock().defaultBlockState();
-        var strategy = IOrientationStrategy.get(defaultState);
-
-        strategy.getAllStates(defaultState).forEach(blockState -> {
-            var condition = baseCondition.get();
-            for (var property : strategy.getProperties()) {
-                addConditionTerm(condition, blockState, property);
-            }
-
-            var orientation = BlockOrientation.get(strategy, blockState);
-            var variant = Variant.merge(baseVariant, baseVariant); // Only way to copy...
-            multipart.with(condition, applyOrientation(variant, orientation));
-        });
-    }
-
-    protected static Variant applyOrientation (Variant variant, BlockOrientation orientation) {
-        return applyRotation(variant,
-                orientation.getAngleX(),
-                orientation.getAngleY(),
-                orientation.getAngleZ());
     }
 
     protected static Variant applyRotation (Variant variant, int angleX, int angleY, int angleZ) {
@@ -182,13 +136,6 @@ public abstract class FMBlockStateProvider extends BlockStateProvider implements
         ModelFile stairsOuter = models().stairsOuter(baseName + "_outer", side, bottom, top);
         stairsBlock(stairs.block(), stairsModel, stairsInner, stairsOuter);
         simpleBlockItem(stairs.block(), stairsModel);
-    }
-
-    protected VariantsBuilder rotatedVariants (BlockDefinition<?> blockDef) {
-        Block block = blockDef.block();
-        var builder = new VariantsBuilder(block);
-        registeredBlocks.put(block, builder);
-        return builder;
     }
 
     protected final MultiVariantGenerator multiVariantGenerator (BlockDefinition<?> blockDef, Variant... variants) {

@@ -2,24 +2,27 @@ package net.superscary.fluxmachines.blockentity.base;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.superscary.fluxmachines.api.data.BlockData;
 import net.superscary.fluxmachines.util.keys.Keys;
 import org.jetbrains.annotations.MustBeInvokedByOverriders;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider {
+public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData {
 
     public final ItemStackHandler INVENTORY_SINGLE = new ItemStackHandler(1) {
         @Override
@@ -69,13 +72,13 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
     @Override
     protected void saveAdditional (@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.put(Keys.INVENTORY, inventory.serializeNBT(registries));
+        saveClientData(tag, registries);
     }
 
     @Override
     protected void loadAdditional (@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.loadAdditional(tag, registries);
-        inventory.deserializeNBT(registries, tag.getCompound(Keys.INVENTORY));
+        loadClientData(tag, registries);
     }
 
     @Nullable
@@ -89,10 +92,63 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
 
     }
 
+    @Override
+    public @NotNull CompoundTag getUpdateTag (HolderLookup.@NotNull Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public void saveClientData (CompoundTag tag, HolderLookup.Provider registries) {
+        tag.put(Keys.INVENTORY, inventory.serializeNBT(registries));
+    }
+
+    @Override
+    public void loadClientData (CompoundTag tag, HolderLookup.Provider registries) {
+        inventory.deserializeNBT(registries, tag.getCompound(Keys.INVENTORY));
+    }
+
+    @Override
+    public void handleUpdateTag (@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        loadClientData(tag, lookupProvider);
+    }
+
+    @Override
+    public void saveToItem (@NotNull ItemStack stack, HolderLookup.@NotNull Provider registries) {
+        super.saveToItem(stack, registries);
+    }
+
     public void clearContents () {
         for (int i = 0; i < inventory.getSlots(); i++) {
             inventory.setStackInSlot(i, ItemStack.EMPTY);
         }
+    }
+
+    public void drops () {
+        var container = new SimpleContainer(getInventory().getSlots());
+        for (int i = 0; i < getInventory().getSlots(); i++) {
+            container.setItem(i, getInventory().getStackInSlot(i));
+        }
+        assert level != null;
+        Containers.dropContents(level, worldPosition, container);
+    }
+
+    public InteractionResult disassembleWithWrench (Player player, Level level, BlockHitResult hitResult, ItemStack wrench) {
+        var pos = hitResult.getBlockPos();
+        var state = level.getBlockState(pos);
+        var block = state.getBlock();
+
+        if (level instanceof ServerLevel serverLevel) {
+            var drops = Block.getDrops(state, serverLevel, pos, this, player, wrench);
+
+            for (var item : drops) {
+                player.getInventory().placeItemBackInInventory(item);
+            }
+        }
+
+        block.playerWillDestroy(level, pos, state, player);
+        level.removeBlock(pos, false);
+        block.destroy(level, pos, getBlockState());
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     public ItemStackHandler getInventory () {

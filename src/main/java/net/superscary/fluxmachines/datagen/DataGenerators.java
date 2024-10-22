@@ -9,6 +9,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.datagen.providers.data.AchievementProvider;
 import net.superscary.fluxmachines.datagen.providers.data.CompostableProvider;
+import net.superscary.fluxmachines.datagen.providers.data.SoundProvider;
 import net.superscary.fluxmachines.datagen.providers.lang.FMEnLangProvider;
 import net.superscary.fluxmachines.datagen.providers.loot.FMLootTableProvider;
 import net.superscary.fluxmachines.datagen.providers.models.BlockModelProvider;
@@ -37,6 +38,9 @@ public class DataGenerators {
 
         // WORLD GEN
         pack.addProvider(output -> new WorldGenProvider(output, registries));
+
+        // SOUNDS
+        pack.addProvider(packOutput -> new SoundProvider(packOutput, existingFileHelper));
 
         // LOOT TABLE
         pack.addProvider(bindRegistries(FMLootTableProvider::new, registries));

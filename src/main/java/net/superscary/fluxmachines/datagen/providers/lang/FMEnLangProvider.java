@@ -20,6 +20,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         blocks();
         items();
         misc();
+        subtitles();
     }
 
     protected void blocks () {
@@ -48,6 +49,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(DURACITE_HOE.asItem(), "Duracite Hoe");
         add(DURACITE_PAXEL.asItem(), "Duracite Paxel");
         add(DURACITE_HAMMER.asItem(), "Duracite Hammer");
+        add(WRENCH.asItem(), "Wrench");
 
         add(HONEY_BUN.asItem(), "Honey Bun");
         add(HARD_BOILED_EGG.asItem(), "Hard Boiled Egg");
@@ -66,8 +68,15 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("advancement.fluxmachines.justincase.title", "Just in case...");
         add("advancement.fluxmachines.justincase.desc", "You'll probably need it.");
 
+        add("gui.fluxmachines.progress", "Progress: "); // the space is important!!!!
+        add("gui.fluxmachines.idle", "Idle");
+
         add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");
         add("armor.status.effect.kb2.tooltip", "§8- Knockback II§r");
+    }
+
+    protected void subtitles () {
+        add("sound.fluxmachines.flux_furnace_on", "Flux Furnace");
     }
 
 }

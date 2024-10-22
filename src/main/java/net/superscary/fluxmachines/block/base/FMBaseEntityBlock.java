@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.superscary.fluxmachines.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.util.ContentDropper;
@@ -30,6 +31,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
 
     private Class<T> blockEntityClass;
     private BlockEntityType<T> blockEntityType;
+
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     private MapCodec<BaseBlock> codec = getCodec();
 
@@ -50,7 +53,6 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     @Nullable
     public T getBlockEntity (BlockGetter level, BlockPos pos) {
         final BlockEntity te = level.getBlockEntity(pos);
-        // FIXME: This gets called as part of building the block state cache
         if (this.blockEntityClass != null && this.blockEntityClass.isInstance(te)) {
             return this.blockEntityClass.cast(te);
         }
@@ -74,13 +76,13 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     @Override
     public BlockState getStateForPlacement (BlockPlaceContext context) {
         return this.defaultBlockState().setValue(BlockStateProperties.POWERED, false)
-                .setValue(BlockStateProperties.FACING, context.getNearestLookingDirection().getOpposite());
+                .setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
     @Override
     protected void createBlockStateDefinition (StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(BlockStateProperties.POWERED, BlockStateProperties.FACING);
+        builder.add(BlockStateProperties.POWERED, FACING);
     }
 
     @Override
@@ -93,9 +95,7 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
         if (state.getBlock() != newState.getBlock()) {
             var blockentity = this.getBlockEntity(level, pos);
             if (blockentity != null) {
-                var drops = new ArrayList<ItemStack>();
-                blockentity.addAdditionalDrops(level, pos, drops);
-                ContentDropper.spawnDrops(level, pos, drops);
+                blockentity.drops();
             }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);

@@ -60,6 +60,7 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         handheldItem(DURACITE_HOE.asItem());
         handheldItem(DURACITE_PAXEL.asItem());
         handheldItem(DURACITE_HAMMER.asItem());
+        handheldItem(WRENCH.asItem());
 
         basicItem(HONEY_BUN.asItem());
         basicItem(HARD_BOILED_EGG.asItem());

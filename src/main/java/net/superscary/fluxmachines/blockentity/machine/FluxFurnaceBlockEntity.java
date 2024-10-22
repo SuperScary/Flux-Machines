@@ -58,15 +58,15 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
     }
 
     @Override
-    protected void saveAdditional (@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
-        super.saveAdditional(tag, registries);
+    public void saveClientData (CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveClientData(tag, registries);
         tag.putInt(Keys.PROGRESS, progress);
         tag.putBoolean(Keys.CRAFTING, isCrafting);
     }
 
     @Override
-    protected void loadAdditional (@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
-        super.loadAdditional(tag, registries);
+    public void loadClientData (CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadClientData(tag, registries);
         progress = tag.getInt(Keys.PROGRESS);
         isCrafting = tag.getBoolean(Keys.CRAFTING);
     }
@@ -74,10 +74,10 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
     @Override
     public void tick (Level pLevel, BlockPos pPos, BlockState pState) {
         var block = (FluxFurnaceBlock) pState.getBlock();
-        if (TESTING) getEnergyStorage().receiveEnergy(1000, false); // TODO: not for production
+        if (TESTING) getEnergyStorage().receiveEnergy(10000, false); // TODO: not for production
         if (hasRecipe()) {
             isCrafting = true;
-            block.defaultBlockState().setValue(BlockStateProperties.POWERED, Boolean.TRUE);
+            updateBlockState(pState.setValue(BlockStateProperties.POWERED, Boolean.TRUE));
             increaseCraftingProgress();
             getEnergyStorage().extractEnergy(getEnergyAmount(), false);
             setChanged();
@@ -86,11 +86,11 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
                 craftItem();
                 progress = 0;
                 isCrafting = false;
-                block.defaultBlockState().setValue(BlockStateProperties.POWERED, Boolean.FALSE);
             }
         } else {
-            block.defaultBlockState().setValue(BlockStateProperties.POWERED, Boolean.FALSE);
+            updateBlockState(pState.setValue(BlockStateProperties.POWERED, Boolean.FALSE));
             isCrafting = false;
+            progress = 0;
         }
         setChanged();
     }

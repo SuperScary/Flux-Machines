@@ -6,17 +6,23 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import net.superscary.fluxmachines.datagen.DataGenerators;
+import net.superscary.fluxmachines.hook.WrenchHook;
+import net.superscary.fluxmachines.impl.top.FMTopPlugin;
 import net.superscary.fluxmachines.item.material.FMArmorMaterials;
 import net.superscary.fluxmachines.registries.FMBlockEntities;
 import net.superscary.fluxmachines.registries.FMBlocks;
 import net.superscary.fluxmachines.registries.FMItems;
 import net.superscary.fluxmachines.registries.FMMenus;
+import net.superscary.fluxmachines.sound.FMSounds;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -37,8 +43,10 @@ public abstract class FluxMachinesBase implements FluxMachines {
         FMItems.REGISTRY.register(modEventBus);
         FMBlockEntities.REGISTRY.register(modEventBus);
         FMMenus.REGISTRY.register(modEventBus);
+        FMSounds.REGISTRY.register(modEventBus);
 
         modEventBus.addListener(Tab::initExternal);
+        modEventBus.addListener(this::registerCapabilities);
 
         modEventBus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey() == Registries.CREATIVE_MODE_TAB) {
@@ -50,6 +58,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(this::onServerAboutToStart);
         NeoForge.EVENT_BUS.addListener(this::serverStopped);
         NeoForge.EVENT_BUS.addListener(this::serverStopping);
+        NeoForge.EVENT_BUS.addListener(WrenchHook::onPlayerUseBlockEvent);
 
     }
 
@@ -60,9 +69,10 @@ public abstract class FluxMachinesBase implements FluxMachines {
     private void commonSetup (FMLCommonSetupEvent event) {
         event.enqueueWork(this::postRegistrationInitialization).whenComplete((res, err) -> {
             if (err != null) {
-                //Log.warn(err);
+
             }
         });
+        FMTopPlugin.register();
     }
 
     public void postRegistrationInitialization () {
@@ -79,6 +89,11 @@ public abstract class FluxMachinesBase implements FluxMachines {
 
     private void serverStopped (final ServerStoppedEvent event) {
 
+    }
+
+    private void registerCapabilities (RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getInventory());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getEnergyStorage());
     }
 
     @Override

@@ -17,11 +17,15 @@ public interface FluxMachines {
     }
 
     static ResourceLocation getResource (String name) {
-        return ResourceLocation.fromNamespaceAndPath(MODID, name);
+        return custom(MODID, name);
     }
 
     static ResourceLocation getMinecraftResource (String name) {
-        return ResourceLocation.withDefaultNamespace(name);
+        return custom("minecraft", name);
+    }
+
+    static ResourceLocation custom (String id, String name) {
+        return ResourceLocation.fromNamespaceAndPath(id, name);
     }
 
     Collection<ServerPlayer> getPlayers ();

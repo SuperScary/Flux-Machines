@@ -13,6 +13,7 @@ import net.superscary.fluxmachines.item.base.BaseFood;
 import net.superscary.fluxmachines.item.base.BaseItem;
 import net.superscary.fluxmachines.item.base.DuraciteArmorItem;
 import net.superscary.fluxmachines.item.tool.DuraciteTool;
+import net.superscary.fluxmachines.item.tool.Wrench;
 import net.superscary.fluxmachines.util.keys.Keys;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
 import org.jetbrains.annotations.Nullable;
@@ -45,6 +46,8 @@ public class FMItems {
     public static final ItemDefinition<DuraciteTool.Hoe> DURACITE_HOE = item("duracite_hoe", DuraciteTool.Hoe::new);
     public static final ItemDefinition<DuraciteTool.Paxel> DURACITE_PAXEL = item("duracite_paxel", DuraciteTool.Paxel::new);
     public static final ItemDefinition<DuraciteTool.Hammer> DURACITE_HAMMER = item("duracite_hammer", DuraciteTool.Hammer::new);
+
+    public static final ItemDefinition<Wrench> WRENCH = item("wrench", Wrench::new);
 
     public static final ItemDefinition<BaseFood> HONEY_BUN = item("honey_bun", BaseFood.HoneyBun::new);
     public static final ItemDefinition<BaseFood> HARD_BOILED_EGG = item("hard_boiled_egg", BaseFood.HardBoiledEgg::new);

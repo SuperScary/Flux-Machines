@@ -14,6 +14,7 @@ public class FMTag {
         public static final TagKey<Block> NEEDS_DURACITE_TOOL = createTag("needs_duracite_tool");
 
         public static final TagKey<Block> PAXEL_MINEABLE = createTag("mineable/paxel");
+        public static final TagKey<Block> WRENCHABLE = createTag("wrenchable");
 
         private static TagKey<Block> createTag (String key) {
             return BlockTags.create(FluxMachines.getResource(key));
@@ -21,6 +22,9 @@ public class FMTag {
     }
 
     public static class Items {
+
+        public static final TagKey<Item> WRENCH = createTag("wrench");
+
         private static TagKey<Item> createTag (String key) {
             return ItemTags.create(FluxMachines.getResource(key));
         }
