@@ -13,10 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.*;
-import static net.superscary.fluxmachines.registries.FMBlocks.DURACITE_DEEPSLATE_ORE;
-import static net.superscary.fluxmachines.registries.FMItems.DURACITE_DUST;
-import static net.superscary.fluxmachines.registries.FMItems.RAW_DURACITE;
+import static net.superscary.fluxmachines.registries.FMItems.STEEL_DUST;
 
 public class BlastingRecipes extends FMRecipeProvider {
 
@@ -28,40 +25,15 @@ public class BlastingRecipes extends FMRecipeProvider {
 
     @Override
     public @NotNull String getName () {
-        return "FluxMachines Blasting Recipes";
+        return "Flux Machines Blasting Recipes";
     }
 
     @Override
-    public void buildRecipes(@NotNull RecipeOutput consumer) {
+    public void buildRecipes (@NotNull RecipeOutput consumer) {
         SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(RAW_DURACITE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_BLASTING_TIME)
-                .unlockedBy("has_duracite_raw", has(RAW_DURACITE))
-                .save(consumer, FluxMachines.getResource("blasting/duracite_from_raw_duracite"));
-
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(DURACITE_ORE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_BLASTING_TIME)
-                .unlockedBy("has_duracite_ore", has(DURACITE_ORE))
-                .save(consumer, FluxMachines.getResource("blasting/duracite_from_duracite_ore"));
-
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(DURACITE_NETHER_ORE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_BLASTING_TIME)
-                .unlockedBy("has_duracite_ore", has(DURACITE_NETHER_ORE))
-                .save(consumer, FluxMachines.getResource("blasting/duracite_from_duracite_nether_ore"));
-
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(DURACITE_DEEPSLATE_ORE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_BLASTING_TIME)
-                .unlockedBy("has_duracite_ore", has(DURACITE_DEEPSLATE_ORE))
-                .save(consumer, FluxMachines.getResource("blasting/duracite_from_duracite_deepslate_ore"));
-
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(DURACITE_DUST), RecipeCategory.MISC, new ItemStack(FMItems.DURACITE_INGOT, 2), .35f, DEFAULT_BLASTING_TIME)
-                .unlockedBy("has_duracite_dust", has(DURACITE_DUST))
-                .save(consumer, FluxMachines.getResource("blasting/duracite_from_duracite_dust"));
-
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(DURACITE_BLOCK_RAW), RecipeCategory.MISC, DURACITE_BLOCK, 3.15f, DEFAULT_BLASTING_TIME * 9)
-                .unlockedBy("has_duracite_block", has(DURACITE_BLOCK_RAW))
-                .save(consumer, FluxMachines.getResource("blasting/duracite_block_from_duracite_block_raw"));
+                .blasting(Ingredient.of(STEEL_DUST), RecipeCategory.MISC, new ItemStack(FMItems.STEEL_INGOT, 2), .35f, DEFAULT_BLASTING_TIME)
+                .unlockedBy("has_steel_dust", has(STEEL_DUST))
+                .save(consumer, FluxMachines.getResource("blasting/steel_from_steel_dust"));
     }
 
 }

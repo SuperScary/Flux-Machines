@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import net.superscary.fluxmachines.datagen.DataGenerators;
+import net.superscary.fluxmachines.hook.HammerHook;
 import net.superscary.fluxmachines.hook.WrenchHook;
 import net.superscary.fluxmachines.impl.top.FMTopPlugin;
 import net.superscary.fluxmachines.item.material.FMArmorMaterials;
@@ -59,6 +59,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(this::serverStopped);
         NeoForge.EVENT_BUS.addListener(this::serverStopping);
         NeoForge.EVENT_BUS.addListener(WrenchHook::onPlayerUseBlockEvent);
+        NeoForge.EVENT_BUS.addListener(HammerHook::onPlayerUseBlockEvent);
 
     }
 

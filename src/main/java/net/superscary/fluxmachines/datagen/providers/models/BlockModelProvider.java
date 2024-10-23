@@ -29,11 +29,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
 
     @Override
     protected void registerStatesAndModels () {
-        blockWithItem(DURACITE_ORE);
-        blockWithItem(DURACITE_DEEPSLATE_ORE);
-        blockWithItem(DURACITE_NETHER_ORE);
-        blockWithItem(DURACITE_BLOCK_RAW);
-        blockWithItem(DURACITE_BLOCK);
+        blockWithItem(STEEL_BLOCK);
         blockWithItem(MACHINE_CASING);
 
         machine(FLUX_FURNACE, "flux_furnace");

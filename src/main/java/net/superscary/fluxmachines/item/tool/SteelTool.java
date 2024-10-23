@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
@@ -45,15 +44,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class DuraciteTool extends BaseItem {
+public class SteelTool extends BaseItem {
 
     /**
      * Stronger but heavier than iron ref {@link Tiers#IRON}
      * Attack +1 | Speed -0.3F
      */
-    public static final Tier DURACITE = new SimpleTier(BlockTags.INCORRECT_FOR_IRON_TOOL, 675, 6f, 2f, 16, () -> Ingredient.of(FMItems.DURACITE_INGOT));
+    public static final Tier STEEL = new SimpleTier(BlockTags.INCORRECT_FOR_IRON_TOOL, 675, 6f, 2f, 16, () -> Ingredient.of(FMItems.STEEL_INGOT));
 
-    public DuraciteTool (Properties properties) {
+    public SteelTool (Properties properties) {
         super(properties);
     }
 
@@ -62,7 +61,7 @@ public class DuraciteTool extends BaseItem {
      */
     public static class Sword extends SwordItem {
         public Sword (Properties properties) {
-            super(DURACITE, properties.attributes(SwordItem.createAttributes(DURACITE, 4, -2.7f)));
+            super(STEEL, properties.attributes(SwordItem.createAttributes(STEEL, 4, -2.7f)));
         }
     }
 
@@ -71,7 +70,7 @@ public class DuraciteTool extends BaseItem {
      */
     public static class Pickaxe extends PickaxeItem {
         public Pickaxe (Properties properties) {
-            super(DURACITE, properties.attributes(PickaxeItem.createAttributes(DURACITE, 2, -3.1f)));
+            super(STEEL, properties.attributes(PickaxeItem.createAttributes(STEEL, 2, -3.1f)));
         }
     }
 
@@ -80,7 +79,7 @@ public class DuraciteTool extends BaseItem {
      */
     public static class Shovel extends ShovelItem {
         public Shovel (Properties properties) {
-            super(DURACITE, properties.attributes(ShovelItem.createAttributes(DURACITE, 2.5f, -3.3f)));
+            super(STEEL, properties.attributes(ShovelItem.createAttributes(STEEL, 2.5f, -3.3f)));
         }
     }
 
@@ -89,7 +88,7 @@ public class DuraciteTool extends BaseItem {
      */
     public static class Axe extends AxeItem {
         public Axe (Properties properties) {
-            super(DURACITE, properties.attributes(AxeItem.createAttributes(DURACITE, 7, -3.4f)));
+            super(STEEL, properties.attributes(AxeItem.createAttributes(STEEL, 7, -3.4f)));
         }
     }
 
@@ -98,7 +97,7 @@ public class DuraciteTool extends BaseItem {
      */
     public static class Hoe extends HoeItem {
         public Hoe (Properties properties) {
-            super(DURACITE, properties.attributes(HoeItem.createAttributes(DURACITE, -1, -1.3f)));
+            super(STEEL, properties.attributes(HoeItem.createAttributes(STEEL, -1, -1.3f)));
         }
     }
 
@@ -112,7 +111,7 @@ public class DuraciteTool extends BaseItem {
         protected static final Map<Block, BlockState> FLATTENABLES;
 
         public Paxel (Properties properties) {
-            super(DURACITE, FMTag.Blocks.PAXEL_MINEABLE, properties.attributes(DiggerItem.createAttributes(DURACITE, 7, -2.9f)));
+            super(STEEL, FMTag.Blocks.PAXEL_MINEABLE, properties.attributes(DiggerItem.createAttributes(STEEL, 7, -2.9f)));
         }
 
         public @NotNull InteractionResult useOn (UseOnContext context) {
@@ -224,7 +223,7 @@ public class DuraciteTool extends BaseItem {
         protected final Holder<MobEffect> effect;
 
         public Hammer (Properties properties) {
-            super(DURACITE, BlockTags.MINEABLE_WITH_PICKAXE, properties.attributes(PickaxeItem.createAttributes(DURACITE, 7, -3.4f)));
+            super(STEEL, BlockTags.MINEABLE_WITH_PICKAXE, properties.attributes(PickaxeItem.createAttributes(STEEL, 7, -3.4f)));
             this.effect = MobEffects.MOVEMENT_SLOWDOWN;
         }
 

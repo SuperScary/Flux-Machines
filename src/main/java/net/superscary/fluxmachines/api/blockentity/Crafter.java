@@ -3,10 +3,11 @@ package net.superscary.fluxmachines.api.blockentity;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.superscary.fluxmachines.api.inventory.InventoryHolder;
 
 import java.util.Optional;
 
-public interface Crafter<T extends Recipe<?>> {
+public interface Crafter<T extends Recipe<?>> extends InventoryHolder {
 
     void craftItem ();
 
@@ -23,5 +24,7 @@ public interface Crafter<T extends Recipe<?>> {
     int getMaxProgress ();
 
     boolean hasFinished ();
+
+    boolean isCrafting();
 
 }

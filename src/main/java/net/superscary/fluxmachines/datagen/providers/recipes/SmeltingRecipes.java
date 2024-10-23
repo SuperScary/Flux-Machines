@@ -5,19 +5,17 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.registries.FMBlocks;
 import net.superscary.fluxmachines.registries.FMItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.*;
-import static net.superscary.fluxmachines.registries.FMItems.*;
+import static net.superscary.fluxmachines.registries.FMItems.HARD_BOILED_EGG;
+import static net.superscary.fluxmachines.registries.FMItems.STEEL_DUST;
 
 public class SmeltingRecipes extends FMRecipeProvider {
 
@@ -29,44 +27,24 @@ public class SmeltingRecipes extends FMRecipeProvider {
 
     @Override
     public @NotNull String getName () {
-        return "FluxMachines Smelting Recipes";
+        return "Flux Machines Smelting Recipes";
     }
 
     @Override
-    public void buildRecipes(@NotNull RecipeOutput consumer) {
+    public void buildRecipes (@NotNull RecipeOutput consumer) {
         SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(RAW_DURACITE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_SMELTING_TIME)
-                .unlockedBy("has_duracite_raw", has(RAW_DURACITE))
-                .save(consumer, FluxMachines.getResource("smelting/duracite_from_raw_duracite"));
+                .smelting(Ingredient.of(STEEL_DUST), RecipeCategory.MISC, new ItemStack(FMItems.STEEL_INGOT, 1), .16f, DEFAULT_SMELTING_TIME)
+                .unlockedBy("has_steel_dust", has(STEEL_DUST))
+                .save(consumer, FluxMachines.getResource("smelting/steel_from_steel_dust"));
 
         SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(DURACITE_ORE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_SMELTING_TIME)
-                .unlockedBy("has_duracite_ore", has(DURACITE_ORE))
-                .save(consumer, FluxMachines.getResource("smelting/duracite_from_duracite_ore"));
-
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(DURACITE_NETHER_ORE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_SMELTING_TIME)
-                .unlockedBy("has_duracite_ore", has(DURACITE_NETHER_ORE))
-                .save(consumer, FluxMachines.getResource("smelting/duracite_from_duracite_nether_ore"));
-
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(DURACITE_DEEPSLATE_ORE), RecipeCategory.MISC, FMItems.DURACITE_INGOT, .35f, DEFAULT_SMELTING_TIME)
-                .unlockedBy("has_duracite_ore", has(DURACITE_DEEPSLATE_ORE))
-                .save(consumer, FluxMachines.getResource("smelting/duracite_from_duracite_deepslate_ore"));
-
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(DURACITE_DUST), RecipeCategory.MISC, new ItemStack(FMItems.DURACITE_INGOT, 2), .35f, DEFAULT_SMELTING_TIME)
-                .unlockedBy("has_duracite_dust", has(DURACITE_DUST))
-                .save(consumer, FluxMachines.getResource("smelting/duracite_from_duracite_dust"));
-
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(DURACITE_BLOCK_RAW), RecipeCategory.MISC, DURACITE_BLOCK, 3.15f, DEFAULT_SMELTING_TIME * 9)
-                .unlockedBy("has_duracite_block", has(DURACITE_BLOCK_RAW))
-                .save(consumer, FluxMachines.getResource("smelting/duracite_block_from_duracite_block_raw"));
+                .smelting(Ingredient.of(Items.IRON_INGOT), RecipeCategory.MISC, new ItemStack(STEEL_DUST), 0f, DEFAULT_SMELTING_TIME)
+                .unlockedBy("has_iron", has(Items.IRON_INGOT))
+                .save(consumer, FluxMachines.getResource("smelting/steel_dust_from_iron"));
 
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(Items.EGG), RecipeCategory.FOOD, HARD_BOILED_EGG, 0f, 100)
-                .unlockedBy("has_eg", has(Items.EGG))
+                .unlockedBy("has_egg", has(Items.EGG))
                 .save(consumer, FluxMachines.getResource("cooking/hard_boiled_egg"));
 
     }

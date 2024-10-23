@@ -3,7 +3,6 @@ package net.superscary.fluxmachines.datagen.providers.lang;
 import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.superscary.fluxmachines.api.data.IDataProvider;
-import net.superscary.fluxmachines.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 
 import static net.superscary.fluxmachines.registries.FMBlocks.*;
@@ -24,31 +23,26 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
     }
 
     protected void blocks () {
-        add(DURACITE_ORE.block(), "Duracite Ore");
-        add(DURACITE_DEEPSLATE_ORE.block(), "Deepslate Duracite Ore");
-        add(DURACITE_NETHER_ORE.block(), "Duracite Nether Ore");
-        add(DURACITE_BLOCK_RAW.block(), "Raw Duracite Block");
-        add(DURACITE_BLOCK.block(), "Duracite Block");
+        add(STEEL_BLOCK.block(), "Steel Block");
         add(MACHINE_CASING.block(), "Machine Casing");
         add(FLUX_FURNACE.block(), "Flux Furnace");
     }
 
     protected void items () {
-        add(RAW_DURACITE.asItem(), "Raw Duracite");
-        add(DURACITE_DUST.asItem(), "Duracite Dust");
-        add(DURACITE_INGOT.asItem(), "Duracite Ingot");
-        add(DURACITE_NUGGET.asItem(), "Duracite Nugget");
-        add(DURACITE_HELMET.asItem(), "Duracite Helmet");
-        add(DURACITE_CHESTPLATE.asItem(), "Duracite Chestplate");
-        add(DURACITE_LEGGINGS.asItem(), "Duracite Leggings");
-        add(DURACITE_BOOTS.asItem(), "Duracite Boots");
-        add(DURACITE_SWORD.asItem(), "Duracite Sword");
-        add(DURACITE_PICKAXE.asItem(), "Duracite Pickaxe");
-        add(DURACITE_SHOVEL.asItem(), "Duracite Shovel");
-        add(DURACITE_AXE.asItem(), "Duracite Axe");
-        add(DURACITE_HOE.asItem(), "Duracite Hoe");
-        add(DURACITE_PAXEL.asItem(), "Duracite Paxel");
-        add(DURACITE_HAMMER.asItem(), "Duracite Hammer");
+        add(STEEL_DUST.asItem(), "Steel Dust");
+        add(STEEL_INGOT.asItem(), "Steel Ingot");
+        add(STEEL_NUGGET.asItem(), "Steel Nugget");
+        add(STEEL_HELMET.asItem(), "Steel Helmet");
+        add(STEEL_CHESTPLATE.asItem(), "Steel Chestplate");
+        add(STEEL_LEGGINGS.asItem(), "Steel Leggings");
+        add(STEEL_BOOTS.asItem(), "Steel Boots");
+        add(STEEL_SWORD.asItem(), "Steel Sword");
+        add(STEEL_PICKAXE.asItem(), "Steel Pickaxe");
+        add(STEEL_SHOVEL.asItem(), "Steel Shovel");
+        add(STEEL_AXE.asItem(), "Steel Axe");
+        add(STEEL_HOE.asItem(), "Steel Hoe");
+        add(STEEL_PAXEL.asItem(), "Steel Paxel");
+        add(STEEL_HAMMER.asItem(), "Steel Hammer");
         add(WRENCH.asItem(), "Wrench");
 
         add(HONEY_BUN.asItem(), "Honey Bun");

@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.superscary.fluxmachines.blockentity.base.FMBaseBlockEntity;
-import net.superscary.fluxmachines.item.tool.Wrench;
+import net.superscary.fluxmachines.util.helper.ItemHelper;
 import net.superscary.fluxmachines.util.tags.FMTag;
 
 public class WrenchHook {
@@ -49,8 +49,7 @@ public class WrenchHook {
                         SoundEvent sound = SoundEvents.ANVIL_HIT;
                         level.playSound(player, hitResult.getBlockPos(), sound, SoundSource.BLOCKS, 0.7f, 1.0f);
                         if (itemStack.is(FMTag.Items.WRENCH)) {
-                            var item = (Wrench) itemStack.getItem();
-                            item.setDamage(itemStack, item.getDamage(itemStack) + 1);
+                            ItemHelper.damageStack(itemStack);
                         }
                     }
                     return result;

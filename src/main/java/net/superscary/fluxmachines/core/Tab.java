@@ -25,7 +25,7 @@ public class Tab {
     public static void init (Registry<CreativeModeTab> registry) {
         var tab = CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.fluxmachines"))
-                .icon(FMItems.DURACITE_INGOT::stack)
+                .icon(FMItems.STEEL_INGOT::stack)
                 .displayItems(Tab::buildDisplayItems)
                 .build();
         Registry.register(registry, Keys.MAIN, tab);

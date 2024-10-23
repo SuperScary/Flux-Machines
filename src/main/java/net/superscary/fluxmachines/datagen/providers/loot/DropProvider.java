@@ -38,9 +38,6 @@ public class DropProvider extends BlockLootSubProvider {
     @NotNull
     private ImmutableMap<Block, Function<Block, LootTable.Builder>> createOverrides () {
         return ImmutableMap.<Block, Function<Block, LootTable.Builder>>builder()
-                .put(DURACITE_ORE.block(), oreBlock(DURACITE_ORE.block(), RAW_DURACITE.asItem()))
-                .put(DURACITE_DEEPSLATE_ORE.block(), oreBlock(DURACITE_DEEPSLATE_ORE.block(), RAW_DURACITE.asItem()))
-                .put(DURACITE_NETHER_ORE.block(), oreBlock(DURACITE_NETHER_ORE.block(), DURACITE_NUGGET.asItem()))
                 .build();
     }
 

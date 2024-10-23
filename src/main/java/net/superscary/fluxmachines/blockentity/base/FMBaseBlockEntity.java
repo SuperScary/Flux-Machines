@@ -7,10 +7,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,14 +20,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.data.BlockData;
+import net.superscary.fluxmachines.api.inventory.InventoryHolder;
+import net.superscary.fluxmachines.hook.WrenchHook;
 import net.superscary.fluxmachines.util.keys.Keys;
-import org.jetbrains.annotations.MustBeInvokedByOverriders;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
-public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData {
+public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder {
 
     public final ItemStackHandler INVENTORY_SINGLE = new ItemStackHandler(1) {
         @Override
@@ -87,11 +83,6 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @MustBeInvokedByOverriders
-    public void addAdditionalDrops (Level level, BlockPos pos, List<ItemStack> drops) {
-
-    }
-
     @Override
     public @NotNull CompoundTag getUpdateTag (HolderLookup.@NotNull Provider registries) {
         return saveWithoutMetadata(registries);
@@ -112,6 +103,11 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         loadClientData(tag, lookupProvider);
     }
 
+    /**
+     * Save entity data to the dropped item
+     * @param stack
+     * @param registries
+     */
     @Override
     public void saveToItem (@NotNull ItemStack stack, HolderLookup.@NotNull Provider registries) {
         super.saveToItem(stack, registries);
@@ -132,6 +128,15 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         Containers.dropContents(level, worldPosition, container);
     }
 
+    /**
+     * TODO: save data to item and drop that item rather than drop contents.
+     * Allows disassembly with wrench. Called by {@link WrenchHook#onPlayerUseBlock(Player, Level, InteractionHand, BlockHitResult)}
+     * @param player    {@link Player} the player
+     * @param level     {@link Level} the level
+     * @param hitResult {@link BlockHitResult} hit result of the interaction
+     * @param wrench    the {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.util.tags.FMTag.Items#WRENCH}
+     * @return {@link InteractionResult}
+     */
     public InteractionResult disassembleWithWrench (Player player, Level level, BlockHitResult hitResult, ItemStack wrench) {
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);
@@ -141,7 +146,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
             var drops = Block.getDrops(state, serverLevel, pos, this, player, wrench);
 
             for (var item : drops) {
-                player.getInventory().placeItemBackInInventory(item);
+                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), item);
             }
         }
 
@@ -151,6 +156,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
+    @Override
     public ItemStackHandler getInventory () {
         return inventory;
     }

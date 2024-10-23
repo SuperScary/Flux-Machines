@@ -18,16 +18,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
-public class DuraciteArmorItem extends ArmorItem {
+public class SteelArmorItem extends ArmorItem {
 
     private static final Map<Holder<ArmorMaterial>, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<Holder<ArmorMaterial>, List<MobEffectInstance>>())
-                    .put(FMArmorMaterials.DURACITE,
+                    .put(FMArmorMaterials.STEEL,
                             List.of(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 36_000, 1, false, false)))
                     .build();
 
-    public DuraciteArmorItem (ArmorTypes armorTypes) {
-        super(FMArmorMaterials.DURACITE, armorTypes.getType(), armorTypes.getProperties());
+    public SteelArmorItem (ArmorTypes armorTypes) {
+        super(FMArmorMaterials.STEEL, armorTypes.getType(), armorTypes.getProperties());
     }
 
     @Override
@@ -95,26 +95,26 @@ public class DuraciteArmorItem extends ArmorItem {
         return !boots.isEmpty() && !leggings.isEmpty() && !chestplate.isEmpty() && !helmet.isEmpty();
     }
 
-    public static class DuraciteHelmet extends DuraciteArmorItem {
-        public DuraciteHelmet (Properties properties) {
+    public static class SteelHelmet extends SteelArmorItem {
+        public SteelHelmet (Properties properties) {
             super(ArmorTypes.HELMET);
         }
     }
 
-    public static class DuraciteChestplate extends DuraciteArmorItem {
-        public DuraciteChestplate (Properties properties) {
+    public static class SteelChestplate extends SteelArmorItem {
+        public SteelChestplate (Properties properties) {
             super(ArmorTypes.CHESTPLATE);
         }
     }
 
-    public static class DuraciteLeggings extends DuraciteArmorItem {
-        public DuraciteLeggings (Properties properties) {
+    public static class SteelLeggings extends SteelArmorItem {
+        public SteelLeggings (Properties properties) {
             super(ArmorTypes.LEGGINGS);
         }
     }
 
-    public static class DuraciteBoots extends DuraciteArmorItem {
-        public DuraciteBoots (Properties properties) {
+    public static class SteelBoots extends SteelArmorItem {
+        public SteelBoots (Properties properties) {
             super(ArmorTypes.BOOTS);
         }
     }

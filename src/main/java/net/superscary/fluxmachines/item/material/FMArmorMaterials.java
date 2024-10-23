@@ -18,14 +18,14 @@ public class FMArmorMaterials {
 
     public static final DeferredRegister<ArmorMaterial> REGISTRY = DeferredRegister.create(Registries.ARMOR_MATERIAL, FluxMachines.MODID);
 
-    public static final Holder<ArmorMaterial> DURACITE = REGISTRY.register("duracite", () -> new ArmorMaterial(
+    public static final Holder<ArmorMaterial> STEEL = REGISTRY.register("steel", () -> new ArmorMaterial(
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 2);
                 map.put(ArmorItem.Type.LEGGINGS, 5);
                 map.put(ArmorItem.Type.CHESTPLATE, 7);
                 map.put(ArmorItem.Type.HELMET, 2);
                 //map.put(ArmorItem.Type.BODY, 4); im guessing this is the shield?
-            }), 10, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(FMItems.DURACITE_INGOT),
-            List.of(new ArmorMaterial.Layer(FluxMachines.getResource("duracite"))), 0.5f, .05f));
+            }), 10, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(FMItems.STEEL_INGOT),
+            List.of(new ArmorMaterial.Layer(FluxMachines.getResource("steel"))), 0.5f, .05f));
 
 }

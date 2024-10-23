@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static net.superscary.fluxmachines.registries.FMItems.DURACITE_INGOT;
+import static net.superscary.fluxmachines.registries.FMItems.STEEL_INGOT;
 import static net.superscary.fluxmachines.registries.FMItems.HARD_BOILED_EGG;
 
 public class AchievementProvider extends AdvancementProvider {
@@ -78,7 +78,7 @@ public class AchievementProvider extends AdvancementProvider {
                     .save(consumer, FluxMachines.getResource("advancements/newworld"), existingFileHelper);
 
             strongerThanIron = Advancement.Builder.advancement()
-                    .display(DURACITE_INGOT,
+                    .display(STEEL_INGOT,
                             Component.translatable("advancement.fluxmachines.strongerthaniron.title"),
                             Component.translatable("advancement.fluxmachines.strongerthaniron.desc"),
                             null,
@@ -89,7 +89,7 @@ public class AchievementProvider extends AdvancementProvider {
                     )
                     .parent(parent)
                     .requirements(AdvancementRequirements.Strategy.OR)
-                    .addCriterion("has_duracite", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(DURACITE_INGOT)))
+                    .addCriterion("has_steel", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(STEEL_INGOT)))
                     .save(consumer, FluxMachines.getResource("advancements/stronger_than_iron"), existingFileHelper);
 
             buildCasing = Advancement.Builder.advancement()

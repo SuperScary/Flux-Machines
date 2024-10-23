@@ -3,7 +3,6 @@ package net.superscary.fluxmachines.registries;
 import com.google.common.base.Preconditions;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -11,12 +10,12 @@ import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.item.base.BaseFood;
 import net.superscary.fluxmachines.item.base.BaseItem;
-import net.superscary.fluxmachines.item.base.DuraciteArmorItem;
-import net.superscary.fluxmachines.item.tool.DuraciteTool;
+import net.superscary.fluxmachines.item.tool.SteelTool;
 import net.superscary.fluxmachines.item.tool.Wrench;
-import net.superscary.fluxmachines.util.keys.Keys;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
+import net.superscary.fluxmachines.util.keys.Keys;
 import org.jetbrains.annotations.Nullable;
+import net.superscary.fluxmachines.item.base.SteelArmorItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,22 +29,21 @@ public class FMItems {
 
     private static final List<ItemDefinition<?>> ITEMS = new ArrayList<>();
 
-    public static final ItemDefinition<BaseItem> RAW_DURACITE = item("duracite_raw", BaseItem::new);
-    public static final ItemDefinition<BaseItem> DURACITE_DUST = item("duracite_dust", BaseItem::new);
-    public static final ItemDefinition<BaseItem> DURACITE_INGOT = item("duracite_ingot", BaseItem::new);
-    public static final ItemDefinition<BaseItem> DURACITE_NUGGET = item("duracite_nugget", BaseItem::new);
+    public static final ItemDefinition<BaseItem> STEEL_DUST = item("steel_dust", BaseItem::new);
+    public static final ItemDefinition<BaseItem> STEEL_INGOT = item("steel_ingot", BaseItem::new);
+    public static final ItemDefinition<BaseItem> STEEL_NUGGET = item("steel_nugget", BaseItem::new);
 
-    public static final ItemDefinition<DuraciteArmorItem> DURACITE_HELMET = item("duracite_helmet", DuraciteArmorItem.DuraciteHelmet::new);
-    public static final ItemDefinition<DuraciteArmorItem> DURACITE_CHESTPLATE = item("duracite_chestplate", DuraciteArmorItem.DuraciteChestplate::new);
-    public static final ItemDefinition<DuraciteArmorItem> DURACITE_LEGGINGS = item("duracite_leggings", DuraciteArmorItem.DuraciteLeggings::new);
-    public static final ItemDefinition<DuraciteArmorItem> DURACITE_BOOTS = item("duracite_boots", DuraciteArmorItem.DuraciteBoots::new);
-    public static final ItemDefinition<DuraciteTool.Sword> DURACITE_SWORD = item("duracite_sword", DuraciteTool.Sword::new);
-    public static final ItemDefinition<DuraciteTool.Pickaxe> DURACITE_PICKAXE = item("duracite_pickaxe", DuraciteTool.Pickaxe::new);
-    public static final ItemDefinition<DuraciteTool.Axe> DURACITE_AXE = item("duracite_axe", DuraciteTool.Axe::new);
-    public static final ItemDefinition<DuraciteTool.Shovel> DURACITE_SHOVEL = item("duracite_shovel", DuraciteTool.Shovel::new);
-    public static final ItemDefinition<DuraciteTool.Hoe> DURACITE_HOE = item("duracite_hoe", DuraciteTool.Hoe::new);
-    public static final ItemDefinition<DuraciteTool.Paxel> DURACITE_PAXEL = item("duracite_paxel", DuraciteTool.Paxel::new);
-    public static final ItemDefinition<DuraciteTool.Hammer> DURACITE_HAMMER = item("duracite_hammer", DuraciteTool.Hammer::new);
+    public static final ItemDefinition<SteelArmorItem> STEEL_HELMET = item("steel_helmet", SteelArmorItem.SteelHelmet::new);
+    public static final ItemDefinition<SteelArmorItem> STEEL_CHESTPLATE = item("steel_chestplate", SteelArmorItem.SteelChestplate::new);
+    public static final ItemDefinition<SteelArmorItem> STEEL_LEGGINGS = item("steel_leggings", SteelArmorItem.SteelLeggings::new);
+    public static final ItemDefinition<SteelArmorItem> STEEL_BOOTS = item("steel_boots", SteelArmorItem.SteelBoots::new);
+    public static final ItemDefinition<SteelTool.Sword> STEEL_SWORD = item("steel_sword", SteelTool.Sword::new);
+    public static final ItemDefinition<SteelTool.Pickaxe> STEEL_PICKAXE = item("steel_pickaxe", SteelTool.Pickaxe::new);
+    public static final ItemDefinition<SteelTool.Axe> STEEL_AXE = item("steel_axe", SteelTool.Axe::new);
+    public static final ItemDefinition<SteelTool.Shovel> STEEL_SHOVEL = item("steel_shovel", SteelTool.Shovel::new);
+    public static final ItemDefinition<SteelTool.Hoe> STEEL_HOE = item("steel_hoe", SteelTool.Hoe::new);
+    public static final ItemDefinition<SteelTool.Paxel> STEEL_PAXEL = item("steel_paxel", SteelTool.Paxel::new);
+    public static final ItemDefinition<SteelTool.Hammer> STEEL_HAMMER = item("steel_hammer", SteelTool.Hammer::new);
 
     public static final ItemDefinition<Wrench> WRENCH = item("wrench", Wrench::new);
 

@@ -170,6 +170,7 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
         return 8;
     }
 
+    @Override
     public boolean isCrafting () {
         return isCrafting;
     }

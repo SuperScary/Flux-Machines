@@ -4,7 +4,6 @@ import com.google.gson.JsonPrimitive;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.blockstates.*;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
@@ -17,8 +16,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.util.block.BlockDefinition;
-
-import java.util.function.Supplier;
 
 public abstract class FMBlockStateProvider extends BlockStateProvider implements IDataProvider {
 

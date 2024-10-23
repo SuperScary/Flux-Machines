@@ -5,14 +5,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.util.block.BlockDefinition;
@@ -49,17 +47,16 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
     @Override
     protected void registerModels () {
-        handheldItem(RAW_DURACITE.asItem());
-        handheldItem(DURACITE_DUST.asItem());
-        handheldItem(DURACITE_INGOT.asItem());
-        handheldItem(DURACITE_NUGGET.asItem());
-        handheldItem(DURACITE_SWORD.asItem());
-        handheldItem(DURACITE_PICKAXE.asItem());
-        handheldItem(DURACITE_SHOVEL.asItem());
-        handheldItem(DURACITE_AXE.asItem());
-        handheldItem(DURACITE_HOE.asItem());
-        handheldItem(DURACITE_PAXEL.asItem());
-        handheldItem(DURACITE_HAMMER.asItem());
+        handheldItem(STEEL_DUST.asItem());
+        handheldItem(STEEL_INGOT.asItem());
+        handheldItem(STEEL_NUGGET.asItem());
+        handheldItem(STEEL_SWORD.asItem());
+        handheldItem(STEEL_PICKAXE.asItem());
+        handheldItem(STEEL_SHOVEL.asItem());
+        handheldItem(STEEL_AXE.asItem());
+        handheldItem(STEEL_HOE.asItem());
+        handheldItem(STEEL_PAXEL.asItem());
+        handheldItem(STEEL_HAMMER.asItem());
         handheldItem(WRENCH.asItem());
 
         basicItem(HONEY_BUN.asItem());
@@ -67,10 +64,10 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
         blockOff(FLUX_FURNACE);
 
-        trimmedArmorItem(DURACITE_HELMET);
-        trimmedArmorItem(DURACITE_CHESTPLATE);
-        trimmedArmorItem(DURACITE_LEGGINGS);
-        trimmedArmorItem(DURACITE_BOOTS);
+        trimmedArmorItem(STEEL_HELMET);
+        trimmedArmorItem(STEEL_CHESTPLATE);
+        trimmedArmorItem(STEEL_LEGGINGS);
+        trimmedArmorItem(STEEL_BOOTS);
 
     }
 
