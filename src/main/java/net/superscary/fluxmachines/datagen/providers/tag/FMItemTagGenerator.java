@@ -45,13 +45,13 @@ public class FMItemTagGenerator extends ItemTagsProvider implements IDataProvide
         this.tag(FMTag.Items.HAMMER)
                 .add(STEEL_HAMMER.asItem());
 
-        this.tag(FMTag.Items.STEEL)
+        this.tag(Tags.Items.INGOTS)
                 .add(STEEL_INGOT.asItem());
 
         this.tag(FMTag.Items.DUST)
                 .add(STEEL_DUST.asItem());
 
-        this.tag(FMTag.Items.NUGGET)
+        this.tag(Tags.Items.NUGGETS)
                 .add(STEEL_NUGGET.asItem());
     }
 

@@ -10,6 +10,7 @@ import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.item.base.BaseFood;
 import net.superscary.fluxmachines.item.base.BaseItem;
+import net.superscary.fluxmachines.item.tool.RSItem;
 import net.superscary.fluxmachines.item.tool.SteelTool;
 import net.superscary.fluxmachines.item.tool.Wrench;
 import net.superscary.fluxmachines.util.item.ItemDefinition;
@@ -32,6 +33,8 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> STEEL_DUST = item("steel_dust", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_INGOT = item("steel_ingot", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_NUGGET = item("steel_nugget", BaseItem::new);
+
+    public static final ItemDefinition<RSItem> REDSTONE_AND_STEEL = item("redstone_and_steel", RSItem::new);
 
     public static final ItemDefinition<SteelArmorItem> STEEL_HELMET = item("steel_helmet", SteelArmorItem.SteelHelmet::new);
     public static final ItemDefinition<SteelArmorItem> STEEL_CHESTPLATE = item("steel_chestplate", SteelArmorItem.SteelChestplate::new);

@@ -39,12 +39,13 @@ public class WrenchHook {
         if (player.isSpectator() || hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
         var itemStack = player.getItemInHand(hand);
 
+        // disassemble
         if (alternateUseMode(player) && canDisassemble(itemStack)) {
             var be = level.getBlockEntity(hitResult.getBlockPos());
             if (be instanceof FMBaseBlockEntity baseBlockEntity) {
                 IS_DISASSEMBLING.set(true);
                 try {
-                    var result = baseBlockEntity.disassembleWithWrench(player, level, hitResult, itemStack);
+                    var result = baseBlockEntity.disassemble(player, level, hitResult, itemStack);
                     if (result.consumesAction()) {
                         SoundEvent sound = SoundEvents.ANVIL_HIT;
                         level.playSound(player, hitResult.getBlockPos(), sound, SoundSource.BLOCKS, 0.7f, 1.0f);
@@ -56,6 +57,23 @@ public class WrenchHook {
                 } finally {
                     IS_DISASSEMBLING.remove();
                 }
+            }
+        }
+        // rotate
+        else if (!alternateUseMode(player) && canRotate(itemStack)) {
+            IS_DISASSEMBLING.set(true);
+            try {
+                var be = level.getBlockEntity(hitResult.getBlockPos());
+                var pos = hitResult.getBlockPos();
+                var state = level.getBlockState(pos);
+                var clickedFace = hitResult.getDirection();
+                if (be instanceof FMBaseBlockEntity baseBlockEntity) {
+                    var result = baseBlockEntity.rotateOnAxis(level, hitResult, state, clickedFace);
+                    ItemHelper.damageStack(itemStack);
+                    return result;
+                }
+            } finally {
+                IS_DISASSEMBLING.remove();
             }
         }
 

@@ -28,7 +28,6 @@ public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity {
     @Override
     public void loadClientData (CompoundTag tag, HolderLookup.Provider registries) {
         super.loadClientData(tag, registries);
-        //IntTag intTag = new IntTag();
         energyStorage.deserializeNBT(registries, IntTag.valueOf(tag.getInt(Keys.POWER)));
     }
 

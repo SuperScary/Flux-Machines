@@ -1,6 +1,7 @@
 package net.superscary.fluxmachines.blockentity.base;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.data.BlockData;
@@ -137,7 +139,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
      * @param wrench    the {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.util.tags.FMTag.Items#WRENCH}
      * @return {@link InteractionResult}
      */
-    public InteractionResult disassembleWithWrench (Player player, Level level, BlockHitResult hitResult, ItemStack wrench) {
+    public InteractionResult disassemble (Player player, Level level, BlockHitResult hitResult, ItemStack wrench) {
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);
         var block = state.getBlock();
@@ -153,6 +155,20 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         block.playerWillDestroy(level, pos, state, player);
         level.removeBlock(pos, false);
         block.destroy(level, pos, getBlockState());
+        return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    // TODO: Y-rot not implemented. Facing down throws a IllegalStateException.
+    public InteractionResult rotateOnAxis (Level level, BlockHitResult hitResult, BlockState state, Direction direction) {
+        if (!level.isClientSide()) {
+            var currentDirection = state.getValue(BlockStateProperties.FACING);
+            if (direction != Direction.UP && direction != Direction.DOWN) {
+                level.setBlockAndUpdate(hitResult.getBlockPos(), state.setValue(BlockStateProperties.FACING, currentDirection.getClockWise()));
+            } else {
+                level.setBlockAndUpdate(hitResult.getBlockPos(), state.setValue(BlockStateProperties.FACING, currentDirection.getClockWise(Direction.Axis.X)));
+            }
+        }
+
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 

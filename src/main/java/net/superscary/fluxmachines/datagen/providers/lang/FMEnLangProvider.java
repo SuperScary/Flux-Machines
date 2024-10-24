@@ -45,6 +45,8 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(STEEL_HAMMER.asItem(), "Steel Hammer");
         add(WRENCH.asItem(), "Wrench");
 
+        add(REDSTONE_AND_STEEL.asItem(), "Redstone and Steel");
+
         add(HONEY_BUN.asItem(), "Honey Bun");
         add(HARD_BOILED_EGG.asItem(), "Hard Boiled Egg");
     }

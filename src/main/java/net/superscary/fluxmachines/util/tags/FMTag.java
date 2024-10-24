@@ -30,7 +30,6 @@ public class FMTag {
 
         public static final TagKey<Item> STEEL = createTag("steel");
         public static final TagKey<Item> DUST = createTag("dust");
-        public static final TagKey<Item> NUGGET = createTag("nugget");
 
         private static TagKey<Item> createTag (String key) {
             return ItemTags.create(FluxMachines.getResource(key));

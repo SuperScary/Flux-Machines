@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.superscary.fluxmachines.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "chunkloading.ChunkMapMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
