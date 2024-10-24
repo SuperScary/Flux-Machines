@@ -136,16 +136,16 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
      * @param player    {@link Player} the player
      * @param level     {@link Level} the level
      * @param hitResult {@link BlockHitResult} hit result of the interaction
-     * @param wrench    the {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.util.tags.FMTag.Items#WRENCH}
+     * @param stack    the {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.util.tags.FMTag.Items#WRENCH}
      * @return {@link InteractionResult}
      */
-    public InteractionResult disassemble (Player player, Level level, BlockHitResult hitResult, ItemStack wrench) {
+    public InteractionResult disassemble (Player player, Level level, BlockHitResult hitResult, ItemStack stack) {
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);
         var block = state.getBlock();
 
         if (level instanceof ServerLevel serverLevel) {
-            var drops = Block.getDrops(state, serverLevel, pos, this, player, wrench);
+            var drops = Block.getDrops(state, serverLevel, pos, this, player, stack);
 
             for (var item : drops) {
                 Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), item);
@@ -158,13 +158,13 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
-    // TODO: Y-rot not implemented. Facing down throws a IllegalStateException.
     public InteractionResult rotateOnAxis (Level level, BlockHitResult hitResult, BlockState state, Direction direction) {
         if (!level.isClientSide()) {
             var currentDirection = state.getValue(BlockStateProperties.FACING);
             if (direction != Direction.UP && direction != Direction.DOWN) {
                 level.setBlockAndUpdate(hitResult.getBlockPos(), state.setValue(BlockStateProperties.FACING, currentDirection.getClockWise()));
             } else {
+                // UP AND DOWN HANDLING
                 level.setBlockAndUpdate(hitResult.getBlockPos(), state.setValue(BlockStateProperties.FACING, currentDirection.getClockWise(Direction.Axis.X)));
             }
         }
