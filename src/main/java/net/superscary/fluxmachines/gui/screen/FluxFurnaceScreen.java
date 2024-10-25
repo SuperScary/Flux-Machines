@@ -11,7 +11,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.gui.EnergyDisplayTooltipArea;
 import net.superscary.fluxmachines.gui.menu.FluxFurnaceMenu;
-import net.superscary.fluxmachines.util.helper.MouseUtil;
+import net.superscary.fluxmachines.core.util.helper.MouseUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;

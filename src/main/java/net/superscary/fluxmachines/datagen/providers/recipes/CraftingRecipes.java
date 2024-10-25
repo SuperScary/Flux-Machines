@@ -11,13 +11,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.util.tags.FMTag;
+import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.*;
-import static net.superscary.fluxmachines.registries.FMItems.*;
+import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
+import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class CraftingRecipes extends FMRecipeProvider {
 

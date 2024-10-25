@@ -9,13 +9,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.registries.FMItems;
+import net.superscary.fluxmachines.core.registries.FMItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMItems.HARD_BOILED_EGG;
-import static net.superscary.fluxmachines.registries.FMItems.STEEL_DUST;
+import static net.superscary.fluxmachines.core.registries.FMItems.HARD_BOILED_EGG;
+import static net.superscary.fluxmachines.core.registries.FMItems.STEEL_DUST;
 
 public class SmeltingRecipes extends FMRecipeProvider {
 

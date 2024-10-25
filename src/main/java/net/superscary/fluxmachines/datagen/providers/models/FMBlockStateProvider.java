@@ -15,7 +15,7 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.util.block.BlockDefinition;
+import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 
 public abstract class FMBlockStateProvider extends BlockStateProvider implements IDataProvider {
 

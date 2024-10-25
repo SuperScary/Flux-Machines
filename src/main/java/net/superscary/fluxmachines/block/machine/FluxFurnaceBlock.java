@@ -27,8 +27,7 @@ import net.superscary.fluxmachines.block.base.BaseBlock;
 import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.blockentity.machine.FluxFurnaceBlockEntity;
-import net.superscary.fluxmachines.registries.FMBlocks;
-import net.superscary.fluxmachines.util.tags.FMTag;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,8 +47,8 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
     }
 
     @Override
-    protected ItemInteractionResult useItemOn (ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!level.isClientSide() && !stack.is(FMTag.Items.WRENCH)) {
+    protected @NotNull ItemInteractionResult useItemOn (ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof FluxFurnaceBlockEntity blockEntity) {
                 player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.fluxmachines.flux_furnace")), pos);

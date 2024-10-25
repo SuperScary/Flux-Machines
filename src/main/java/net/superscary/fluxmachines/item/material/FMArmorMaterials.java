@@ -9,7 +9,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.registries.FMItems;
+import net.superscary.fluxmachines.core.registries.FMItems;
 
 import java.util.EnumMap;
 import java.util.List;

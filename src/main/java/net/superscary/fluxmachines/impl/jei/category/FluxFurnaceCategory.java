@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.impl.jei.BaseCategory;
 import net.superscary.fluxmachines.impl.jei.util.JTexture;
-import net.superscary.fluxmachines.registries.FMBlocks;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
 import org.jetbrains.annotations.NotNull;
 
 public class FluxFurnaceCategory extends BaseCategory<SmeltingRecipe> {

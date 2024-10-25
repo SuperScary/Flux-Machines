@@ -13,13 +13,13 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.util.block.BlockDefinition;
-import net.superscary.fluxmachines.util.item.ItemDefinition;
+import net.superscary.fluxmachines.core.util.block.BlockDefinition;
+import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
 import java.util.LinkedHashMap;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.FLUX_FURNACE;
-import static net.superscary.fluxmachines.registries.FMItems.*;
+import static net.superscary.fluxmachines.core.registries.FMBlocks.FLUX_FURNACE;
+import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class FMItemModelProvider extends ItemModelProvider implements IDataProvider {
 

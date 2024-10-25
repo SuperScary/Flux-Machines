@@ -12,24 +12,25 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
-
-import static net.superscary.fluxmachines.registries.FMBlocks.*;
-import static net.superscary.fluxmachines.registries.FMItems.*;
 
 public class DropProvider extends BlockLootSubProvider {
 
@@ -46,7 +47,7 @@ public class DropProvider extends BlockLootSubProvider {
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected Iterable<Block> getKnownBlocks () {
         return BuiltInRegistries.BLOCK.stream().filter(entry -> entry.getLootTable().location().getNamespace().equals(FluxMachines.MODID))
                 .toList();
     }
@@ -54,8 +55,15 @@ public class DropProvider extends BlockLootSubProvider {
     @Override
     public void generate () {
         for (var block : getKnownBlocks()) {
-            add(block, overrides.getOrDefault(block, this::defaultBuilder).apply(block));
+            if (block instanceof FMBaseEntityBlock<?> entityBlock) {
+                this.dropSelfWithState(entityBlock, new Property[]{
+                        BlockStateProperties.CRAFTING
+                });
+            } else {
+                add(block, overrides.getOrDefault(block, this::defaultBuilder).apply(block));
+            }
         }
+
     }
 
     private LootTable.Builder defaultBuilder (Block block) {
@@ -70,6 +78,23 @@ public class DropProvider extends BlockLootSubProvider {
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
                         .apply(ApplyBonusCount.addUniformBonusCount(getEnchantment(Enchantments.FORTUNE)))
                         .apply(ApplyExplosionDecay.explosionDecay()));
+    }
+
+    private void dropSelfWithState (Block block, Property<?>[] properties) {
+        CopyBlockState.Builder blockStateBuilder = CopyBlockState.copyState(block);
+        for (Property<?> property : properties) {
+            blockStateBuilder.copy(property);
+        }
+        LootPoolSingletonContainer.Builder<?> itemLootBuilder = LootItem.lootTableItem(block);
+        itemLootBuilder.apply(blockStateBuilder);
+        LootPool.Builder lootPoolBuilder = LootPool.lootPool();
+        lootPoolBuilder.setRolls(ConstantValue.exactly(1.0f));
+        lootPoolBuilder.add(itemLootBuilder);
+
+        lootPoolBuilder = applyExplosionCondition(block, lootPoolBuilder);
+        LootTable.Builder lootTableBuilder = LootTable.lootTable();
+        lootTableBuilder.withPool(lootPoolBuilder);
+        this.add(block, lootTableBuilder);
     }
 
     protected final Holder<Enchantment> getEnchantment (ResourceKey<Enchantment> key) {

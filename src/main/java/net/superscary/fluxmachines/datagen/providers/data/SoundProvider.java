@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.sound.FMSounds;
+import net.superscary.fluxmachines.core.sound.FMSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class SoundProvider extends SoundDefinitionsProvider implements IDataProvider {

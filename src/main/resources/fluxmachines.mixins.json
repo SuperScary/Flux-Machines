@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.superscary.fluxmachines.mixins",
+  "package": "net.superscary.fluxmachines.core.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "chunkloading.ChunkMapMixin"

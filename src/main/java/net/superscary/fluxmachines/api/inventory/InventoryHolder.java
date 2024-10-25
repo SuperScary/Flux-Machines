@@ -4,6 +4,6 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 
 public interface InventoryHolder {
 
-    ItemStackHandler getInventory();
+    ItemStackHandler getInventory ();
 
 }

@@ -5,8 +5,8 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.*;
-import static net.superscary.fluxmachines.registries.FMItems.*;
+import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
+import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class FMEnLangProvider extends LanguageProvider implements IDataProvider {
 
@@ -66,6 +66,9 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
         add("gui.fluxmachines.progress", "Progress: "); // the space is important!!!!
         add("gui.fluxmachines.idle", "Idle");
+
+        add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
+        add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");
 
         add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");
         add("armor.status.effect.kb2.tooltip", "§8- Knockback II§r");

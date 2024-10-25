@@ -14,16 +14,14 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import net.superscary.fluxmachines.hook.HammerHook;
-import net.superscary.fluxmachines.hook.RedstoneHook;
-import net.superscary.fluxmachines.hook.WrenchHook;
+import net.superscary.fluxmachines.core.hook.BlockHook;
+import net.superscary.fluxmachines.core.hook.HammerHook;
+import net.superscary.fluxmachines.core.hook.RedstoneHook;
+import net.superscary.fluxmachines.core.hook.WrenchHook;
 import net.superscary.fluxmachines.impl.top.FMTopPlugin;
 import net.superscary.fluxmachines.item.material.FMArmorMaterials;
-import net.superscary.fluxmachines.registries.FMBlockEntities;
-import net.superscary.fluxmachines.registries.FMBlocks;
-import net.superscary.fluxmachines.registries.FMItems;
-import net.superscary.fluxmachines.registries.FMMenus;
-import net.superscary.fluxmachines.sound.FMSounds;
+import net.superscary.fluxmachines.core.registries.*;
+import net.superscary.fluxmachines.core.sound.FMSounds;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -39,12 +37,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         }
         INSTANCE = this;
 
-        FMArmorMaterials.REGISTRY.register(modEventBus);
-        FMBlocks.REGISTRY.register(modEventBus);
-        FMItems.REGISTRY.register(modEventBus);
-        FMBlockEntities.REGISTRY.register(modEventBus);
-        FMMenus.REGISTRY.register(modEventBus);
-        FMSounds.REGISTRY.register(modEventBus);
+        registerAll(modEventBus);
 
         modEventBus.addListener(Tab::initExternal);
         modEventBus.addListener(this::registerCapabilities);
@@ -62,11 +55,23 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(WrenchHook::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(HammerHook::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(RedstoneHook::onPlayerUseBlockEvent);
+        NeoForge.EVENT_BUS.addListener(BlockHook::place);
 
     }
 
     private void registerCreativeTabs () {
         Tab.init(BuiltInRegistries.CREATIVE_MODE_TAB);
+    }
+
+    private void registerAll (IEventBus modEventBus) {
+        FMArmorMaterials.REGISTRY.register(modEventBus);
+        FMDataAttachments.REGISTRY.register(modEventBus);
+        FMDataComponents.REGISTRY.register(modEventBus);
+        FMBlocks.REGISTRY.register(modEventBus);
+        FMItems.REGISTRY.register(modEventBus);
+        FMBlockEntities.REGISTRY.register(modEventBus);
+        FMMenus.REGISTRY.register(modEventBus);
+        FMSounds.REGISTRY.register(modEventBus);
     }
 
     private void commonSetup (FMLCommonSetupEvent event) {

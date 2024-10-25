@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMItems.HARD_BOILED_EGG;
+import static net.superscary.fluxmachines.core.registries.FMItems.HARD_BOILED_EGG;
 
 public class CompostableProvider extends DataMapProvider {
 

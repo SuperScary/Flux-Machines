@@ -9,14 +9,14 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.registries.FMItems;
-import net.superscary.fluxmachines.util.tags.FMTag;
+import net.superscary.fluxmachines.core.registries.FMItems;
+import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.registries.FMItems.*;
+import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class FMItemTagGenerator extends ItemTagsProvider implements IDataProvider {
 

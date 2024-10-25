@@ -34,8 +34,8 @@ import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.SimpleTier;
 import net.superscary.fluxmachines.item.base.BaseItem;
-import net.superscary.fluxmachines.registries.FMItems;
-import net.superscary.fluxmachines.util.tags.FMTag;
+import net.superscary.fluxmachines.core.registries.FMItems;
+import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;

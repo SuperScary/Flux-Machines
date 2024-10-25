@@ -11,10 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.superscary.fluxmachines.blockentity.machine.FluxFurnaceBlockEntity;
-import net.superscary.fluxmachines.registries.FMBlocks;
-import net.superscary.fluxmachines.registries.FMMenus;
-import net.superscary.fluxmachines.util.inventory.OutputSlot;
-import net.superscary.fluxmachines.util.inventory.QuickMoveStack;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
+import net.superscary.fluxmachines.core.registries.FMMenus;
+import net.superscary.fluxmachines.core.util.inventory.slots.OutputSlot;
+import net.superscary.fluxmachines.core.util.inventory.QuickMoveStack;
 import org.jetbrains.annotations.NotNull;
 
 public class FluxFurnaceMenu extends AbstractContainerMenu {

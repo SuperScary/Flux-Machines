@@ -8,7 +8,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.superscary.fluxmachines.util.item.ItemDefinition;
+import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

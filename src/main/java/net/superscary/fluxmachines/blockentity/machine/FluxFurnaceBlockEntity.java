@@ -23,8 +23,9 @@ import net.superscary.fluxmachines.api.blockentity.Crafter;
 import net.superscary.fluxmachines.api.blockentity.EnergizedCrafter;
 import net.superscary.fluxmachines.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.blockentity.base.FMBasePoweredBlockEntity;
+import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.gui.menu.FluxFurnaceMenu;
-import net.superscary.fluxmachines.util.keys.Keys;
+import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -38,7 +39,11 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
     private boolean isCrafting = false;
 
     public FluxFurnaceBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
-        super(type, pos, blockState, 100_000, 256);
+        this(type, pos, blockState, 0);
+    }
+
+    public FluxFurnaceBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, int current) {
+        super(type, pos, blockState, 100_000, 256, current);
         progress = 0;
     }
 
@@ -109,8 +114,9 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
         var recipe = getCurrentRecipe();
         if (recipe.isEmpty()) return false;
         var result = recipe.get().value().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
-
-        return canInsertAmount(result.getCount()) && canInsertItem(result.getItem()) && hasEnoughEnergy(getEnergyAmount());
+        var hasRecipe = canInsertAmount(result.getCount()) && canInsertItem(result.getItem()) && hasEnoughEnergy(getEnergyAmount());
+        getBlockState().setValue(BlockStateProperties.CRAFTING, hasRecipe);
+        return hasRecipe;
     }
 
     @Override

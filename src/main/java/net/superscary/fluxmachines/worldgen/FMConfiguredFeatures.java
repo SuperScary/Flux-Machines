@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.registries.FMBlocks;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
 
 import java.util.List;
 

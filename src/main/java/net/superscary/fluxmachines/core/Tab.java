@@ -10,9 +10,9 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.superscary.fluxmachines.block.base.BaseBlock;
 import net.superscary.fluxmachines.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.item.base.BaseItem;
-import net.superscary.fluxmachines.registries.FMItems;
-import net.superscary.fluxmachines.util.keys.Keys;
-import net.superscary.fluxmachines.util.item.ItemDefinition;
+import net.superscary.fluxmachines.core.registries.FMItems;
+import net.superscary.fluxmachines.core.util.keys.Keys;
+import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
 import java.util.ArrayList;
 import java.util.List;

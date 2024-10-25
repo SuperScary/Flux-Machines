@@ -13,8 +13,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,10 +23,18 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.data.BlockData;
 import net.superscary.fluxmachines.api.inventory.InventoryHolder;
-import net.superscary.fluxmachines.hook.WrenchHook;
-import net.superscary.fluxmachines.util.keys.Keys;
+import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
+import net.superscary.fluxmachines.core.components.InventoryComponent;
+import net.superscary.fluxmachines.core.hook.WrenchHook;
+import net.superscary.fluxmachines.core.registries.FMDataComponents;
+import net.superscary.fluxmachines.core.registries.FMItems;
+import net.superscary.fluxmachines.core.util.inventory.ContentDropper;
+import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder {
 
@@ -105,56 +113,56 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         loadClientData(tag, lookupProvider);
     }
 
-    /**
-     * Save entity data to the dropped item
-     * @param stack
-     * @param registries
-     */
-    @Override
-    public void saveToItem (@NotNull ItemStack stack, HolderLookup.@NotNull Provider registries) {
-        super.saveToItem(stack, registries);
-    }
-
     public void clearContents () {
         for (int i = 0; i < inventory.getSlots(); i++) {
             inventory.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
 
-    public void drops () {
-        var container = new SimpleContainer(getInventory().getSlots());
+    public void drops (ItemStackHandler inventory) {
+        var container = new SimpleContainer(inventory.getSlots());
         for (int i = 0; i < getInventory().getSlots(); i++) {
-            container.setItem(i, getInventory().getStackInSlot(i));
+            if (inventory.getStackInSlot(i).is(Items.AIR)) {
+                container.setItem(i, ItemStack.EMPTY);
+            } else {
+                container.setItem(i, inventory.getStackInSlot(i));
+            }
         }
         assert level != null;
-        Containers.dropContents(level, worldPosition, container);
+        ContentDropper.spawnDrops(level, worldPosition, container);
+    }
+
+    @Override
+    public void saveToItem (ItemStack stack, HolderLookup.Provider registries) {
+        super.saveToItem(stack, registries);
     }
 
     /**
-     * TODO: save data to item and drop that item rather than drop contents.
      * Allows disassembly with wrench. Called by {@link WrenchHook#onPlayerUseBlock(Player, Level, InteractionHand, BlockHitResult)}
      * @param player    {@link Player} the player
      * @param level     {@link Level} the level
      * @param hitResult {@link BlockHitResult} hit result of the interaction
-     * @param stack    the {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.util.tags.FMTag.Items#WRENCH}
+     * @param stack     {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.core.util.tags.FMTag.Items#WRENCH}
      * @return {@link InteractionResult}
      */
-    public InteractionResult disassemble (Player player, Level level, BlockHitResult hitResult, ItemStack stack) {
+    public InteractionResult disassemble (Player player, Level level, BlockHitResult hitResult, ItemStack stack, @Nullable ItemStack existingData) {
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);
-        var block = state.getBlock();
+        var block = (FMBaseEntityBlock<?>) state.getBlock();
+        var itemstack = getEither(existingData, new ItemStack(block));
 
-        if (level instanceof ServerLevel serverLevel) {
-            var drops = Block.getDrops(state, serverLevel, pos, this, player, stack);
-
-            for (var item : drops) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), item);
+        if (level instanceof ServerLevel) {
+            List<ItemStack> inventory = new ArrayList<>();
+            for (int i = 0; i < getInventory().getSlots(); i++) {
+                inventory.add(i, getInventory().getStackInSlot(i));
             }
+
+            InventoryComponent inventoryComponent = new InventoryComponent(inventory);
+            itemstack.set(FMDataComponents.INVENTORY, inventoryComponent);
+            ContentDropper.drop(level, pos, itemstack);
         }
 
-        block.playerWillDestroy(level, pos, state, player);
-        level.removeBlock(pos, false);
-        block.destroy(level, pos, getBlockState());
+        block.destroyBlockByWrench(player, state, level, pos, false);
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
@@ -172,8 +180,31 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
+    /**
+     * Sets stored data level from via {@link FMDataComponents}
+     * @param stack the itemstack containing data.
+     */
+    public void setData (ItemStack stack) {
+        if (stack.has(FMDataComponents.INVENTORY)) {
+            var inventoryComponent = stack.get(FMDataComponents.INVENTORY);
+            for (int i = 0; i < getInventory().getSlots(); i++) {
+                var itemstack = inventoryComponent.inventory().get(i);
+                if (itemstack.is(FMItems.EMPTY.asItem())) {
+                    getInventory().setStackInSlot(i, ItemStack.EMPTY);
+                } else {
+                    getInventory().setStackInSlot(i, itemstack);
+                }
+            }
+        }
+    }
+
     @Override
     public ItemStackHandler getInventory () {
         return inventory;
     }
+
+    public <T> T getEither (T obj, T obj2) {
+        return obj != null ? obj : obj2;
+    }
+
 }

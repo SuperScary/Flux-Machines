@@ -10,12 +10,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.util.block.BlockDefinition;
+import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
 
-import static net.superscary.fluxmachines.registries.FMBlocks.*;
+import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
 
 public class BlockModelProvider extends FMBlockStateProvider {
 

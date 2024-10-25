@@ -14,8 +14,8 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.registries.FMBlocks;
-import net.superscary.fluxmachines.registries.FMItems;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
+import net.superscary.fluxmachines.core.registries.FMItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static net.superscary.fluxmachines.registries.FMItems.STEEL_INGOT;
-import static net.superscary.fluxmachines.registries.FMItems.HARD_BOILED_EGG;
+import static net.superscary.fluxmachines.core.registries.FMItems.STEEL_INGOT;
+import static net.superscary.fluxmachines.core.registries.FMItems.HARD_BOILED_EGG;
 
 public class AchievementProvider extends AdvancementProvider {
 

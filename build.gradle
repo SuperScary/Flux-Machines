@@ -131,7 +131,11 @@ dependencies {
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
     // TOP
-    implementation "mcjty.theoneprobe:theoneprobe:${top_version}"
+    implementation("mcjty.theoneprobe:theoneprobe:${top_version}")
+
+    // PATCHOULI
+    implementation("vazkii.patchouli:Patchouli:${patchouli_version}")
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

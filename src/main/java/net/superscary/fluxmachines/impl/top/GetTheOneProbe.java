@@ -15,7 +15,7 @@ import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.util.helper.MathHelper;
+import net.superscary.fluxmachines.core.util.helper.MathHelper;
 
 import java.util.function.Function;
 

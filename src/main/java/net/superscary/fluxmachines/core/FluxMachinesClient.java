@@ -8,8 +8,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.superscary.fluxmachines.gui.screen.FluxFurnaceScreen;
-import net.superscary.fluxmachines.registries.FMBlocks;
-import net.superscary.fluxmachines.registries.FMMenus;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
+import net.superscary.fluxmachines.core.registries.FMMenus;
 
 public class FluxMachinesClient extends FluxMachinesBase {
 
