@@ -78,7 +78,6 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
 
     @Override
     public void tick (Level pLevel, BlockPos pPos, BlockState pState) {
-        var block = (FluxFurnaceBlock) pState.getBlock();
         if (TESTING) getEnergyStorage().receiveEnergy(10000, false); // TODO: not for production
         if (hasRecipe()) {
             isCrafting = true;
@@ -97,7 +96,7 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
             isCrafting = false;
             progress = 0;
         }
-        setChanged();
+        super.tick(pLevel, pPos, pState);
     }
 
     @Override
@@ -188,4 +187,13 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
         return max != 0 && progress != 0 ? progress * arrowSize / max : 0;
     }
 
+    @Override
+    public int decayPercentageChance () {
+        return 30;
+    }
+
+    @Override
+    public int decayAmount () {
+        return 4;
+    }
 }

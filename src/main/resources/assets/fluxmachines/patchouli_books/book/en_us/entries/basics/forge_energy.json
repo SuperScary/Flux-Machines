@@ -1,0 +1,15 @@
+{
+  "name": "Forge Energy (FE)",
+  "icon": "minecraft:nether_star",
+  "category": "fluxmachines:basics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Forge Energy (FE) is a power system used by many mods in Minecraft. It is a universal power system that can be used to power machines and other devices. Forge Energy is measured in FE, and can be transferred using cables and other power transfer methods. Flux Machines uses Forge Energy as its power system. "
+    },
+    {
+        "type": "text",
+        "text": "Forge Energy can be generated using various methods, such as generators, solar panels, and other power sources. It can be stored in energy storage blocks, such as batteries and energy cells. Forge Energy can be transferred using cables, such as Flux Cables, and other power transfer methods."
+    }
+  ]
+}

@@ -134,7 +134,8 @@ dependencies {
     implementation("mcjty.theoneprobe:theoneprobe:${top_version}")
 
     // PATCHOULI
-    implementation("vazkii.patchouli:Patchouli:${patchouli_version}")
+    compileOnly("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+    localRuntime("vazkii.patchouli:Patchouli:${patchouli_version}")
 
 }
 

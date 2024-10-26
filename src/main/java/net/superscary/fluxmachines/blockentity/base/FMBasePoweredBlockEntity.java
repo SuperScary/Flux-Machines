@@ -12,13 +12,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.superscary.fluxmachines.api.energy.Decays;
+import net.superscary.fluxmachines.api.energy.EnergyDecay;
 import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
 import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity {
+public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity implements EnergyDecay, Decays {
 
     private final FMEnergyStorage energyStorage;
     private int energy = 0;
@@ -66,7 +68,12 @@ public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity {
         return super.disassemble(player, level, hitResult, stack, itemstack);
     }
 
-    public abstract void tick (Level pLevel, BlockPos pPos, BlockState pState);
+    public void tick (Level pLevel, BlockPos pPos, BlockState pState) {
+        if (decayChance(decayPercentageChance())) {
+            decayEnergy(decayAmount(), getEnergyStorage());
+        }
+        setChanged();
+    }
 
     @Override
     public void setData (ItemStack stack) {

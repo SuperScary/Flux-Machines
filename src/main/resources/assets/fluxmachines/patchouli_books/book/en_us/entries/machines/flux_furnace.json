@@ -1,0 +1,24 @@
+{
+  "name": "Flux Furnace",
+  "icon": "fluxmachines:flux_furnace",
+  "category": "fluxmachines:machines",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Flux Furnace is a machine that can smelt items at a faster rate than a regular furnace. It requires FE to operate, and can be upgraded to smelt items even faster."
+    },
+    {
+      "type": "text",
+      "text": "The Flux Furnace has 3 upgrade slots, which can be used to upgrade the speed of the furnace. The upgrades can be crafted and placed in the upgrade slots to increase the speed of the furnace."
+    },
+    {
+      "type": "text",
+      "text": "The Flux Furnace can be powered by connecting it to a Flux Generator or any other FE power source. The Flux Furnace will not work without power."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "fluxmachines:machine/flux_furnace",
+      "text": "The Flux Furnace can be crafted using the following recipe: 6 Steel Ingots, 1 Furnace, 1 Redstone Torch, 1 Machine Casing."
+    }
+  ]
+}

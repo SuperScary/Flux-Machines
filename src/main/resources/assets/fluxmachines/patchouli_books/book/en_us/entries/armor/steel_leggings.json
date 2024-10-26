@@ -1,0 +1,16 @@
+{
+  "name": "Steel Leggings",
+  "icon": "fluxmachines:steel_leggings",
+  "category": "fluxmachines:armor",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Steel Leggings are piece of armor that provides protection to the player. It is crafted using Steel Ingots, and provides more protection than a regular Iron Leggings."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "fluxmachines:armor/steel_leggings",
+      "text": "Steel Leggings can be crafted using the following recipe: 7 Steel Ingots."
+    }
+  ]
+}

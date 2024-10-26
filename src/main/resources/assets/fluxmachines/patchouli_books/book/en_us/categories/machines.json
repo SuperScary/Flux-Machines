@@ -1,0 +1,6 @@
+{
+  "name": "Machines",
+  "description": "The backbone of Flux Machines. Create automated systems, massive power generation, and more.",
+  "icon": "fluxmachines:flux_furnace",
+  "sortnum": 2
+}

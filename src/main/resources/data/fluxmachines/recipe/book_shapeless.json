@@ -1,0 +1,10 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "fluxmachines:steel_dust"
+    }
+  ],
+  "book": "fluxmachines:book"
+}

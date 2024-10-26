@@ -1,0 +1,16 @@
+{
+  "name": "Machine Casing",
+  "icon": "fluxmachines:machine_casing",
+  "category": "fluxmachines:machines",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Machine Casing is a block that is used to craft machines in the Flux Machines mod. It is used as the basis for all mechanical machines."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "fluxmachines:machine_part/machine_casing",
+      "text": "The Flux Furnace can be crafted using the following recipe: 4 Steel Ingots, 4 Iron Ingots, 1 Glass."
+    }
+  ]
+}

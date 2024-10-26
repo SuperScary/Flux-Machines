@@ -29,7 +29,7 @@ version = "${mod_version}" #mandatory
 displayName = "${mod_name}" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
-updateJSONURL="https://github.com/SuperScary/Flux-Machines/blob/main/updates.json" #optional
+#updateJSONURL="https://github.com/SuperScary/Flux-Machines/blob/main/updates.json" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://github.com/SuperScary/Flux-Machines/wiki" #optional

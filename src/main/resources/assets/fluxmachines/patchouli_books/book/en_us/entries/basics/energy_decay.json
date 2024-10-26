@@ -1,0 +1,15 @@
+{
+  "name": "Energy Decay",
+  "icon": "minecraft:nether_star",
+  "category": "fluxmachines:basics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Energy Decay is a mechanic in Flux Machines that causes energy to be lost when transferring power over long distances or when a machine is powered and working/idle. Energy Decay is caused by the resistance of the power transfer method, and can be reduced by using better cables and power transfer methods."
+    },
+    {
+      "type": "text",
+      "text": "Energy Decay can be reduced by using Flux Cables, which have a lower resistance than other power transfer methods. Energy Decay can be reduced by using energy storage blocks, such as batteries and energy cells, to store energy and reduce the amount of energy lost. Machines can be modified to reduce Energy Decay by using energy efficiency upgrades, which reduce the amount of energy lost when working/idle. "
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Wrench",
+  "icon": "fluxmachines:wrench",
+  "category": "fluxmachines:tools",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The wrench is a tool used to rotate blocks in the world. It is used to rotate blocks like the Flux Furnace, and the Flux Machines based on the Machine Casing. To use the wrench, simply right-click on the block you want to rotate. It will also save data to machines and break them by shift-right clicking."
+    },
+    {
+      "type": "crafting",
+      "recipe": "fluxmachines:tool/wrench",
+      "text": "The wrench can be crafted using 3 Steel Ingots and 1 Gold Ingot in a crafting table."
+    }
+  ]
+}

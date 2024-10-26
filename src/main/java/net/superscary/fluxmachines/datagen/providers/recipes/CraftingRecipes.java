@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +53,7 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .pattern("D D")
                 .pattern(" G ")
                 .pattern(" D ")
-                .define('D', FMTag.Items.STEEL)
+                .define('D', STEEL_INGOT)
                 .define('G', Items.GOLD_INGOT)
                 .unlockedBy("has_steel", has(STEEL_INGOT))
                 .save(consumer, FluxMachines.getResource("tool/wrench"));
@@ -91,7 +92,7 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .pattern("WGW")
                 .pattern("DWD")
                 .define('D', STEEL_INGOT)
-                .define('W', ItemTags.PLANKS)
+                .define('W', Items.IRON_INGOT)
                 .define('G', Tags.Items.GLASS_BLOCKS)
                 .unlockedBy("has_steel_ingot", has(STEEL_INGOT))
                 .save(consumer, FluxMachines.getResource("machine_part/machine_casing"));

@@ -1,0 +1,16 @@
+{
+  "name": "Getting Started",
+  "icon": "minecraft:nether_star",
+  "category": "fluxmachines:basics",
+  "priority": "true",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Hey $(playername)! Welcome to $(fm). Flux Machines is a mod about automation and ease of life. In this book, you will learn about the basics of Flux Machines and how to get started with the mod. Let's get started!"
+    },
+    {
+      "type": "text",
+      "text": "Flux Machines is a mod that adds new machines, blocks, and items to Minecraft. These machines can be used to automate tasks, such as ore processing, item sorting, and energy generation. Flux Machines is designed to be easy to use and understand, with a focus on simplicity and efficiency with a touch of complexity. To get started, smelt some Iron Ingots in a furnace!"
+    }
+  ]
+}

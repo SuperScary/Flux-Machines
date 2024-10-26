@@ -70,6 +70,9 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
         add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");
 
+        add("item.fluxmachines.patchouli.book.name", "Flux Machines");
+        add("item.fluxmachines.patchouli.book.subtitle", "Flux Machines & You");
+
         add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");
         add("armor.status.effect.kb2.tooltip", "§8- Knockback II§r");
     }
