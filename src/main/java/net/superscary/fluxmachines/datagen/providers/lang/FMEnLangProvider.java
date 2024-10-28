@@ -66,6 +66,9 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
         add("gui.fluxmachines.progress", "Progress: "); // the space is important!!!!
         add("gui.fluxmachines.idle", "Idle");
+        add("gui.fluxmachines.gui.settings.right", "Right Click to Expand");
+        add("gui.fluxmachines.gui.settings.left", "Left Click to Expand");
+        add("gui.fluxmachines.gui.settings", "Settings");
 
         add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
         add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.level.BlockEvent;
-import net.superscary.fluxmachines.item.tool.SteelTool;
+import net.superscary.fluxmachines.core.item.tool.SteelTool;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
 
 import java.util.HashSet;

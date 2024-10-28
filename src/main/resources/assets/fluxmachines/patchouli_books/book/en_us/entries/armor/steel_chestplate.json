@@ -2,6 +2,7 @@
   "name": "Steel Chestplate",
   "icon": "fluxmachines:steel_chestplate",
   "category": "fluxmachines:armor",
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

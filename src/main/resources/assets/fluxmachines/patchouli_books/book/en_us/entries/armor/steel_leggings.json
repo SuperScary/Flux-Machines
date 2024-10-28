@@ -2,6 +2,7 @@
   "name": "Steel Leggings",
   "icon": "fluxmachines:steel_leggings",
   "category": "fluxmachines:armor",
+  "sortnum": 3,
   "pages": [
     {
       "type": "text",

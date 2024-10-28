@@ -2,6 +2,7 @@
   "name": "Steel Helmet",
   "icon": "fluxmachines:steel_helmet",
   "category": "fluxmachines:armor",
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

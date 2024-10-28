@@ -11,6 +11,7 @@ public class Keys {
     public static final ResourceKey<CreativeModeTab> MAIN = create(Registries.CREATIVE_MODE_TAB, "main");
 
     public static final String INVENTORY = "inventory";
+    public static final String INVENTORY_UPGRADE = "inventory_upgrade";
     public static final String POWER = "energy";
     public static final String FLUID = "fluid";
     public static final String MAX_PROGRESS = "max_progress";

@@ -6,8 +6,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.level.BlockEvent;
-import net.superscary.fluxmachines.block.base.FMBaseEntityBlock;
-import net.superscary.fluxmachines.blockentity.base.FMBasePoweredBlockEntity;
+import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
+import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 
 public class BlockHook {
 

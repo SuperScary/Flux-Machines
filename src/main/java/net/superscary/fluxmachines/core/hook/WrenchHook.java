@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.superscary.fluxmachines.blockentity.base.FMBaseBlockEntity;
+import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.util.helper.ItemHelper;
 import net.superscary.fluxmachines.core.util.helper.SoundHelper;
 import net.superscary.fluxmachines.core.util.tags.FMTag;

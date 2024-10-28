@@ -2,6 +2,7 @@
   "name": "Steel Boots",
   "icon": "fluxmachines:steel_boots",
   "category": "fluxmachines:armor",
+  "sortnum": 4,
   "pages": [
     {
       "type": "text",
