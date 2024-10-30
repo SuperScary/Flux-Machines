@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.core.hook;
+package net.superscary.fluxmachines.core.hooks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,13 +12,13 @@ import net.superscary.fluxmachines.core.util.tags.FMTag;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HammerHook {
+public class HammerHooks {
 
     // thanks CoFH
     private static final Set<BlockPos> HARVESTED_BLOCKS = new HashSet<>();
     private static final ThreadLocal<Boolean> IS_BREAKING = new ThreadLocal<>();
 
-    public HammerHook () {
+    public HammerHooks () {
 
     }
 

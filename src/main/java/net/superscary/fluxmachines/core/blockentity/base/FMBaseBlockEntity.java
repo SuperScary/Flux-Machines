@@ -19,14 +19,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.superscary.fluxmachines.api.blockentity.Upgradeable;
 import net.superscary.fluxmachines.api.data.BlockData;
 import net.superscary.fluxmachines.api.inventory.InventoryHolder;
+import net.superscary.fluxmachines.api.network.NetworkComponent;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.components.InventoryComponent;
-import net.superscary.fluxmachines.core.hook.WrenchHook;
+import net.superscary.fluxmachines.core.hooks.WrenchHooks;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.inventory.ContentDropper;
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder, Upgradeable {
+public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder, NetworkComponent {
 
     public final ItemStackHandler INVENTORY_SINGLE = new ItemStackHandler(5) {
         @Override
@@ -140,7 +141,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
     }
 
     /**
-     * Allows disassembly with wrench. Called by {@link WrenchHook#onPlayerUseBlock(Player, Level, InteractionHand, BlockHitResult)}
+     * Allows disassembly with wrench. Called by {@link WrenchHooks#onPlayerUseBlock(Player, Level, InteractionHand, BlockHitResult)}
      * @param player    {@link Player} the player
      * @param level     {@link Level} the level
      * @param hitResult {@link BlockHitResult} hit result of the interaction
@@ -199,6 +200,16 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
                 }
             }
         }
+    }
+
+    /**
+     * Saves and updates the block state to sync with Server and Client.
+     */
+    public void saveAndUpdate (Level level, BlockPos pos, BlockState state) {
+        assert level != null;
+        level.setBlockAndUpdate(pos, state);
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
+        setChanged();
     }
 
     @Override

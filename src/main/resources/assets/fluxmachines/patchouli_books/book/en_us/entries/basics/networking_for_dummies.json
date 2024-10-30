@@ -1,0 +1,20 @@
+{
+  "name": "Networking For Dummies",
+  "icon": "fluxmachines:textures/gui/elements/bullet.png",
+  "category": "fluxmachines:basics",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Networking is a key feature of $(fm) that allows you to connect multiple machines together to form a network. This network can be used to transfer items, fluids, and energy between machines, as well as to automate the processing of items."
+    },
+    {
+      "type": "text",
+      "text": "To create a network, you will need to connect the machines together using cables. There are 3 types of cables in $(fm): Item Cables, Fluid Cables, and Energy Cables. Each type of cable can transfer a different type of resource between machines."
+    },
+    {
+      "type": "text",
+      "text": "Machines that are connected form a link that allows them to communicate with each other. This link can be used to transfer items, fluids, and energy between machines, as well as to send signals to other machines in the network."
+    }
+  ]
+}

@@ -44,6 +44,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(STEEL_PAXEL.asItem(), "Steel Paxel");
         add(STEEL_HAMMER.asItem(), "Steel Hammer");
         add(WRENCH.asItem(), "Wrench");
+        add(DATA_LINK.asItem(), "Data Linker");
 
         add(REDSTONE_AND_STEEL.asItem(), "Redstone and Steel");
 
@@ -69,6 +70,11 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("gui.fluxmachines.gui.settings.right", "Right Click to Expand");
         add("gui.fluxmachines.gui.settings.left", "Left Click to Expand");
         add("gui.fluxmachines.gui.settings", "Settings");
+
+        add("message.fluxmachines.data_link_tool.copied_data", "§aCopied Data");
+        add("message.fluxmachines.data_link_tool.wrote_data", "§aWrote Data");
+        add("message.fluxmachines.data_link_tool.empty_data", "§cNo Data");
+        add("tooltip.fluxmachines.data_link_tool.has_data", "§aHas Data");
 
         add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
         add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");

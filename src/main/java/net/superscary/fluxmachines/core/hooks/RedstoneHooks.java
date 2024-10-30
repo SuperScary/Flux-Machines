@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.core.hook;
+package net.superscary.fluxmachines.core.hooks;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.superscary.fluxmachines.core.registries.FMItems;
 
 // TODO: Redstone signal not working on right click
-public class RedstoneHook {
+public class RedstoneHooks {
 
     public static void onPlayerUseBlockEvent (PlayerInteractEvent.RightClickBlock event) {
         if (event.isCanceled()) return;

@@ -1,7 +1,8 @@
 {
   "name": "Forge Energy (FE)",
-  "icon": "minecraft:nether_star",
+  "icon": "fluxmachines:textures/gui/elements/bullet.png",
   "category": "fluxmachines:basics",
+  "sortnum": 2,
   "pages": [
     {
       "type": "text",

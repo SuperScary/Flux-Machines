@@ -25,7 +25,9 @@ public final class SoundHelper {
 
         DECONSTRUCT (SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.7f, 1.0f),
         ROTATE (SoundEvents.PLAYER_SMALL_FALL, SoundSource.BLOCKS, 0.25f, 1.0f),
-        BREAK (SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1f, 1f);
+        BREAK (SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1f, 1f),
+        COPY_DATA (SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f),
+        WRITE_DATA (SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.PLAYERS, 1f, 1f),;
 
         private final SoundEvent soundEvent;
         private final SoundSource soundSource;

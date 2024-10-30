@@ -66,6 +66,19 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .unlockedBy("has_steel", has(STEEL_INGOT))
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer, FluxMachines.getResource("tool/redstone_and_steel"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, DATA_LINK, 1)
+                .pattern("SRS")
+                .pattern("SGS")
+                .pattern("SSS")
+                .define('S', STEEL_INGOT)
+                .define('G', Items.GOLD_INGOT)
+                .define('R', Items.REDSTONE)
+                .unlockedBy("has_steel", has(STEEL_INGOT))
+                .unlockedBy("has_gold", has(Items.GOLD_INGOT))
+                .unlockedBy("has_redstone", has(Items.REDSTONE))
+                .save(consumer, FluxMachines.getResource("tool/data_link"));
+
     }
 
     protected void machine (RecipeOutput consumer) {

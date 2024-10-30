@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.core.hook;
+package net.superscary.fluxmachines.core.hooks;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.world.InteractionHand;
@@ -16,11 +16,11 @@ import net.superscary.fluxmachines.core.util.tags.FMTag;
 import static net.superscary.fluxmachines.core.util.helper.SoundHelper.Sounds.DECONSTRUCT;
 import static net.superscary.fluxmachines.core.util.helper.SoundHelper.Sounds.ROTATE;
 
-public class WrenchHook {
+public class WrenchHooks {
 
     private static final ThreadLocal<Boolean> IS_DISASSEMBLING = new ThreadLocal<>();
 
-    private WrenchHook () {
+    private WrenchHooks () {
 
     }
 

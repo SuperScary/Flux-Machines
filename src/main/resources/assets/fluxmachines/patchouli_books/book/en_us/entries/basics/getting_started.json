@@ -1,8 +1,8 @@
 {
   "name": "Getting Started",
-  "icon": "minecraft:nether_star",
+  "icon": "fluxmachines:textures/gui/elements/bullet.png",
   "category": "fluxmachines:basics",
-  "priority": "true",
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

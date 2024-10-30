@@ -13,15 +13,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.superscary.fluxmachines.api.blockentity.Upgradeable;
-import net.superscary.fluxmachines.api.energy.Decays;
-import net.superscary.fluxmachines.api.energy.EnergyDecay;
+import net.superscary.fluxmachines.api.data.DataLinkInteract;
 import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
+import net.superscary.fluxmachines.api.energy.PoweredBlock;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity implements EnergyDecay, Upgradeable {
+public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity implements PoweredBlock, Upgradeable, DataLinkInteract {
 
     private final FMEnergyStorage energyStorage;
 
@@ -46,6 +46,7 @@ public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity impleme
         energyStorage.deserializeNBT(registries, IntTag.valueOf(tag.getInt(Keys.POWER)));
     }
 
+    @Override
     public FMEnergyStorage getEnergyStorage () {
         return energyStorage;
     }

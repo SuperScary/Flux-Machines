@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.api.blockentity;
+package net.superscary.fluxmachines.api.energy;
 
 import net.minecraft.world.item.Item;
 
@@ -9,7 +9,7 @@ public interface EnergizedCrafter {
 
     /**
      * Has enough energy to iterate once in the crafting process.
-     * @param required
+     * @param required the amount of energy required to do a single tick process
      * @return
      */
     boolean hasEnoughEnergy (int required);

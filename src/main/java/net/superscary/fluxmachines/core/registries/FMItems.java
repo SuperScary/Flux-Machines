@@ -11,6 +11,7 @@ import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.core.item.base.BaseFood;
 import net.superscary.fluxmachines.core.item.base.BaseItem;
 import net.superscary.fluxmachines.core.item.base.EmptyItem;
+import net.superscary.fluxmachines.core.item.tool.DataLinkTool;
 import net.superscary.fluxmachines.core.item.tool.RSItem;
 import net.superscary.fluxmachines.core.item.tool.SteelTool;
 import net.superscary.fluxmachines.core.item.tool.Wrench;
@@ -50,8 +51,8 @@ public class FMItems {
     public static final ItemDefinition<SteelTool.Hoe> STEEL_HOE = item("steel_hoe", SteelTool.Hoe::new);
     public static final ItemDefinition<SteelTool.Paxel> STEEL_PAXEL = item("steel_paxel", SteelTool.Paxel::new);
     public static final ItemDefinition<SteelTool.Hammer> STEEL_HAMMER = item("steel_hammer", SteelTool.Hammer::new);
-
     public static final ItemDefinition<Wrench> WRENCH = item("wrench", Wrench::new);
+    public static final ItemDefinition<DataLinkTool> DATA_LINK = item("data_link", DataLinkTool::new);
 
     public static final ItemDefinition<BaseFood> HONEY_BUN = item("honey_bun", BaseFood.HoneyBun::new);
     public static final ItemDefinition<BaseFood> HARD_BOILED_EGG = item("hard_boiled_egg", BaseFood.HardBoiledEgg::new);
@@ -80,12 +81,7 @@ public class FMItems {
         }
 
         ITEMS.add(definition);
-
         return definition;
-    }
-
-    public static void init () {
-
     }
 
 }

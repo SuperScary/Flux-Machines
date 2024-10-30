@@ -8,11 +8,13 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.minecraft.world.item.Items;
 import net.superscary.fluxmachines.api.blockentity.Crafter;
+import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
+import net.superscary.fluxmachines.api.energy.PoweredBlock;
 import net.superscary.fluxmachines.api.gui.GuiPower;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
+import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.helper.MouseUtil;
 import net.superscary.fluxmachines.gui.EnergyDisplayTooltipArea;
 import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
@@ -157,10 +159,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
      * Add the upgrade slots to the GUI
      */
     protected final void addUpgradeElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
-        graphics.blit(upgradeSlotGui, SETTINGS_PANEL_X_HALF - 18, y + 48, 0, 0, 18, 18, 18, 18);
-        graphics.blit(upgradeSlotGui, SETTINGS_PANEL_X_HALF, y + 48, 0, 0, 18, 18, 18, 18);
-        graphics.blit(upgradeSlotGui, SETTINGS_PANEL_X_HALF - 18, y + 66, 0, 0, 18, 18, 18, 18);
-        graphics.blit(upgradeSlotGui, SETTINGS_PANEL_X_HALF, y + 66, 0, 0, 18, 18, 18, 18);
+        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF - 18, y + 48, 0, 0, 18, 18, 18, 18);
+        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF, y + 48, 0, 0, 18, 18, 18, 18);
+        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF - 18, y + 66, 0, 0, 18, 18, 18, 18);
+        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF, y + 66, 0, 0, 18, 18, 18, 18);
     }
 
     public void addAdditionalElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
@@ -168,15 +170,9 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     public void renderEnergyArea (GuiGraphics guiGraphics) {
         if (isPoweredMenu()) {
-            GuiPower gui = (GuiPower) menu;
-            int power = gui.getPower();
-            int p = (int) ((power / (float) getEnergyStorage().getMaxEnergyStored()) * ENERGY_HEIGHT);
             int left = leftPos + ENERGY_LEFT;
             int top = topPos + ENERGY_TOP;
-            int e_left = left + ENERGY_WIDTH;
-            int e_top = top + ENERGY_HEIGHT;
-            guiGraphics.fillGradient(e_left, e_top, left, e_top - p, 0xff000000, 0xffff0000);
-            guiGraphics.fill(left, top, e_left, e_top - p, 0xff330000);
+            energyInfoArea.render(guiGraphics, left, top);
         }
     }
 
@@ -195,7 +191,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     private void assignEnergyInfoArea () {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        this.energyInfoArea = new EnergyDisplayTooltipArea(x + 10, y + 9, getEnergyStorage());
+        this.energyInfoArea = new EnergyDisplayTooltipArea(ENERGY_LEFT, ENERGY_TOP, getEnergyStorage(), ENERGY_WIDTH, ENERGY_HEIGHT);
     }
 
     private void renderOptionsAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
@@ -225,8 +221,8 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         return List.of(Component.translatable("gui.fluxmachines.gui.settings.left"));
     }
 
-    public IEnergyStorage getEnergyStorage () {
-        if (menu.blockEntity instanceof FMBasePoweredBlockEntity entity) {
+    public FMEnergyStorage getEnergyStorage () {
+        if (menu.blockEntity instanceof PoweredBlock entity) {
             return entity.getEnergyStorage();
         }
         return null;
@@ -239,6 +235,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     @SuppressWarnings("unused")
     public EnergyDisplayTooltipArea getEnergyInfoArea () {
         return energyInfoArea;
+    }
+
+    public ResourceLocation getUpgradeSlotGui () {
+        return upgradeSlotGui;
     }
 
 }

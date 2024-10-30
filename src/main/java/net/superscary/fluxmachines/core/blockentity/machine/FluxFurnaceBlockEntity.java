@@ -20,13 +20,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.blockentity.Crafter;
-import net.superscary.fluxmachines.api.blockentity.EnergizedCrafter;
+import net.superscary.fluxmachines.api.data.DataComponent;
+import net.superscary.fluxmachines.api.energy.EnergizedCrafter;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.util.block.FMBlockStates;
 import net.superscary.fluxmachines.core.util.keys.Keys;
 import net.superscary.fluxmachines.gui.menu.FluxFurnaceMenu;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -76,12 +78,12 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
     }
 
     @Override
-    public void tick (Level pLevel, BlockPos pPos, BlockState pState) {
+    public void tick (Level level, BlockPos pos, BlockState state) {
         if (TESTING) getEnergyStorage().receiveEnergy(10000, false); // TODO: not for production
         if (hasRecipe()) {
             isCrafting = true;
-            updateBlockState(pState.setValue(BlockStateProperties.POWERED, Boolean.TRUE));
-            updateBlockState(pState.setValue(FMBlockStates.REDSTONE_ON, Boolean.TRUE));
+            updateBlockState(state.setValue(BlockStateProperties.POWERED, Boolean.TRUE));
+            updateBlockState(state.setValue(FMBlockStates.REDSTONE_ON, Boolean.TRUE));
             increaseCraftingProgress();
             getEnergyStorage().extractEnergy(getEnergyAmount(), false);
             setChanged();
@@ -92,12 +94,12 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
                 isCrafting = false;
             }
         } else {
-            updateBlockState(pState.setValue(BlockStateProperties.POWERED, Boolean.FALSE));
-            updateBlockState(pState.setValue(FMBlockStates.REDSTONE_ON, Boolean.FALSE));
+            updateBlockState(state.setValue(BlockStateProperties.POWERED, Boolean.FALSE));
+            updateBlockState(state.setValue(FMBlockStates.REDSTONE_ON, Boolean.TRUE));
             isCrafting = false;
             progress = 0;
         }
-        super.tick(pLevel, pPos, pState);
+        super.tick(level, pos, state);
     }
 
     @Override
@@ -186,6 +188,16 @@ public class FluxFurnaceBlockEntity extends FMBasePoweredBlockEntity implements 
         int max = getMaxProgress();
         int arrowSize = 26;
         return max != 0 && progress != 0 ? progress * arrowSize / max : 0;
+    }
+
+    @Override
+    public List<DataComponent> getLinkedData () {
+        return List.of();
+    }
+
+    @Override
+    public void setLinkedData (List<DataComponent> data) {
+
     }
 
 }

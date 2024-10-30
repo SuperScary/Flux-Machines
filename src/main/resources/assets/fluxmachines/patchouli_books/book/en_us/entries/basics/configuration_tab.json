@@ -1,0 +1,20 @@
+{
+  "name": "Configuration Tab",
+  "icon": "fluxmachines:textures/gui/elements/bullet.png",
+  "category": "fluxmachines:basics",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Configuration Tab is a feature that allows you to configure the Flux Machines to your liking. You can access the Configuration Tab by opening the gui and clicking on the right side. Inside the tab, you can configure many of the settings of the machine as well as add modifiers."
+    },
+    {
+      "type": "text",
+      "text": "The Configuration Tab has 3 main sections: Configuration, Upgrades, and Modifiers. The Configuration section allows you to configure the settings of the machine, such as the input and output sides, the redstone mode, and the auto-eject mode. The Upgrades section allows you to add upgrades to the machine to increase its speed or efficiency. The Modifiers section allows you to add modifiers to the machine to change its behavior."
+    },
+    {
+      "type": "text",
+      "text": "Want to copy configurations between machines? Use the Data Link tool to copy the configuration of one machine and paste it onto another machine. This can save you time and effort when setting up multiple machines with the same configuration."
+    }
+  ]
+}

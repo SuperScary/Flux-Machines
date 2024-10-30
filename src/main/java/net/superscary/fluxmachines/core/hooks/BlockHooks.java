@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.core.hook;
+package net.superscary.fluxmachines.core.hooks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 
-public class BlockHook {
+public class BlockHooks {
 
     public static void place (BlockEvent.EntityPlaceEvent event) {
         if (event.getEntity() instanceof Player player) {
