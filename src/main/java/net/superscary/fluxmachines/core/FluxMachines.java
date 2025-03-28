@@ -4,6 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
@@ -11,6 +13,8 @@ public interface FluxMachines {
 
     String MODID = "fluxmachines";
     String NAME = "Flux Machines";
+
+    static Logger LOGGER = LoggerFactory.getLogger(NAME);
 
     static FluxMachines instance () {
         return FluxMachinesBase.INSTANCE;

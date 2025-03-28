@@ -13,11 +13,33 @@ import java.util.List;
 
 public class PoweredItem extends BaseItem implements Chargeable {
 
-    private FMEnergyStorage energyStorage;
+    private final FMEnergyStorage energyStorage;
 
-    public PoweredItem (Properties properties, int maxEnergy) {
-        super(properties.durability(maxEnergy));
-        this.energyStorage = new FMEnergyStorage(maxEnergy);
+    public PoweredItem (Properties properties, int capacity) {
+        this(properties, capacity, capacity, capacity, 0);
+    }
+
+    public PoweredItem (Properties properties, int capacity, int maxTransfer) {
+        this(properties, capacity, maxTransfer, maxTransfer, 0);
+    }
+
+    public PoweredItem (Properties properties, int capacity, int maxReceive, int maxExtract) {
+        this(properties, capacity, maxReceive, maxExtract, 0);
+    }
+
+    public PoweredItem (Properties properties, int capacity, int maxReceive, int maxExtract, int energy) {
+        super(properties.stacksTo(1));
+        this.energyStorage = new FMEnergyStorage(capacity, maxReceive, maxExtract, energy);
+    }
+
+    @Override
+    public int getMaxDamage (ItemStack stack) {
+        return getEnergyStorage().getMaxEnergyStored();
+    }
+
+    @Override
+    public int getDamage (ItemStack stack) {
+        return getEnergyStorage().getEnergyStored();
     }
 
     @Override
@@ -37,7 +59,7 @@ public class PoweredItem extends BaseItem implements Chargeable {
     @Override
     public void appendHoverText (ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.literal(getEnergyStorage().getEnergyStored() + "/" + getEnergyStorage().getMaxEnergyStored()));
+        tooltipComponents.add(Component.literal(getEnergyStorage().getEnergyStored() + "/" + getEnergyStorage().getMaxEnergyStored() + " FE"));
     }
 
     @Override

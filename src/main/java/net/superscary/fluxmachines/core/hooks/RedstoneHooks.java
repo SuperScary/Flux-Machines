@@ -15,7 +15,11 @@ public class RedstoneHooks {
 
     public static void onPlayerUseBlockEvent (PlayerInteractEvent.RightClickBlock event) {
         if (event.isCanceled()) return;
-        onPlayerUseBlock(event.getEntity(), event.getLevel(), event.getHand(), event.getHitVec());
+        var result = onPlayerUseBlock(event.getEntity(), event.getLevel(), event.getHand(), event.getHitVec());
+        if (result != InteractionResult.PASS) {
+            event.setCanceled(true);
+            event.setCancellationResult(result);
+        }
     }
 
     public static InteractionResult onPlayerUseBlock (Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {

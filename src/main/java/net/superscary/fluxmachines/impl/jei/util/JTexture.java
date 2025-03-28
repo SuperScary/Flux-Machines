@@ -5,9 +5,9 @@ import net.superscary.fluxmachines.core.FluxMachines;
 
 public class JTexture {
 
-    private ResourceLocation location;
-    private String modid;
-    private String path;
+    private final ResourceLocation location;
+    private final String modid;
+    private final String path;
 
     public JTexture (String path) {
         this(FluxMachines.getResource(path));

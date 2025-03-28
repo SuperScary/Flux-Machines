@@ -8,11 +8,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.superscary.fluxmachines.api.data.DataLinkInteract;
+import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.item.tool.DataLinkTool;
 import net.superscary.fluxmachines.core.registries.FMItems;
+import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.helper.ItemHelper;
 import net.superscary.fluxmachines.core.util.helper.SoundHelper;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
@@ -34,6 +37,7 @@ public class DataLinkHooks {
     public static void onPlayerUseBlockEvent (PlayerInteractEvent.RightClickBlock event) {
         Preconditions.checkArgument(!isCopyingOrWriting());
         if (event.isCanceled()) return;
+
         var result = onPlayerUseBlock(event.getEntity(), event.getLevel(), event.getHand(), event.getHitVec());
         if (result != InteractionResult.PASS) {
             event.setCanceled(true);
@@ -45,8 +49,13 @@ public class DataLinkHooks {
         if (player.isSpectator() || hand != InteractionHand.MAIN_HAND || level.isClientSide()) return InteractionResult.PASS;
         if (player.getItemInHand(hand).getItem() instanceof DataLinkTool dataLinkTool) {
             var item = dataLinkTool;
+
+            if (item.use(level, player, hand).getResult() == InteractionResult.SUCCESS) {
+                return InteractionResult.sidedSuccess(level.isClientSide());
+            }
+
             // write data to tool
-            if (alternateUseMode(player)) {
+            if (Utilities.alternateUseMode(player)) {
                 var be = level.getBlockEntity(hitResult.getBlockPos());
                 if (be instanceof DataLinkInteract baseBlockEntity) {
                     IS_COPYING_OR_WRITING.set(true);
@@ -64,12 +73,11 @@ public class DataLinkHooks {
             // read data from tool
             else {
                 var be = level.getBlockEntity(hitResult.getBlockPos());
-                if (be instanceof DataLinkInteract) {
+                if (be instanceof DataLinkInteract data) {
                     IS_COPYING_OR_WRITING.set(true);
                     try {
-                        var data = ((DataLinkInteract) be).getLinkedData();
-                        if (!data.isEmpty()) {
-                            data.addAll(item.getLinkedData());
+                        if (!data.getLinkedData().isEmpty()) {
+                            data.setLinkedData(item.getLinkedData());
                             player.sendSystemMessage(Component.translatable("message.fluxmachines.data_link_tool.wrote_data"));
                             SoundHelper.fire(level, player, hitResult.getBlockPos(), WRITE_DATA);
                         } else {
@@ -85,10 +93,6 @@ public class DataLinkHooks {
         }
 
         return InteractionResult.PASS;
-    }
-
-    public static boolean alternateUseMode (Player player) {
-        return player.isShiftKeyDown();
     }
 
 }

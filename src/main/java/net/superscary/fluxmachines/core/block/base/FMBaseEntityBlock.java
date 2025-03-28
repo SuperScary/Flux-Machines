@@ -26,18 +26,22 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.superscary.fluxmachines.api.data.PropertyComponent;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.block.FMBlockStates;
+import net.superscary.fluxmachines.core.util.helper.PropertyHelper;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.CRAFTING;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
 import static net.superscary.fluxmachines.core.util.block.FMBlockStates.ALLOW_REDSTONE;
 import static net.superscary.fluxmachines.core.util.block.FMBlockStates.REDSTONE_ON;
 
@@ -45,11 +49,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
 
     private Class<T> blockEntityClass;
     private BlockEntityType<T> blockEntityType;
-
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-
     private boolean disassemble = false;
-
     private final MapCodec<BaseBlock> codec = getCodec();
 
     public FMBaseEntityBlock (Properties properties) {
@@ -91,8 +92,9 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     @Nullable
     @Override
     public BlockState getStateForPlacement (BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(BlockStateProperties.POWERED, false)
-                .setValue(FACING, context.getNearestLookingDirection().getOpposite())
+        PropertyComponent<Direction> property = PropertyHelper.of(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(POWERED, false)
+                .setValue(property.getProperty(), property.getValue())
                 .setValue(CRAFTING, false)
                 .setValue(ALLOW_REDSTONE, true)
                 .setValue(FMBlockStates.REDSTONE_ON, false);
@@ -101,7 +103,7 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     @Override
     protected void createBlockStateDefinition (StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(BlockStateProperties.POWERED, FACING, CRAFTING, ALLOW_REDSTONE, REDSTONE_ON);
+        builder.add(POWERED, FACING, CRAFTING, ALLOW_REDSTONE, REDSTONE_ON);
     }
 
     @Override
@@ -110,7 +112,7 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     }
 
     @Override
-    protected void onRemove (BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean movedByPiston) {
+    protected void onRemove (@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
         remove(state, level, pos, newState, movedByPiston, getDisassembled());
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
@@ -132,13 +134,13 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     public void destroyBlockByWrench (Player player, BlockState state, @NotNull Level level, @NotNull BlockPos pos, boolean movedByPiston) {
         disassemble = true;
         playerWillDestroy(level, pos, state, player);
-        remove(state, level, pos, state, false, disassemble);
+        remove(state, level, pos, state, movedByPiston, disassemble);
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3, 512);
         disassemble = false;
     }
 
     @Override
-    public void appendHoverText (ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText (@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             if (stack.has(FMDataComponents.ENERGY_STORED) && stack.has(FMDataComponents.ENERGY_MAX)) {
                 DecimalFormat format = new DecimalFormat("#,###");
@@ -147,10 +149,10 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
 
             if (stack.has(FMDataComponents.INVENTORY)) {
                 var inventory = stack.get(FMDataComponents.INVENTORY);
-                for (int i = 0; i < inventory.inventory().size(); i++) {
+                for (int i = 0; i < Objects.requireNonNull(inventory).inventory().size(); i++) {
                     if (!inventory.inventory().get(i).is(FMItems.EMPTY.asItem()) && !inventory.inventory().get(i).is(Items.AIR)) {
                         var itemstack = inventory.inventory().get(i);
-                        tooltipComponents.add(Component.translatable("gui.fluxmachines.itemlist", i+1, itemstack.getCount(), itemstack.getDisplayName()));
+                        tooltipComponents.add(Component.translatable("gui.fluxmachines.itemlist", i + 1, itemstack.getCount(), itemstack.getDisplayName()));
                     }
                 }
             }
@@ -166,7 +168,7 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     }
 
     @Override
-    protected @NotNull ItemInteractionResult useItemOn (ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NotNull ItemInteractionResult useItemOn (ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (stack.is(FMTag.Items.WRENCH)) {
             return ItemInteractionResult.FAIL;
         }
@@ -174,13 +176,13 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     }
 
     @Override
-    protected int getSignal (BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        return state.getValue(BlockStateProperties.POWERED) && state.getValue(ALLOW_REDSTONE) && state.getValue(REDSTONE_ON) ? 15 : 0;
+    protected int getSignal (@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
+        return PropertyHelper.sameValue(state, POWERED, ALLOW_REDSTONE, REDSTONE_ON) ? 15 : 0;
     }
 
     @Override
-    protected int getDirectSignal (BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        return state.getValue(BlockStateProperties.POWERED) && state.getValue(ALLOW_REDSTONE) && state.getValue(REDSTONE_ON) && getConnectedDirection(state) == direction ? 15 : 0;
+    protected int getDirectSignal (@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
+        return getConnectedDirection(state) == direction ? 15 : 0;
     }
 
     @Override
@@ -192,18 +194,12 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
         return disassemble;
     }
 
-    protected static Direction getConnectedDirection(BlockState state) {
-        switch (state.getValue(BlockStateProperties.ATTACH_FACE)) {
-            case CEILING -> {
-                return Direction.DOWN;
-            }
-            case FLOOR -> {
-                return Direction.UP;
-            }
-            default -> {
-                return state.getValue(FACING);
-            }
-        }
+    protected static Direction getConnectedDirection (BlockState state) {
+        return switch (state.getValue(BlockStateProperties.ATTACH_FACE)) {
+            case CEILING -> Direction.DOWN;
+            case FLOOR -> Direction.UP;
+            default -> state.getValue(FACING);
+        };
     }
 
 }

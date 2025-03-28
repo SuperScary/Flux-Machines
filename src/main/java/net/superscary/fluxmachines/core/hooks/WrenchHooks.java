@@ -8,7 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.superscary.fluxmachines.api.blockentity.IWrenchable;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
+import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.helper.ItemHelper;
 import net.superscary.fluxmachines.core.util.helper.SoundHelper;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
@@ -43,9 +45,9 @@ public class WrenchHooks {
         var itemStack = player.getItemInHand(hand);
 
         // disassemble
-        if (alternateUseMode(player) && canDisassemble(itemStack)) {
+        if (Utilities.alternateUseMode(player) && canDisassemble(itemStack)) {
             var be = level.getBlockEntity(hitResult.getBlockPos());
-            if (be instanceof FMBaseBlockEntity baseBlockEntity) {
+            if (be instanceof IWrenchable baseBlockEntity) {
                 IS_DISASSEMBLING.set(true);
                 try {
                     var result = baseBlockEntity.disassemble(player, level, hitResult, itemStack, null);
@@ -62,7 +64,7 @@ public class WrenchHooks {
             }
         }
         // rotate
-        else if (!alternateUseMode(player) && canRotate(itemStack)) {
+        else if (!Utilities.alternateUseMode(player) && canRotate(itemStack)) {
             IS_DISASSEMBLING.set(true);
             try {
                 var be = level.getBlockEntity(hitResult.getBlockPos());
@@ -83,10 +85,6 @@ public class WrenchHooks {
         }
 
         return InteractionResult.PASS;
-    }
-
-    public static boolean alternateUseMode (Player player) {
-        return player.isShiftKeyDown();
     }
 
     public static boolean canDisassemble (ItemStack tool) {

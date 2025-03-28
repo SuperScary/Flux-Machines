@@ -16,6 +16,7 @@ import net.superscary.fluxmachines.datagen.providers.models.BlockModelProvider;
 import net.superscary.fluxmachines.datagen.providers.models.FMItemModelProvider;
 import net.superscary.fluxmachines.datagen.providers.recipes.BlastingRecipes;
 import net.superscary.fluxmachines.datagen.providers.recipes.CraftingRecipes;
+import net.superscary.fluxmachines.datagen.providers.recipes.FluxSmeltingRecipes;
 import net.superscary.fluxmachines.datagen.providers.recipes.SmeltingRecipes;
 import net.superscary.fluxmachines.datagen.providers.tag.FMBlockTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.tag.FMItemTagGenerator;
@@ -61,6 +62,7 @@ public class DataGenerators {
         pack.addProvider(bindRegistries(CraftingRecipes::new, registries));
         pack.addProvider(bindRegistries(SmeltingRecipes::new, registries));
         pack.addProvider(bindRegistries(BlastingRecipes::new, registries));
+        pack.addProvider(bindRegistries(FluxSmeltingRecipes::new, registries));
         //pack.addProvider(bindRegistries(CompressorRecipes::new, registries));
         //pack.addProvider(bindRegistries(CrusherRecipes::new, registries));
         //pack.addProvider(bindRegistries(SawmillRecipes::new, registries));

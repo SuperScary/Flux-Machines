@@ -74,6 +74,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("message.fluxmachines.data_link_tool.copied_data", "§aCopied Data");
         add("message.fluxmachines.data_link_tool.wrote_data", "§aWrote Data");
         add("message.fluxmachines.data_link_tool.empty_data", "§cNo Data");
+        add("message.fluxmachines.data_link_tool.cleared_data", "§9§oCleared Data");
         add("tooltip.fluxmachines.data_link_tool.has_data", "§aHas Data");
 
         add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");

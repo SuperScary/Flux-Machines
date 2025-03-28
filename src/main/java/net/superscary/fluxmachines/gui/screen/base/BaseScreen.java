@@ -8,13 +8,12 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Items;
 import net.superscary.fluxmachines.api.blockentity.Crafter;
+import net.superscary.fluxmachines.api.data.DataLinkInteract;
 import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
 import net.superscary.fluxmachines.api.energy.PoweredBlock;
 import net.superscary.fluxmachines.api.gui.GuiPower;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.helper.MouseUtil;
 import net.superscary.fluxmachines.gui.EnergyDisplayTooltipArea;
 import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
@@ -166,6 +165,11 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     }
 
     public void addAdditionalElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
+        if (menu.blockEntity instanceof DataLinkInteract entity) {
+            for (var component : entity.getLinkedData()) {
+                graphics.drawCenteredString(this.font, component.getSerializedName(), SETTINGS_PANEL_X_HALF, SETTINGS_PANEL_Y + 20, 0xFFFFFF);
+            }
+        }
     }
 
     public void renderEnergyArea (GuiGraphics guiGraphics) {

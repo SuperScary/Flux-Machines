@@ -28,6 +28,7 @@ import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.machine.FluxFurnaceBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
+import net.superscary.fluxmachines.core.util.helper.PropertyHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,7 +48,7 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
     }
 
     @Override
-    protected @NotNull ItemInteractionResult useItemOn (ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NotNull ItemInteractionResult useItemOn (ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof FluxFurnaceBlockEntity blockEntity) {
@@ -63,24 +64,20 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
     @Override
     protected void tick (@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         super.tick(state, level, pos, random);
-        var entity = getBlockEntity(level, pos);
-        if (entity != null) {
-            entity.getEnergyStorage().receiveEnergy(1, false);
-        }
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker (@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
-        return ((level1, blockPos, blockState, t) -> {
-            if (t instanceof FMBasePoweredBlockEntity)
-                ((FMBasePoweredBlockEntity) t).tick(level1, blockPos, blockState);
+        return ((lvl, pos, blockState, type) -> {
+            if (type instanceof FMBasePoweredBlockEntity)
+                ((FMBasePoweredBlockEntity) type).tick(lvl, pos, blockState);
         });
     }
 
     @Override
-    public int getLightEmission (BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return state.getValue(BlockStateProperties.POWERED) ? 10 : 0;
+    public int getLightEmission (@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        return PropertyHelper.of(BlockStateProperties.POWERED, state).getValue() ? 10 : 0;
     }
 
     @Override
@@ -94,8 +91,8 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
     }
 
     @Override
-    public void animateTick (BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (!state.getValue(BlockStateProperties.POWERED)) {
+    public void animateTick (@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (!PropertyHelper.of(BlockStateProperties.POWERED, state).getValue()) {
             return;
         }
 
@@ -107,7 +104,7 @@ public class FluxFurnaceBlock extends FMBaseEntityBlock<FluxFurnaceBlockEntity> 
             level.playLocalSound(xPos, yPos, zPos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
         }
 
-        Direction direction = state.getValue(BlockStateProperties.FACING);
+        Direction direction = PropertyHelper.of(BlockStateProperties.FACING, state).getValue();
         Direction.Axis axis = direction.getAxis();
 
         double defaultOffset = random.nextDouble() * 0.6 - 0.3;

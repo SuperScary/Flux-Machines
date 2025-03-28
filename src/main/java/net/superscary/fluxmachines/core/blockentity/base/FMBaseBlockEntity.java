@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.superscary.fluxmachines.api.blockentity.IWrenchable;
 import net.superscary.fluxmachines.api.data.BlockData;
 import net.superscary.fluxmachines.api.inventory.InventoryHolder;
 import net.superscary.fluxmachines.api.network.NetworkComponent;
@@ -38,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder, NetworkComponent {
+public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder, NetworkComponent, IWrenchable {
 
     public final ItemStackHandler INVENTORY_SINGLE = new ItemStackHandler(5) {
         @Override
@@ -140,14 +141,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         super.saveToItem(stack, registries);
     }
 
-    /**
-     * Allows disassembly with wrench. Called by {@link WrenchHooks#onPlayerUseBlock(Player, Level, InteractionHand, BlockHitResult)}
-     * @param player    {@link Player} the player
-     * @param level     {@link Level} the level
-     * @param hitResult {@link BlockHitResult} hit result of the interaction
-     * @param stack     {@link ItemStack} used. Already checked to contain {@link net.superscary.fluxmachines.core.util.tags.FMTag.Items#WRENCH}
-     * @return {@link InteractionResult}
-     */
+    @Override
     public InteractionResult disassemble (Player player, Level level, BlockHitResult hitResult, ItemStack stack, @Nullable ItemStack existingData) {
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);

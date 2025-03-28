@@ -12,23 +12,16 @@ import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseCategory<T extends Recipe<?>> implements IRecipeCategory<RecipeHolder<T>> {
+public abstract class BaseCategory<T extends Recipe<?>> implements IRecipeCategory<T> {
 
     private final IGuiHelper helper;
-    private final RecipeType<RecipeHolder<T>> recipeType;
     private final ItemDefinition<?> item;
     private final IDrawable background;
 
     public BaseCategory (IGuiHelper helper, ItemDefinition<?> item) {
         this.helper = helper;
-        this.recipeType = type();
         this.item = item;
         this.background = helper.createDrawable(getBackgroundTexture(), 0, 0, 176, 80);
-    }
-
-    @Override
-    public @NotNull RecipeType<RecipeHolder<T>> getRecipeType () {
-        return recipeType;
     }
 
     @Override
@@ -41,7 +34,5 @@ public abstract class BaseCategory<T extends Recipe<?>> implements IRecipeCatego
     }
 
     public abstract ResourceLocation getBackgroundTexture ();
-
-    public abstract RecipeType<RecipeHolder<T>> type ();
 
 }

@@ -54,6 +54,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(RedstoneHooks::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(DataLinkHooks::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(BlockHooks::place);
+        NeoForge.EVENT_BUS.addListener(BuildRecipeHooks::buildRecipes);
 
     }
 
@@ -70,6 +71,8 @@ public abstract class FluxMachinesBase implements FluxMachines {
         FMBlockEntities.REGISTRY.register(modEventBus);
         FMMenus.REGISTRY.register(modEventBus);
         FMSounds.REGISTRY.register(modEventBus);
+        FMRecipes.SERIALIZERS.register(modEventBus);
+        FMRecipes.TYPES.register(modEventBus);
     }
 
     private void commonSetup (FMLCommonSetupEvent event) {

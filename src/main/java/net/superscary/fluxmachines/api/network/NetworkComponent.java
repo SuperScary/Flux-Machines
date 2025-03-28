@@ -6,4 +6,8 @@ public interface NetworkComponent {
         return true;
     }
 
+    default boolean powered () {
+        return true;
+    }
+
 }

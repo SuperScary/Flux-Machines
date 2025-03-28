@@ -1,10 +1,16 @@
 package net.superscary.fluxmachines.api.blockentity;
 
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.superscary.fluxmachines.api.inventory.InventoryHolder;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -16,13 +22,13 @@ public interface Crafter<T extends Recipe<?>> extends InventoryHolder {
     /**
      * Crafts the item.
      */
-    void craftItem ();
+    void craftItem (ItemStack result);
 
     /**
      * Checks if the block entity has a recipe.
      * @return true if the block entity has a recipe, false otherwise
      */
-    boolean hasRecipe ();
+    boolean hasRecipe (BlockState state);
 
     /**
      * Gets the recipe type.
@@ -34,6 +40,7 @@ public interface Crafter<T extends Recipe<?>> extends InventoryHolder {
      * Gets the current recipe.
      * @return the current recipe
      */
+    @NotNull
     Optional<RecipeHolder<T>> getCurrentRecipe ();
 
     /**
@@ -51,13 +58,17 @@ public interface Crafter<T extends Recipe<?>> extends InventoryHolder {
      * Gets the maximum progress.
      * @return the maximum progress
      */
-    int getMaxProgress ();
+    default int getMaxProgress () {
+        return 176;
+    }
 
     /**
      * Checks if the crafting has finished.
      * @return true if the crafting has finished, false otherwise
      */
-    boolean hasFinished ();
+    default boolean hasFinished () {
+        return getProgress() >= getMaxProgress();
+    }
 
     /**
      * Checks if the block entity is crafting.
@@ -70,5 +81,15 @@ public interface Crafter<T extends Recipe<?>> extends InventoryHolder {
      * @return the scaled progress
      */
     int getScaledProgress ();
+
+    /**
+     * Gets the result item of the recipe. Can be null.
+     * @return {@link ItemStack}
+     */
+    @Nullable
+    default ItemStack getRecipeResultItem (@NotNull Level level) {
+        if (getCurrentRecipe().isPresent()) return getCurrentRecipe().get().value().getResultItem(Objects.requireNonNull(level).registryAccess());
+        return ItemStack.EMPTY;
+    }
 
 }

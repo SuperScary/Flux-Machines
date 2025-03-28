@@ -34,5 +34,6 @@ public class FluxFurnaceScreen extends BaseScreen<FluxFurnaceMenu> {
 
         var b = state.getValue(FMBlockStates.REDSTONE_ON);
         graphics.drawCenteredString(font, "Redstone On: " + b, SETTINGS_PANEL_X_HALF, y + 85, 0xFFFFFF);
+        super.addAdditionalElements(graphics, mouseX, mouseY, x, y);
     }
 }
