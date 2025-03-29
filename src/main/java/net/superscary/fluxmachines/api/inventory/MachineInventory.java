@@ -6,7 +6,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 /**
  * Interface for blocks that have an inventory
  */
-public interface InventoryHolder {
+public interface MachineInventory {
 
     /**
      * Get the inventory

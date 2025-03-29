@@ -7,12 +7,14 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.recipe.FMRecipe;
 import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
+import net.superscary.fluxmachines.core.registries.FMRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FluxSmeltingManager implements IRecipeManager {
+public class FluxSmeltingManager implements IRecipeManager<FluxSmeltingRecipe> {
 
     private static final FluxSmeltingManager INSTANCE = new FluxSmeltingManager();
 
@@ -31,6 +33,9 @@ public class FluxSmeltingManager implements IRecipeManager {
         for (var recipe : recipeManager.getAllRecipesFor(RecipeType.SMELTING)) {
             createConvertedRecipe(recipe.value());
         }
+
+        // Adds standardized recipes for the Flux Smelter
+        convertedRecipes.addAll(recipeManager.getAllRecipesFor(FMRecipes.FLUX_SMELTING_TYPE.get()));
     }
 
     protected boolean createConvertedRecipe (AbstractCookingRecipe recipe) {
@@ -47,8 +52,14 @@ public class FluxSmeltingManager implements IRecipeManager {
         return new RecipeHolder<>(FluxMachines.getResource("fluxsmelting/fluxfurnace_" + recipe.getIngredients().get(0).hashCode()), new FluxSmeltingRecipe(recipe.getIngredients().getFirst(), energy, cookingTime, recipeOutput));
     }
 
+    @Override
     public List<RecipeHolder<FluxSmeltingRecipe>> getConvertedRecipes () {
         return convertedRecipes;
+    }
+
+    @Override
+    public RecipeType<FluxSmeltingRecipe> getRecipeType() {
+        return FMRecipes.FLUX_SMELTING_TYPE.get();
     }
 
     @Override

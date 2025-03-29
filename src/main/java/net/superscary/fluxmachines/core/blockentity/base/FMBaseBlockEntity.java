@@ -24,11 +24,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.blockentity.IWrenchable;
 import net.superscary.fluxmachines.api.data.BlockData;
-import net.superscary.fluxmachines.api.inventory.InventoryHolder;
+import net.superscary.fluxmachines.api.inventory.MachineInventory;
 import net.superscary.fluxmachines.api.network.NetworkComponent;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.components.InventoryComponent;
-import net.superscary.fluxmachines.core.hooks.WrenchHooks;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.inventory.ContentDropper;
@@ -39,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, InventoryHolder, NetworkComponent, IWrenchable {
+public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, MachineInventory, NetworkComponent, IWrenchable {
 
     public final ItemStackHandler INVENTORY_SINGLE = new ItemStackHandler(5) {
         @Override
@@ -124,6 +123,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
     }
 
     public void drops (ItemStackHandler inventory) {
+        if (inventory == null) return;
         var container = new SimpleContainer(inventory.getSlots());
         for (int i = 0; i < getInventory().getSlots(); i++) {
             if (inventory.getStackInSlot(i).is(Items.AIR)) {

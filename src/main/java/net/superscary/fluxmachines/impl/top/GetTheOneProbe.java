@@ -10,11 +10,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.blockentity.Crafter;
-import net.superscary.fluxmachines.api.inventory.InventoryHolder;
+import net.superscary.fluxmachines.api.inventory.MachineInventory;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
+import net.superscary.fluxmachines.core.block.cable.CableBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.blockentity.cable.CableBlockEntity;
 import net.superscary.fluxmachines.core.util.helper.MathHelper;
 
 import java.util.function.Function;
@@ -34,7 +36,7 @@ public class GetTheOneProbe implements Function<ITheOneProbe, Void> {
 
             @Override
             public void addProbeInfo (ProbeMode mode, IProbeInfo info, Player player, Level level, BlockState blockState, IProbeHitData hitData) {
-                if (blockState.getBlock() instanceof FMBaseEntityBlock<?> block) {
+                if (blockState.getBlock() instanceof FMBaseEntityBlock<?> block && !(blockState.getBlock() instanceof CableBlock)) {
                     var type = block.getBlockEntityType();
                     if (type.getBlockEntity(level, hitData.getPos()) instanceof FMBaseBlockEntity entity) {
                         inventoryType(mode, info, player, level, blockState, hitData, entity);
@@ -57,7 +59,7 @@ public class GetTheOneProbe implements Function<ITheOneProbe, Void> {
                 .alignment(ElementAlignment.ALIGN_CENTER).height(16);
 
         if (entity instanceof Crafter<?> crafter) {
-            var inventory = (InventoryHolder) entity;
+            var inventory = (MachineInventory) entity;
             if (crafter.isCrafting()) {
                 var result = crafter.getCurrentRecipe().get().value().getResultItem(null).getItem();
                 info.horizontal().item(getOrEmpty(inventory.getInventory(), 0)).progress(MathHelper.percentage((int) crafter.getProgress(), crafter.getMaxProgress()), 100, style).item(recipeOrStack(inventory.getInventory(), 1, result));

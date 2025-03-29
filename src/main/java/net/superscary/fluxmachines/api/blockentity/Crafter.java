@@ -6,7 +6,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.superscary.fluxmachines.api.inventory.InventoryHolder;
+import net.superscary.fluxmachines.api.inventory.MachineInventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
  * An interface for block entities that have the ability to craft items.
  * @param <T>
  */
-public interface Crafter<T extends Recipe<?>> extends InventoryHolder {
+public interface Crafter<T extends Recipe<?>> extends MachineInventory {
 
     /**
      * Crafts the item.

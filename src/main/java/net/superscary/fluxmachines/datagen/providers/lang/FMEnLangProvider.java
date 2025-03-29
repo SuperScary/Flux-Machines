@@ -26,6 +26,8 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(STEEL_BLOCK.block(), "Steel Block");
         add(MACHINE_CASING.block(), "Machine Casing");
         add(FLUX_FURNACE.block(), "Flux Furnace");
+        add(CABLE.block(), "Network Cable");
+        add(FACADE.block(), "Cable Facade");
     }
 
     protected void items () {

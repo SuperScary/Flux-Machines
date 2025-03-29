@@ -12,6 +12,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.superscary.fluxmachines.api.FMRecipe;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.recipe.input.FluxSmeltingInput;
 import net.superscary.fluxmachines.core.registries.FMRecipes;
@@ -19,7 +20,7 @@ import net.superscary.fluxmachines.core.util.Codecs;
 import org.jetbrains.annotations.NotNull;
 
 @MethodsReturnNonnullByDefault
-public record FluxSmeltingRecipe(Ingredient input, int energyReq, int craftTime, ItemStack output) implements Recipe<FluxSmeltingInput> {
+public record FluxSmeltingRecipe(Ingredient input, int energyReq, int craftTime, ItemStack output) implements FMRecipe<FluxSmeltingInput> {
 
     public static final ResourceLocation TYPE_ID;
     public static final RecipeType<FluxSmeltingRecipe> TYPE;
@@ -37,10 +38,6 @@ public record FluxSmeltingRecipe(Ingredient input, int energyReq, int craftTime,
         NonNullList<Ingredient> list = NonNullList.create();
         list.add(input);
         return list;
-    }
-
-    public Ingredient input () {
-        return getIngredients().getFirst();
     }
 
     @Override

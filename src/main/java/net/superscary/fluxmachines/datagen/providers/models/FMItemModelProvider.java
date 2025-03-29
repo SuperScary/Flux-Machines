@@ -18,7 +18,7 @@ import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
 import java.util.LinkedHashMap;
 
-import static net.superscary.fluxmachines.core.registries.FMBlocks.FLUX_FURNACE;
+import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
 import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class FMItemModelProvider extends ItemModelProvider implements IDataProvider {
@@ -65,6 +65,9 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         basicItem(HARD_BOILED_EGG.asItem());
 
         blockOff(FLUX_FURNACE);
+
+        simpleBlockItem(CABLE.block());
+        simpleBlockItem(FACADE.block());
 
         trimmedArmorItem(STEEL_HELMET);
         trimmedArmorItem(STEEL_CHESTPLATE);

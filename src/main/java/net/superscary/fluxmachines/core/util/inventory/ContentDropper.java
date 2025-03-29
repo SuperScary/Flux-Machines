@@ -7,7 +7,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.superscary.fluxmachines.core.registries.FMItems;
 
 import java.util.ArrayList;
 import java.util.List;

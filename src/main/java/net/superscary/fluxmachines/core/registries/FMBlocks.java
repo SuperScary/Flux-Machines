@@ -7,9 +7,12 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.DecorativeBlock;
+import net.superscary.fluxmachines.core.block.cable.CableBlock;
+import net.superscary.fluxmachines.core.block.cable.FacadeBlock;
 import net.superscary.fluxmachines.core.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
+import net.superscary.fluxmachines.core.item.FacadeBlockItem;
 import net.superscary.fluxmachines.core.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 import net.superscary.fluxmachines.core.util.item.ItemDefinition;
@@ -31,6 +34,9 @@ public class FMBlocks {
     public static final BlockDefinition<DecorativeBlock> MACHINE_CASING = reg("machine_casing", DecorativeBlock::new);
 
     public static final BlockDefinition<FluxFurnaceBlock> FLUX_FURNACE = reg("flux_furnace", FluxFurnaceBlock::new);
+
+    public static final BlockDefinition<CableBlock> CABLE = reg("cable", CableBlock::new);
+    public static final BlockDefinition<FacadeBlock> FACADE = reg("facade", FluxMachines.getResource("facade"), FacadeBlock::new, FacadeBlockItem::new, true);
 
     public static List<BlockDefinition<?>> getBlocks () {
         return Collections.unmodifiableList(BLOCKS);

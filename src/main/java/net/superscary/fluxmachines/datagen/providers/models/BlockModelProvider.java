@@ -10,7 +10,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
+import net.superscary.fluxmachines.model.CableModelLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -33,6 +35,9 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItem(MACHINE_CASING);
 
         machine(FLUX_FURNACE, "flux_furnace");
+
+        registerCable();
+        registerFacade();
 
         //stairsBlock(KineticBlocks.BRICK_STAIRS.block(), blockTexture(KineticBlocks.BRICK.block()));
         //slabBlock(KineticBlocks.BRICK_SLAB.block(), blockTexture(KineticBlocks.BRICK.block()), blockTexture(KineticBlocks.BRICK.block()));
@@ -109,6 +114,22 @@ public class BlockModelProvider extends FMBlockStateProvider {
             case WEST -> builder.rotationY(270);
             case EAST -> builder.rotationY(90);
         }
+    }
+
+    private void registerCable() {
+        BlockModelBuilder model = models().getBuilder("cable")
+                .parent(models().getExistingFile(mcLoc("cube")))
+                .customLoader((builder, helper) -> new CableLoaderBuilder(CableModelLoader.GENERATOR_LOADER, builder, helper, false))
+                .end();
+        simpleBlock(FMBlocks.CABLE.block(), model);
+    }
+
+    private void registerFacade() {
+        BlockModelBuilder model = models().getBuilder("facade")
+                .parent(models().getExistingFile(mcLoc("cube")))
+                .customLoader((builder, helper) -> new CableLoaderBuilder(CableModelLoader.GENERATOR_LOADER, builder, helper, true))
+                .end();
+        simpleBlock(FMBlocks.FACADE.block(), model);
     }
 
     public static class CableLoaderBuilder extends CustomLoaderBuilder<BlockModelBuilder> {

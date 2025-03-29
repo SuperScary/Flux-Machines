@@ -46,6 +46,8 @@ public abstract class FluxMachinesBase implements FluxMachines {
         });
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(CableHooks::initModels);
+        modEventBus.addListener(CableHooks::registerBlockColor);
         NeoForge.EVENT_BUS.addListener(this::onServerAboutToStart);
         NeoForge.EVENT_BUS.addListener(this::serverStopped);
         NeoForge.EVENT_BUS.addListener(this::serverStopping);
@@ -54,7 +56,6 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(RedstoneHooks::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(DataLinkHooks::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(BlockHooks::place);
-        NeoForge.EVENT_BUS.addListener(BuildRecipeHooks::buildRecipes);
 
     }
 
@@ -103,6 +104,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
     private void registerCapabilities (RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getInventory());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getEnergyStorage());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.CABLE.get(), (o, direction) -> o.getEnergyStorage());
     }
 
     @Override

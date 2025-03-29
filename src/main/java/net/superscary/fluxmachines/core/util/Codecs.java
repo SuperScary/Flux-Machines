@@ -1,7 +1,11 @@
 package net.superscary.fluxmachines.core.util;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.level.block.Block;
+import net.superscary.fluxmachines.core.util.item.Mimicking;
 
 public class Codecs {
 
@@ -40,5 +44,12 @@ public class Codecs {
             pBuffer.writeUtf(pValue);
         }
     };
+
+    public static final Codec<Mimicking> MIMICKING_CODEC = RecordCodecBuilder.create(instance ->
+        instance.group(
+                Codec.BOOL.fieldOf("isMimicking").forGetter(Mimicking::isMimicking),
+                Block.CODEC.forGetter(Mimicking::block)
+        ).apply(instance, Mimicking::new)
+    );
 
 }
