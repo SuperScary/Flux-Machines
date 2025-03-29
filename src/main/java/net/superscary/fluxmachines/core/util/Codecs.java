@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.Block;
-import net.superscary.fluxmachines.core.util.item.Mimicking;
+import net.superscary.fluxmachines.core.util.item.MimickingRecord;
 
 public class Codecs {
 
@@ -45,11 +45,11 @@ public class Codecs {
         }
     };
 
-    public static final Codec<Mimicking> MIMICKING_CODEC = RecordCodecBuilder.create(instance ->
+    public static final Codec<MimickingRecord> MIMICKING_CODEC = RecordCodecBuilder.create(instance ->
         instance.group(
-                Codec.BOOL.fieldOf("isMimicking").forGetter(Mimicking::isMimicking),
-                Block.CODEC.forGetter(Mimicking::block)
-        ).apply(instance, Mimicking::new)
+                Codec.BOOL.fieldOf("isMimicking").forGetter(MimickingRecord::isMimicking),
+                Block.CODEC.forGetter(MimickingRecord::block)
+        ).apply(instance, MimickingRecord::new)
     );
 
 }

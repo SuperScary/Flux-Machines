@@ -106,7 +106,7 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .pattern("DWD")
                 .define('D', STEEL_INGOT)
                 .define('W', Items.IRON_INGOT)
-                .define('G', Tags.Items.GLASS_BLOCKS)
+                .define('G', Blocks.BLACK_STAINED_GLASS)
                 .unlockedBy("has_steel_ingot", has(STEEL_INGOT))
                 .save(consumer, FluxMachines.getResource("machine_part/machine_casing"));
     }

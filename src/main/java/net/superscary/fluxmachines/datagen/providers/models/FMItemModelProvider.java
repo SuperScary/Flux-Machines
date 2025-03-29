@@ -63,6 +63,7 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         basicItem(REDSTONE_AND_STEEL.asItem());
         basicItem(HONEY_BUN.asItem());
         basicItem(HARD_BOILED_EGG.asItem());
+        basicItem(RUBBER.asItem());
 
         blockOff(FLUX_FURNACE);
 

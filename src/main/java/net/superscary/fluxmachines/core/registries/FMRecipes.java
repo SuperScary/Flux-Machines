@@ -6,7 +6,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.recipe.CompressorRecipe;
 import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
+import net.superscary.fluxmachines.core.recipe.serializer.CompressorSerializer;
 import net.superscary.fluxmachines.core.recipe.serializer.FluxSmeltingSerializer;
 
 public class FMRecipes {
@@ -19,6 +21,14 @@ public class FMRecipes {
         @Override
         public String toString () {
             return "fluxsmelting";
+        }
+    });
+
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CompressorRecipe>> COMPRESSOR_SERIALIZER = SERIALIZERS.register("compressor", CompressorSerializer::new);
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CompressorRecipe>> COMPRESSOR_TYPE = TYPES.register("compressor", () -> new RecipeType<CompressorRecipe>() {
+        @Override
+        public String toString() {
+            return "compressor";
         }
     });
 

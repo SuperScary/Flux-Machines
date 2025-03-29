@@ -5,6 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.blockentity.Crafter;
+import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 
 /**
  * An interface for block entities that can be powered by Forge Energy and have the ability to craft items.
@@ -31,7 +32,7 @@ public interface EnergizedCrafter<T extends Recipe<?>> extends Crafter<T> {
      * Checks if the amount can be inserted into the input slot.
      * @return true if the amount can be inserted, false otherwise.
      */
-    default boolean canInsertAmount (int count, int fromSlot, int toSlot, ItemStackHandler inventory) {
+    default boolean canInsertAmount (int count, int fromSlot, int toSlot, MachineItemStackHandler inventory) {
         if (inventory.getStackInSlot(toSlot) == ItemStack.EMPTY) return true;
         return inventory.getStackInSlot(toSlot).getCount() + count <= inventory.getStackInSlot(toSlot).getMaxStackSize();
     }

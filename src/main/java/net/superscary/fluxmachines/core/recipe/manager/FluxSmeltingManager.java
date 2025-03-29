@@ -7,7 +7,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.core.recipe.FMRecipe;
 import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
 import net.superscary.fluxmachines.core.registries.FMRecipes;
 

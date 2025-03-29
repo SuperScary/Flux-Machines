@@ -1,6 +1,5 @@
 package net.superscary.fluxmachines.core.blockentity.cable;
 
-import cpw.mods.util.Lazy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.NotNull;
@@ -33,16 +32,16 @@ public class CableBlockEntity extends FMBasePoweredBlockEntity {
     // Cached outputs
     private Set<BlockPos> outputs = null;
 
-    public static final int MAXTRANSFER = 100;
+    public static final int MAX_TRANSFER = 100;
     public static final int CAPACITY = 1000;
 
     public CableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state, CAPACITY, MAXTRANSFER);
+        super(type, pos, state, CAPACITY, MAX_TRANSFER);
     }
 
     @Override
-    public ItemStackHandler createInventory() {
-        return null;
+    public MachineItemStackHandler createInventory() {
+        return MachineItemStackHandler.EMPTY;
     }
 
     @Override

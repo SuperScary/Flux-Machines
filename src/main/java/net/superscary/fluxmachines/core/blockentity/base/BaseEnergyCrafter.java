@@ -1,4 +1,4 @@
-package net.superscary.fluxmachines.core.blockentity.machine;
+package net.superscary.fluxmachines.core.blockentity.base;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -10,11 +10,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.superscary.fluxmachines.api.FMRecipe;
+import net.superscary.fluxmachines.api.recipe.FMRecipe;
 import net.superscary.fluxmachines.api.energy.EnergizedCrafter;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.api.network.NetworkComponent;
-import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.block.FMBlockStates;
 import net.superscary.fluxmachines.core.util.helper.PropertyHelper;

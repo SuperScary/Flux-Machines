@@ -25,6 +25,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.superscary.fluxmachines.api.blockentity.IWrenchable;
 import net.superscary.fluxmachines.api.data.BlockData;
 import net.superscary.fluxmachines.api.inventory.MachineInventory;
+import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.api.network.NetworkComponent;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.components.InventoryComponent;
@@ -40,7 +41,7 @@ import java.util.List;
 
 public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, MachineInventory, NetworkComponent, IWrenchable {
 
-    public final ItemStackHandler INVENTORY_SINGLE = new ItemStackHandler(5) {
+    public final MachineItemStackHandler INVENTORY_SINGLE = new MachineItemStackHandler(5) {
         @Override
         protected void onContentsChanged (int slot) {
             setChanged();
@@ -50,7 +51,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
             }
         }
     };
-    public final ItemStackHandler INVENTORY_1X1 = new ItemStackHandler(6) {
+    public final MachineItemStackHandler INVENTORY_1X1 = new MachineItemStackHandler(6) {
         @Override
         protected void onContentsChanged (int slot) {
             setChanged();
@@ -61,13 +62,13 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
         }
     };
 
-    private final ItemStackHandler inventory = createInventory();
+    private final MachineItemStackHandler inventory = createInventory();
 
     public FMBaseBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
 
-    public abstract ItemStackHandler createInventory ();
+    public abstract MachineItemStackHandler createInventory ();
 
     public abstract AbstractContainerMenu menu (int id, Inventory playerInventory, Player player);
 
@@ -207,7 +208,7 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
-    public ItemStackHandler getInventory () {
+    public MachineItemStackHandler getInventory () {
         return inventory;
     }
 

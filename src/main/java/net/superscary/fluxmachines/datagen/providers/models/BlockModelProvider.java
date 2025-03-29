@@ -32,7 +32,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
     @Override
     protected void registerStatesAndModels () {
         blockWithItem(STEEL_BLOCK);
-        blockWithItem(MACHINE_CASING);
+        machineCasing(MACHINE_CASING);
 
         machine(FLUX_FURNACE, "flux_furnace");
 
@@ -74,6 +74,12 @@ public class BlockModelProvider extends FMBlockStateProvider {
                 .customLoader((builder, helper) -> new CableLoaderBuilder(resourceLocation, builder, helper, false))
                 .end();
         simpleBlock(block.block(), model);
+    }
+
+    private void machineCasing (BlockDefinition<?> block) {
+        var rs = FluxMachines.getResource("block/machine_casing");
+        BlockModelBuilder model = models().cube("block/" + block.id().getPath(), rs, rs, rs, rs, rs, rs).texture("particle", rs).renderType("cutout");
+        simpleBlockWithItem(block.block(), model);
     }
 
     private void crate (BlockDefinition<?> block, String name) {

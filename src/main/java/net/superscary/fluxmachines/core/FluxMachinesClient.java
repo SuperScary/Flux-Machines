@@ -1,13 +1,10 @@
 package net.superscary.fluxmachines.core;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMMenus;
 import net.superscary.fluxmachines.gui.screen.FluxFurnaceScreen;
 
@@ -26,7 +23,7 @@ public class FluxMachinesClient extends FluxMachinesBase {
 
     // TODO: Deprecated method to allow transparency.
     private void clientSetup (FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(FMBlocks.MACHINE_CASING.block(), RenderType.CUTOUT);
+
     }
 
     private void registerMenuScreens (RegisterMenuScreensEvent event) {

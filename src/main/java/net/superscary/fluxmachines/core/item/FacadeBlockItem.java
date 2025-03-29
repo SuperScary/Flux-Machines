@@ -17,7 +17,7 @@ import net.superscary.fluxmachines.core.blockentity.cable.FacadeBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.util.helper.ReplaceBlockItemUseContext;
-import net.superscary.fluxmachines.core.util.item.Mimicking;
+import net.superscary.fluxmachines.core.util.item.MimickingRecord;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -27,6 +27,10 @@ import static net.superscary.fluxmachines.core.block.cable.CableBlock.*;
 
 public class FacadeBlockItem extends BlockItem {
 
+    public FacadeBlockItem(Block block, Item.Properties properties) {
+        super(block, properties);
+    }
+
     private static String getMimickingString(ItemStack stack) {
         if (stack.has(FMDataComponents.MIMICKING)) {
             var value = stack.get(FMDataComponents.MIMICKING).block();
@@ -34,11 +38,6 @@ public class FacadeBlockItem extends BlockItem {
             return s.getHoverName().getString();
         }
         return "<unset>";
-    }
-
-
-    public FacadeBlockItem(Block block, Item.Properties properties) {
-        super(block, properties);
     }
 
     private static void userSetMimicBlock(@Nonnull ItemStack item, BlockState mimicBlock, UseOnContext context) {
@@ -51,7 +50,7 @@ public class FacadeBlockItem extends BlockItem {
     }
 
     public static void setMimicBlock(@Nonnull ItemStack item, BlockState mimicBlock) {
-        var mimicking = new Mimicking(true, mimicBlock.getBlock());
+        var mimicking = new MimickingRecord(true, mimicBlock.getBlock());
         item.set(FMDataComponents.MIMICKING, mimicking);
     }
 

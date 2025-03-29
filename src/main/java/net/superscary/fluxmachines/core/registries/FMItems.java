@@ -37,6 +37,7 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> STEEL_DUST = item("steel_dust", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_INGOT = item("steel_ingot", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_NUGGET = item("steel_nugget", BaseItem::new);
+    public static final ItemDefinition<BaseItem> RUBBER = item("rubber", BaseItem::new);
 
     public static final ItemDefinition<RSItem> REDSTONE_AND_STEEL = item("redstone_and_steel", RSItem::new);
 
