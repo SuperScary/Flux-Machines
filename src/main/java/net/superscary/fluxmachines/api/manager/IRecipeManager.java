@@ -18,4 +18,6 @@ public interface IRecipeManager<T extends Recipe<?>> {
 
     RecipeType<T> getRecipeType ();
 
+    List<T> asRecipeList ();
+
 }

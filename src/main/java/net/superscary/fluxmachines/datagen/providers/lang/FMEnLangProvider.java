@@ -26,6 +26,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(STEEL_BLOCK.block(), "Steel Block");
         add(MACHINE_CASING.block(), "Machine Casing");
         add(FLUX_FURNACE.block(), "Flux Furnace");
+        add(COAL_GENERATOR.block(), "Coal Generator");
         add(CABLE.block(), "Network Cable");
         add(FACADE.block(), "Cable Facade");
     }
@@ -48,6 +49,8 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(WRENCH.asItem(), "Wrench");
         add(DATA_LINK.asItem(), "Data Linker");
         add(RUBBER.asItem(), "Rubber");
+        add(INDUSTRIAL_SLAG.asItem(), "Industrial Slag");
+        add(FERTILIZER.asItem(), "Fertilizer");
 
         add(REDSTONE_AND_STEEL.asItem(), "Redstone and Steel");
 

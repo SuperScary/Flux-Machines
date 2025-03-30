@@ -46,6 +46,11 @@ public class CompressorRecipeManager implements IRecipeManager<CompressorRecipe>
     }
 
     @Override
+    public List<CompressorRecipe> asRecipeList() {
+        return convertedRecipes.stream().map(RecipeHolder::value).toList();
+    }
+
+    @Override
     public void refresh(RecipeManager recipeManager) {
         clear();
         createConvertedRecipes(recipeManager);

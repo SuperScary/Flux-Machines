@@ -20,9 +20,11 @@ import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 public abstract class FMBlockStateProvider extends BlockStateProvider implements IDataProvider {
 
     private static final VariantProperty<VariantProperties.Rotation> Z_ROT = new VariantProperty<>("fluxmachines:z", r -> new JsonPrimitive(r.ordinal() * 90));
+    public ExistingFileHelper existingFileHelper;
 
     public FMBlockStateProvider (PackOutput packOutput, String modid, ExistingFileHelper existingFileHelper) {
         super(packOutput, modid, existingFileHelper);
+        this.existingFileHelper = existingFileHelper;
     }
 
     protected static PropertyDispatch createFacingDispatch (int baseRotX, int baseRotY) {

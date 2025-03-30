@@ -26,12 +26,14 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(MACHINE_CASING.block())
                 .add(STEEL_BLOCK.block())
-                .add(FLUX_FURNACE.block());
+                .add(FLUX_FURNACE.block())
+                .add(COAL_GENERATOR.block());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(MACHINE_CASING.block())
                 .add(STEEL_BLOCK.block())
-                .add(FLUX_FURNACE.block());
+                .add(FLUX_FURNACE.block())
+                .add(COAL_GENERATOR.block());
 
         this.tag(FMTag.Blocks.NEEDS_STEEL_TOOL)
                 .addTag(BlockTags.NEEDS_IRON_TOOL);
@@ -46,7 +48,8 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
 
         this.tag(FMTag.Blocks.WRENCHABLE)
                 .add(MACHINE_CASING.block())
-                .add(FLUX_FURNACE.block());
+                .add(FLUX_FURNACE.block())
+                .add(COAL_GENERATOR.block());
 
         this.tag(FMTag.Blocks.STEEL)
                 .add(STEEL_BLOCK.block());

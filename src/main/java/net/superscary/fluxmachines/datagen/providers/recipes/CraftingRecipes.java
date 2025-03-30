@@ -89,9 +89,20 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .define('D', STEEL_INGOT)
                 .define('R', Items.REDSTONE_TORCH)
                 .define('B', MACHINE_CASING)
-                .define('F', Blocks.FURNACE)
+                .define('F', COAL_GENERATOR)
                 .unlockedBy("has_casing", has(MACHINE_CASING))
                 .save(consumer, FluxMachines.getResource("machine/flux_furnace"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, COAL_GENERATOR, 1)
+                .pattern("DRD")
+                .pattern("DBD")
+                .pattern("DFD")
+                .define('D', STEEL_INGOT)
+                .define('R', Items.REDSTONE_TORCH)
+                .define('B', MACHINE_CASING)
+                .define('F', Blocks.FURNACE)
+                .unlockedBy("has_casing", has(MACHINE_CASING))
+                .save(consumer, FluxMachines.getResource("machine/coal_generator"));
     }
 
     /**

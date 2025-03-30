@@ -17,15 +17,15 @@ public class FMRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, FluxMachines.MODID);
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FluxSmeltingRecipe>> FLUX_SMELTING_SERIALIZER = SERIALIZERS.register("fluxsmelting", FluxSmeltingSerializer::new);
-    public static final DeferredHolder<RecipeType<?>, RecipeType<FluxSmeltingRecipe>> FLUX_SMELTING_TYPE = TYPES.register("fluxsmelting", () -> new RecipeType<FluxSmeltingRecipe>() {
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FluxSmeltingRecipe>> FLUX_SMELTING_TYPE = TYPES.register("fluxsmelting", () -> new RecipeType<>() {
         @Override
-        public String toString () {
+        public String toString() {
             return "fluxsmelting";
         }
     });
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CompressorRecipe>> COMPRESSOR_SERIALIZER = SERIALIZERS.register("compressor", CompressorSerializer::new);
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CompressorRecipe>> COMPRESSOR_TYPE = TYPES.register("compressor", () -> new RecipeType<CompressorRecipe>() {
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CompressorRecipe>> COMPRESSOR_TYPE = TYPES.register("compressor", () -> new RecipeType<>() {
         @Override
         public String toString() {
             return "compressor";

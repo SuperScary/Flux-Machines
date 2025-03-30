@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.cable.CableBlockEntity;
+import net.superscary.fluxmachines.core.blockentity.machine.CoalGeneratorBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.machine.FluxFurnaceBlockEntity;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.util.DeferredBlockEntityType;
@@ -27,6 +28,7 @@ public final class FMBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, FluxMachines.MODID);
 
     public static final DeferredBlockEntityType<FluxFurnaceBlockEntity> FLUX_FURNACE = create("flux_furnace", FluxFurnaceBlockEntity.class, FluxFurnaceBlockEntity::new, FMBlocks.FLUX_FURNACE);
+    public static final DeferredBlockEntityType<CoalGeneratorBlockEntity> COAL_GENERATOR = create("coal_generator", CoalGeneratorBlockEntity.class, CoalGeneratorBlockEntity::new, FMBlocks.COAL_GENERATOR);
 
     public static final DeferredBlockEntityType<CableBlockEntity> CABLE = create("cable", CableBlockEntity.class, CableBlockEntity::new, FMBlocks.CABLE);
 

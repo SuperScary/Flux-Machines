@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
+import net.superscary.fluxmachines.core.item.FertilizerItem;
 import net.superscary.fluxmachines.core.item.base.BaseFood;
 import net.superscary.fluxmachines.core.item.base.BaseItem;
 import net.superscary.fluxmachines.core.item.base.EmptyItem;
@@ -38,6 +39,8 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> STEEL_INGOT = item("steel_ingot", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_NUGGET = item("steel_nugget", BaseItem::new);
     public static final ItemDefinition<BaseItem> RUBBER = item("rubber", BaseItem::new);
+    public static final ItemDefinition<BaseItem> INDUSTRIAL_SLAG = item("industrial_slag", BaseItem::new);
+    public static final ItemDefinition<BaseItem> FERTILIZER = item("fertilizer", FertilizerItem::new);
 
     public static final ItemDefinition<RSItem> REDSTONE_AND_STEEL = item("redstone_and_steel", RSItem::new);
 

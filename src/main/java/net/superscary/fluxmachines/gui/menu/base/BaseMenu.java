@@ -9,10 +9,15 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.superscary.fluxmachines.api.blockentity.Upgradeable;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.util.inventory.QuickMoveStack;
+import net.superscary.fluxmachines.core.util.inventory.slots.UpgradeSlot;
 import org.jetbrains.annotations.NotNull;
+
+import static net.superscary.fluxmachines.gui.screen.base.BaseScreen.SETTINGS_PANEL_X_HALF;
+import static net.superscary.fluxmachines.gui.screen.base.BaseScreen.Y;
 
 public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseBlockEntity> extends AbstractContainerMenu {
 
@@ -50,6 +55,11 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
     public abstract void addSlots ();
 
     public void addUpgradeSlots () {
+        if (!isUpgradeable()) return;
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 5));
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 23));
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 41));
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 59));
     }
 
     @Override
@@ -65,19 +75,23 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
     private void addPlayerInventory (Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, (8 + l * 18), 84 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar (Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(playerInventory, i, (8 + i * 18), 142));
         }
     }
 
     public int getNextIndex () {
         return index++;
+    }
+
+    public boolean isUpgradeable() {
+        return blockEntity instanceof Upgradeable;
     }
 
 }

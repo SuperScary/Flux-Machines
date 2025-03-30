@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -15,6 +16,8 @@ import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 import net.superscary.fluxmachines.model.CableModelLoader;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
@@ -35,6 +38,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
         machineCasing(MACHINE_CASING);
 
         machine(FLUX_FURNACE, "flux_furnace");
+        machine(COAL_GENERATOR, "coal_generator");
 
         registerCable();
         registerFacade();
@@ -88,8 +92,13 @@ public class BlockModelProvider extends FMBlockStateProvider {
     }
 
     private void machine (BlockDefinition<?> block, String name) {
-        BlockModelBuilder modelOn = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_on", BOTTOM, TOP, modLoc("block/" + name + "/" + name + "_on"), SIDE, SIDE, SIDE).texture("particle", SIDE);
-        BlockModelBuilder modelOff = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off", BOTTOM, TOP, modLoc("block/" + name + "/" + name + "_off"), SIDE, SIDE, SIDE).texture("particle", SIDE);
+        var on = modLoc("block/" + name + "/" + name + "_on");
+        var off = modLoc("block/" + name + "/" + name + "_off");
+
+        err(List.of(on, off));
+
+        BlockModelBuilder modelOn = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_on", BOTTOM, TOP, on, SIDE, SIDE, SIDE).texture("particle", SIDE);
+        BlockModelBuilder modelOff = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off", BOTTOM, TOP, off, SIDE, SIDE, SIDE).texture("particle", SIDE);
         directionBlock(block.block(), (state, builder) -> builder.modelFile(state.getValue(BlockStateProperties.POWERED) ? modelOn : modelOff));
     }
 
@@ -136,6 +145,16 @@ public class BlockModelProvider extends FMBlockStateProvider {
                 .customLoader((builder, helper) -> new CableLoaderBuilder(CableModelLoader.GENERATOR_LOADER, builder, helper, true))
                 .end();
         simpleBlock(FMBlocks.FACADE.block(), model);
+    }
+
+    /**
+     * Ignores missing textures so we can still build data without the texture present.
+     * @param list a list of ResourceLocations that we know will exist but currently don't.
+     */
+    private void err (List<ResourceLocation> list) {
+        for (var res : list) {
+            existingFileHelper.trackGenerated(res, PackType.CLIENT_RESOURCES, ".png", "textures");
+        }
     }
 
     public static class CableLoaderBuilder extends CustomLoaderBuilder<BlockModelBuilder> {

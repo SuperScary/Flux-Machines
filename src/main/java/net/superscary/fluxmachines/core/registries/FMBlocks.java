@@ -9,6 +9,7 @@ import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.DecorativeBlock;
 import net.superscary.fluxmachines.core.block.cable.CableBlock;
 import net.superscary.fluxmachines.core.block.cable.FacadeBlock;
+import net.superscary.fluxmachines.core.block.machine.CoalGeneratorBlock;
 import net.superscary.fluxmachines.core.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
@@ -34,6 +35,7 @@ public class FMBlocks {
     public static final BlockDefinition<DecorativeBlock> MACHINE_CASING = reg("machine_casing", DecorativeBlock::new);
 
     public static final BlockDefinition<FluxFurnaceBlock> FLUX_FURNACE = reg("flux_furnace", FluxFurnaceBlock::new);
+    public static final BlockDefinition<CoalGeneratorBlock> COAL_GENERATOR = reg("coal_generator", CoalGeneratorBlock::new);
 
     public static final BlockDefinition<CableBlock> CABLE = reg("cable", CableBlock::new);
     public static final BlockDefinition<FacadeBlock> FACADE = reg("facade", FluxMachines.getResource("facade"), FacadeBlock::new, FacadeBlockItem::new, true);

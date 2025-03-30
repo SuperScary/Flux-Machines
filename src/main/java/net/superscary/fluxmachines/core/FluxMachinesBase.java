@@ -104,6 +104,9 @@ public abstract class FluxMachinesBase implements FluxMachines {
     private void registerCapabilities (RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getInventory());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getEnergyStorage());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.COAL_GENERATOR.get(), (o, direction) -> o.getInventory());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.COAL_GENERATOR.get(), (o, direction) -> o.getEnergyStorage());
+
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.CABLE.get(), (o, direction) -> o.getEnergyStorage());
     }
 

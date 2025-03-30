@@ -62,6 +62,11 @@ public class FluxSmeltingManager implements IRecipeManager<FluxSmeltingRecipe> {
     }
 
     @Override
+    public List<FluxSmeltingRecipe> asRecipeList() {
+        return getConvertedRecipes().stream().map(RecipeHolder::value).toList();
+    }
+
+    @Override
     public void refresh(RecipeManager recipeManager) {
         clear();
         createConvertedRecipes(recipeManager);
@@ -71,4 +76,6 @@ public class FluxSmeltingManager implements IRecipeManager<FluxSmeltingRecipe> {
     public void clear() {
         convertedRecipes.clear();
     }
+
+
 }

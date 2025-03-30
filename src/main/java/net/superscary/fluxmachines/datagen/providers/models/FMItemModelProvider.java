@@ -64,8 +64,11 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         basicItem(HONEY_BUN.asItem());
         basicItem(HARD_BOILED_EGG.asItem());
         basicItem(RUBBER.asItem());
+        basicItem(INDUSTRIAL_SLAG.asItem());
+        basicItem(FERTILIZER.asItem());
 
         blockOff(FLUX_FURNACE);
+        blockOff(COAL_GENERATOR);
 
         simpleBlockItem(CABLE.block());
         simpleBlockItem(FACADE.block());

@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.superscary.fluxmachines.core.registries.FMItems.HARD_BOILED_EGG;
+import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class CompostableProvider extends DataMapProvider {
 
@@ -19,7 +19,9 @@ public class CompostableProvider extends DataMapProvider {
     @Override
     protected void gather () {
         builder(NeoForgeDataMaps.COMPOSTABLES)
-                .add(HARD_BOILED_EGG.id(), new Compostable(0.35f, true), false);
+                .add(HARD_BOILED_EGG.id(), new Compostable(0.35f, true), false)
+                .add(INDUSTRIAL_SLAG.id(), new Compostable(0.20f, true), false)
+                .add(FERTILIZER.id(), new Compostable(0.45f, true), false);
     }
 
 }

@@ -32,9 +32,9 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     private final int ENERGY_HEIGHT = 64;
     private boolean isSideTabOpen = false;
 
-    public static boolean SETTINGS_PANEL_OPEN = false;
-    public static final int SETTINGS_PANEL_WIDTH = 120;
-    public static final int SETTINGS_PANEL_HEIGHT = 166;
+    private boolean settingsPanelOpen = false;
+    public static final int SETTINGS_PANEL_WIDTH = 256;
+    public static final int SETTINGS_PANEL_HEIGHT = 84;
     public static int SETTINGS_PANEL_X;
     public static int SETTINGS_PANEL_Y;
     public static int SETTINGS_PANEL_X_HALF;
@@ -48,8 +48,11 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     private final ResourceLocation sideTabOpen = FluxMachines.getResource("textures/gui/elements/side_tab_open.png");
     private final ResourceLocation upgradeSlotGui = FluxMachines.getResource("textures/gui/elements/upgrade_slot.png");
 
+    protected int imageWidth;
+
     public BaseScreen (T menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
+        this.imageWidth = 203;
     }
 
     @Override
@@ -58,9 +61,11 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         if (isPoweredMenu()) {
             assignEnergyInfoArea();
         }
-        SETTINGS_PANEL_X = (width - imageWidth) / 2 + imageWidth;
-        SETTINGS_PANEL_Y = (height - imageHeight) / 2;
-        SETTINGS_PANEL_X_HALF = SETTINGS_PANEL_X + (SETTINGS_PANEL_WIDTH / 2);
+
+        this.imageWidth = 203;
+        SETTINGS_PANEL_X = ((width - imageWidth) / 2) + imageWidth - 14;
+        SETTINGS_PANEL_Y = ((height - imageHeight) / 2) + imageHeight - 84;
+        SETTINGS_PANEL_X_HALF = SETTINGS_PANEL_X + (SETTINGS_PANEL_X / 2);
     }
 
     public abstract ResourceLocation getGuiTexture ();
@@ -73,20 +78,23 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         int x = X = (width - imageWidth) / 2;
         int y = Y = (height - imageHeight) / 2;
 
+        int tabHeight = 84;
+        int offset = 14;
+
         if (Minecraft.getInstance().screen == this) {
-            if (isMouseAboveArea(mouseX, mouseY, x + imageWidth, y, 0, 0, 12, imageHeight) && !isSideTabOpen) {
-                guiGraphics.blit(sideTabSelected, x + imageWidth - 3, y, 0, 0, 16, imageHeight);
+            if (isMouseAboveArea(mouseX, mouseY, x + imageWidth - offset, y + 82, 0, 0, 12, tabHeight) && !isSideTabOpen) {
+                guiGraphics.blit(sideTabSelected, x + offset, y, 0, 0, 256, 256);
             } else if (!isSideTabOpen) {
-                guiGraphics.blit(sideTabClosed, x + imageWidth - 3, y, 0, 0, 12, imageHeight);
+                guiGraphics.blit(sideTabClosed, x + offset, y, 0, 0, 256, 256);
             }
         }
 
         toggleSideTab(guiGraphics, mouseX, mouseY, x, y);
 
         // render main texture
-        guiGraphics.blit(getGuiTexture(), x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(getGuiTexture(), x + offset, y, 0, 0, imageWidth, imageHeight);
 
-        renderArrow(guiGraphics, x, y);
+        renderArrow(guiGraphics, x - offset, y);
         renderEnergyArea(guiGraphics);
     }
 
@@ -118,7 +126,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public boolean mouseClicked (double mouseX, double mouseY, int button) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        if (isMouseAboveArea((int) mouseX, (int) mouseY, x + imageWidth, y, 0, 0, 12, imageHeight) && !isSideTabOpen && button == GLFW.GLFW_MOUSE_BUTTON_1) {
+        if (isMouseAboveArea((int) mouseX, (int) mouseY, x + imageWidth - 14, y, 0, 0, 12, imageHeight) && !isSideTabOpen && button == GLFW.GLFW_MOUSE_BUTTON_1) {
             isSideTabOpen = true;
             return true;
         }
@@ -135,42 +143,35 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     public void toggleSideTab (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
         if (!isSideTabOpen) return;
-        SETTINGS_PANEL_OPEN = true;
-        graphics.blit(sideTabOpen, x + imageWidth - 3, y, 0, 0, 120, imageHeight);
+        settingsPanelOpen = true;
+        menu.blockEntity.setSettingsPanelOpen(true);
+        graphics.blit(sideTabOpen, x + 14, y, 0, 0, 256, 256);
 
         addTabElements(graphics, mouseX, mouseY, x, y);
 
-        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth, y, 0, 0, 120, imageHeight)) {
+        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth - 14, y, 0, 0, 256, 256)) {
             // DO SOMETHING
         } else {
             isSideTabOpen = false;
-            SETTINGS_PANEL_OPEN = false;
+            settingsPanelOpen = false;
+            menu.blockEntity.setSettingsPanelOpen(false);
         }
     }
 
-    public void addTabElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
-        graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), SETTINGS_PANEL_X + 60, SETTINGS_PANEL_Y + 6, 0xFFFFFF);
-        addUpgradeElements(graphics, mouseX, mouseY, x, y);
+    private void addTabElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
+        graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), SETTINGS_PANEL_X + 38, SETTINGS_PANEL_Y + 6, 0xFFFFFF);
         addAdditionalElements(graphics, mouseX, mouseY, x, y);
     }
 
     /**
-     * Add the upgrade slots to the GUI
+     * Currently for rendering custom objects onto the settings pane
+     * @param graphics
+     * @param mouseX
+     * @param mouseY
+     * @param x
+     * @param y
      */
-    protected final void addUpgradeElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
-        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF - 18, y + 48, 0, 0, 18, 18, 18, 18);
-        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF, y + 48, 0, 0, 18, 18, 18, 18);
-        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF - 18, y + 66, 0, 0, 18, 18, 18, 18);
-        graphics.blit(getUpgradeSlotGui(), SETTINGS_PANEL_X_HALF, y + 66, 0, 0, 18, 18, 18, 18);
-    }
-
-    public void addAdditionalElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
-        if (menu.blockEntity instanceof DataLinkInteract entity) {
-            for (var component : entity.getLinkedData()) {
-                graphics.drawCenteredString(this.font, component.getSerializedName(), SETTINGS_PANEL_X_HALF, SETTINGS_PANEL_Y + 20, 0xFFFFFF);
-            }
-        }
-    }
+    public abstract void addAdditionalElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y);
 
     public void renderEnergyArea (GuiGraphics guiGraphics) {
         if (isPoweredMenu()) {
@@ -195,18 +196,18 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     private void assignEnergyInfoArea () {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        this.energyInfoArea = new EnergyDisplayTooltipArea(ENERGY_LEFT, ENERGY_TOP, getEnergyStorage(), ENERGY_WIDTH, ENERGY_HEIGHT);
+        this.energyInfoArea = new EnergyDisplayTooltipArea(ENERGY_LEFT + 14, ENERGY_TOP, getEnergyStorage(), ENERGY_WIDTH, ENERGY_HEIGHT);
     }
 
     private void renderOptionsAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
-        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth, y, 0, 0, 12, imageHeight)) {
-            guiGraphics.renderTooltip(this.font, getOptionsTooltips(), Optional.empty(), mouseX - x, mouseY - y);
+        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth - 14, y + 82, 0, 0, 12, 84)) {
+            guiGraphics.renderTooltip(this.font, getOptionsTooltips(), Optional.empty(), mouseX - x - 14, mouseY - y);
         }
     }
 
     private void renderEnergyAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
-        if (isMouseAboveArea(mouseX, mouseY, x, y, ENERGY_LEFT, ENERGY_TOP, ENERGY_WIDTH, ENERGY_HEIGHT)) {
-            guiGraphics.renderTooltip(this.font, getEnergyTooltips(), Optional.empty(), mouseX - x, mouseY - y);
+        if (isMouseAboveArea(mouseX, mouseY, x, y, ENERGY_LEFT + 14, ENERGY_TOP, ENERGY_WIDTH, ENERGY_HEIGHT)) {
+            guiGraphics.renderTooltip(this.font, getEnergyTooltips(), Optional.empty(), mouseX - x + 14, mouseY - y);
         }
     }
 
@@ -243,6 +244,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     public ResourceLocation getUpgradeSlotGui () {
         return upgradeSlotGui;
+    }
+
+    public boolean isSettingsPanelOpen () {
+        return settingsPanelOpen;
     }
 
 }

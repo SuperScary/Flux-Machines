@@ -41,6 +41,8 @@ import java.util.List;
 
 public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvider, BlockData, MachineInventory, NetworkComponent, IWrenchable {
 
+    private boolean settingsPanelOpen = false;
+
     public final MachineItemStackHandler INVENTORY_SINGLE = new MachineItemStackHandler(5) {
         @Override
         protected void onContentsChanged (int slot) {
@@ -210,6 +212,14 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
     @Override
     public MachineItemStackHandler getInventory () {
         return inventory;
+    }
+
+    public boolean isSettingsPanelOpen () {
+        return settingsPanelOpen;
+    }
+
+    public void setSettingsPanelOpen (boolean bool) {
+        settingsPanelOpen = bool;
     }
 
     /**
