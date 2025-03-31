@@ -5,7 +5,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 
 /**
- * This is literally because i am lazy and wanted input() instead of having to get the first
+ * This is literally because I am lazy and wanted input() instead of having to get the first
  * object in the ingredients.
  * @param <T>
  */

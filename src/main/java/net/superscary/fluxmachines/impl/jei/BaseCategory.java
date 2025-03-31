@@ -17,12 +17,20 @@ public abstract class BaseCategory<T extends Recipe<?>> implements IRecipeCatego
     private final ItemDefinition<?> item;
     private final IDrawable background;
     private final RecipeType<T> type;
+    private final int width;
+    private final int height;
 
     public BaseCategory (IGuiHelper helper, ItemDefinition<?> item, RecipeType<T> type) {
+        this(helper, item, type, 176, 80);
+    }
+
+    public BaseCategory (IGuiHelper helper, ItemDefinition<?> item, RecipeType<T> type, int width, int height) {
         this.helper = helper;
         this.item = item;
-        this.background = helper.createDrawable(getBackgroundTexture(), 0, 0, 176, 80);
+        this.background = helper.createDrawable(getBackgroundTexture(), 0, 0, width, height);
         this.type = type;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -37,12 +45,12 @@ public abstract class BaseCategory<T extends Recipe<?>> implements IRecipeCatego
 
     @Override
     public int getWidth() {
-        return 176;
+        return width;
     }
 
     @Override
     public int getHeight() {
-        return 80;
+        return height;
     }
 
     public IDrawable getDisplayBackground () {

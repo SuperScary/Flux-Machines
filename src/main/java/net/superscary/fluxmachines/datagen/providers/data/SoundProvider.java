@@ -26,5 +26,15 @@ public class SoundProvider extends SoundDefinitionsProvider implements IDataProv
                 .with(sound("fluxmachines:flux_furnace_on", SoundDefinition.SoundType.SOUND)
                         .volume(0.75f).pitch(1.0f).weight(1).stream(true))
                 .subtitle("sound.fluxmachines.flux_furnace_on").replace(true));
+
+        add(FMSounds.RATCHET_1, SoundDefinition.definition()
+                .with(sound("fluxmachines:ratchet_1", SoundDefinition.SoundType.SOUND)
+                        .volume(1.f).pitch(1.f).weight(1).stream(true))
+                .subtitle("sound.fluxmachines.ratchet").replace(true));
+
+        add(FMSounds.RATCHET_2, SoundDefinition.definition()
+                .with(sound("fluxmachines:ratchet_2", SoundDefinition.SoundType.SOUND)
+                        .volume(1.f).pitch(1.f).weight(1).stream(true))
+                .subtitle("sound.fluxmachines.ratchet").replace(true));
     }
 }

@@ -17,6 +17,7 @@ import net.superscary.fluxmachines.datagen.providers.models.FMItemModelProvider;
 import net.superscary.fluxmachines.datagen.providers.recipes.*;
 import net.superscary.fluxmachines.datagen.providers.tag.FMBlockTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.tag.FMItemTagGenerator;
+import net.superscary.fluxmachines.datagen.providers.tag.FMPoiTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.worldgen.WorldGenProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -45,6 +46,7 @@ public class DataGenerators {
 
         // POI
         //pack.addProvider(pOutput -> new FMPoiTypeTagsProvider(pOutput, registries, existingFileHelper));
+        pack.addProvider(packOutput -> new FMPoiTagGenerator(packOutput, registries, existingFileHelper));
 
         // TAGS
         var blockTagsProvider = pack.addProvider(pOutput -> new FMBlockTagGenerator(pOutput, registries, existingFileHelper));

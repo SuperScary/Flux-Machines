@@ -4,7 +4,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
 
 import java.util.List;
 

@@ -20,6 +20,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         items();
         misc();
         subtitles();
+        entity();
     }
 
     protected void blocks () {
@@ -95,6 +96,11 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
     protected void subtitles () {
         add("sound.fluxmachines.flux_furnace_on", "Flux Furnace");
+        add("sound.fluxmachines.ratchet", "Ratchet");
+    }
+
+    protected void entity () {
+        add("entity.minecraft.villager.fluxmachines.engineer", "Engineer");
     }
 
 }

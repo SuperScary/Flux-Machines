@@ -32,11 +32,8 @@ public class SmeltingRecipes extends FMRecipeProvider {
 
     @Override
     public void buildRecipes (@NotNull RecipeOutput consumer) {
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(STEEL_DUST), RecipeCategory.MISC, new ItemStack(FMItems.STEEL_INGOT, 1), .16f, DEFAULT_SMELTING_TIME)
-                .unlockedBy("has_steel_dust", has(STEEL_DUST))
-                .save(consumer, FluxMachines.getResource("smelting/steel_from_steel_dust"));
 
+        // TODO: Remove this recipe and only allow from crusher
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(Items.IRON_INGOT), RecipeCategory.MISC, new ItemStack(STEEL_DUST), 0f, DEFAULT_SMELTING_TIME)
                 .unlockedBy("has_iron", has(Items.IRON_INGOT))

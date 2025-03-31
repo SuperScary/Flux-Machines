@@ -13,6 +13,8 @@ public class FMSounds {
     public static final DeferredRegister<SoundEvent> REGISTRY = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, FluxMachines.MODID);
 
     public static final Supplier<SoundEvent> FLUX_FURNACE_ON = register("flux_furnace_on");
+    public static final Supplier<SoundEvent> RATCHET_1 = register("ratchet_1");
+    public static final Supplier<SoundEvent> RATCHET_2 = register("ratchet_2");
 
     private static Supplier<SoundEvent> register (String name) {
         ResourceLocation id = FluxMachines.getResource(name);

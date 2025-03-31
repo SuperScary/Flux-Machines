@@ -3,10 +3,13 @@ package net.superscary.fluxmachines.datagen.providers.tag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.PoiTypeTags;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.registries.FMEntities;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 

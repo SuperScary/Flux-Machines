@@ -184,7 +184,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public void renderArrow (GuiGraphics graphics, int posX, int posY) {
         if (menu.blockEntity instanceof Crafter<?> entity) {
             if (entity.isCrafting()) {
-                graphics.blit(getGuiTexture(), posX + 80, posY + 35, 203, 0, entity.getScaledProgress(), 17);
+                graphics.blit(getGuiTexture(), posX + 79 + 27, posY + 35, 203, 0, entity.getScaledProgress(), 17);
             }
         }
     }

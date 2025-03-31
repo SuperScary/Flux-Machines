@@ -45,6 +45,7 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
         if (input == ItemStack.EMPTY) return Optional.empty();
 
         for (var recipe : getRecipeManager().getConvertedRecipes()) {
+
             if (Utils.convertToItemStack(recipe.value().input()).getItem().equals(input.getItem())) {
                 return Optional.of(recipe);
             }
@@ -73,6 +74,12 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
     @Override
     public void tick (Level level, BlockPos pos, BlockState state) {
         if (Utilities.isDevEnvironment()) getEnergyStorage().receiveEnergy(10_000, false); // TODO: Dev only environment
+
+        if (getInventory().getStackInSlot(inputSlot()) == ItemStack.EMPTY) {
+            progress = 0;
+            updateBlockState(state.setValue(BlockStateProperties.CRAFTING, false));
+        }
+
         if (hasRecipe(state)) {
             isCrafting = true;
             increaseCraftingProgress();

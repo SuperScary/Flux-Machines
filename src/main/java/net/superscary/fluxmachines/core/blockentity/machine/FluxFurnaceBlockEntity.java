@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
@@ -39,6 +40,11 @@ public class FluxFurnaceBlockEntity extends BaseEnergyCrafter<FluxSmeltingRecipe
     @Override
     public AbstractContainerMenu menu (int id, Inventory playerInventory, Player player) {
         return new FluxFurnaceMenu(id, playerInventory, this);
+    }
+
+    @Override
+    public void tick (Level level, BlockPos pos, BlockState state) {
+        super.tick(level, pos, state);
     }
 
     @Override
