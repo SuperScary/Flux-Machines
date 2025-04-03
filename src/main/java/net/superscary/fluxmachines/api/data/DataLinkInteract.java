@@ -16,7 +16,6 @@ public interface DataLinkInteract {
     default ArrayList<PropertyComponent<?>> allowedData (@Nullable ArrayList<PropertyComponent<?>> extendedData) {
         return new ArrayList<>() {
             {
-                add(new PropertyComponent<>(FMBlockStates.ALLOW_REDSTONE));
                 if (extendedData != null) addAll(extendedData);
             }
         };

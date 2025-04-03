@@ -42,7 +42,6 @@ import java.util.Objects;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.CRAFTING;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
-import static net.superscary.fluxmachines.core.util.block.FMBlockStates.ALLOW_REDSTONE;
 import static net.superscary.fluxmachines.core.util.block.FMBlockStates.REDSTONE_ON;
 
 public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends BaseBlock implements EntityBlock {
@@ -96,14 +95,13 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
         return this.defaultBlockState().setValue(POWERED, false)
                 .setValue(property.getProperty(), property.getValue())
                 .setValue(CRAFTING, false)
-                .setValue(ALLOW_REDSTONE, true)
                 .setValue(FMBlockStates.REDSTONE_ON, false);
     }
 
     @Override
     protected void createBlockStateDefinition (StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(POWERED, FACING, CRAFTING, ALLOW_REDSTONE, REDSTONE_ON);
+        builder.add(POWERED, FACING, CRAFTING, REDSTONE_ON);
     }
 
     @Override
@@ -122,6 +120,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
             var blockentity = this.getBlockEntity(level, pos);
             if (blockentity != null) {
                 if (!wrenched) {
+                    blockentity.drops(blockentity.getInventory());
+                } else {
                     blockentity.drops(blockentity.getInventory());
                 }
             }
@@ -177,7 +177,7 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
 
     @Override
     protected int getSignal (@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
-        return PropertyHelper.sameValue(state, POWERED, ALLOW_REDSTONE, REDSTONE_ON) ? 15 : 0;
+        return PropertyHelper.sameValue(state, POWERED, REDSTONE_ON) ? 15 : 0;
     }
 
     @Override
@@ -186,8 +186,8 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
     }
 
     @Override
-    protected boolean isSignalSource (BlockState state) {
-        return state.getValue(ALLOW_REDSTONE);
+    protected boolean isSignalSource (@NotNull BlockState state) {
+        return true;
     }
 
     public boolean getDisassembled () {

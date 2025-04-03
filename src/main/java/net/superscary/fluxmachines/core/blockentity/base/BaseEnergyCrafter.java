@@ -10,10 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.superscary.fluxmachines.api.recipe.FMRecipe;
+import net.superscary.fluxmachines.api.blockentity.Upgradeable;
 import net.superscary.fluxmachines.api.energy.EnergizedCrafter;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.api.network.NetworkComponent;
+import net.superscary.fluxmachines.api.recipe.FMRecipe;
 import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.block.FMBlockStates;
 import net.superscary.fluxmachines.core.util.helper.PropertyHelper;
@@ -42,10 +43,9 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
     public @NotNull Optional<RecipeHolder<T>> getCurrentRecipe () {
         assert this.level != null;
         var input = getInventory().getStackInSlot(inputSlot());
-        if (input == ItemStack.EMPTY) return Optional.empty();
+        if (input == ItemStack.EMPTY || getRecipeManager() == null) return Optional.empty();
 
         for (var recipe : getRecipeManager().getConvertedRecipes()) {
-
             if (Utils.convertToItemStack(recipe.value().input()).getItem().equals(input.getItem())) {
                 return Optional.of(recipe);
             }
@@ -101,7 +101,7 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
             return false;
         }
         var result = getRecipeResultItem(Objects.requireNonNull(getLevel()));
-        assert result != null;
+        isCrafting = result != null;
         var hasRecipe = this.canInsertAmount(result.getCount(), inputSlot(), outputSlot(), getInventory()) && canInsertItem(getInventory(), result.getItem(), outputSlot()) && hasEnoughEnergy(getEnergyAmount());
         updateBlockState(state.setValue(BlockStateProperties.CRAFTING, hasRecipe));
         PropertyHelper.setValues(state, isCrafting(), BlockStateProperties.POWERED, FMBlockStates.REDSTONE_ON);

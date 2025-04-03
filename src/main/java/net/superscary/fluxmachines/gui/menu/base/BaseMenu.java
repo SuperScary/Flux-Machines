@@ -10,14 +10,12 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.superscary.fluxmachines.api.blockentity.Upgradeable;
+import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.util.inventory.QuickMoveStack;
 import net.superscary.fluxmachines.core.util.inventory.slots.UpgradeSlot;
 import org.jetbrains.annotations.NotNull;
-
-import static net.superscary.fluxmachines.gui.screen.base.BaseScreen.SETTINGS_PANEL_X_HALF;
-import static net.superscary.fluxmachines.gui.screen.base.BaseScreen.Y;
 
 public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseBlockEntity> extends AbstractContainerMenu {
 
@@ -25,12 +23,14 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
     public final T blockEntity;
     private final Level level;
     private int index = 0;
+    private final int upgradeableMoveFactor;
 
     public BaseMenu (MenuType<?> type, int containerId, Inventory inventory, B block, T blockEntity) {
         super(type, containerId);
         this.block = block;
         this.blockEntity = blockEntity;
         this.level = inventory.player.level();
+        this.upgradeableMoveFactor = isUpgradeable() ? -14 : 0;
 
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
@@ -54,12 +54,21 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
      */
     public abstract void addSlots ();
 
+    /**
+     * Using {@link BaseMenu#getUpgradeableMoveFactor()} is basically pointless since it will only ever be -14.
+     * However, for readability and maintainability I'm using it. 182 is the x location on the texture, but it will always
+     * subtract 14.
+     */
     public void addUpgradeSlots () {
-        if (!isUpgradeable()) return;
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 5));
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 23));
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 41));
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182, 59));
+        if (!isUpgradeable()) {
+            FluxMachines.LOGGER.info("{} is not upgradeable.", blockEntity.toString());
+            return;
+        }
+
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 5));
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 23));
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 41));
+        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 59));
     }
 
     @Override
@@ -72,24 +81,48 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, block);
     }
 
+    /**
+     * Adds the player inventory.
+     * @param playerInventory the players inventory.
+     */
     private void addPlayerInventory (Inventory playerInventory) {
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, (8 + l * 18), 84 + i * 18));
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, (8 + getUpgradeableMoveFactor() + col * 18), 84 + row * 18));
             }
         }
     }
 
+    /**
+     * Adds the player hotbar.
+     * @param playerInventory the players inventory.
+     */
     private void addPlayerHotbar (Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, (8 + i * 18), 142));
+            this.addSlot(new Slot(playerInventory, i, (8 + getUpgradeableMoveFactor() + i * 18), 142));
         }
     }
 
+    /**
+     * Gets the next index for a slot.
+     * @return next slot
+     */
     public int getNextIndex () {
         return index++;
     }
 
+    /**
+     * Represents the offset of the x location when a menu is upgradeable.
+     * @return -14 or 0
+     */
+    public int getUpgradeableMoveFactor () {
+        return upgradeableMoveFactor;
+    }
+
+    /**
+     * Checks if a blockentity can be upgraded.
+     * @return true is upgradeable.
+     */
     public boolean isUpgradeable() {
         return blockEntity instanceof Upgradeable;
     }

@@ -16,7 +16,6 @@ import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 import net.superscary.fluxmachines.model.CableModelLoader;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -24,9 +23,29 @@ import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
 
 public class BlockModelProvider extends FMBlockStateProvider {
 
-    public static final ResourceLocation BOTTOM = FluxMachines.getResource("block/machine_bottom");
-    public static final ResourceLocation TOP = FluxMachines.getResource("block/machine_top");
-    public static final ResourceLocation SIDE = FluxMachines.getResource("block/machine_side");
+    public static final ResourceLocation MACHINE_BOTTOM = FluxMachines.getResource("block/machine_states/machine_bottom");
+    public static final ResourceLocation MACHINE_TOP = FluxMachines.getResource("block/machine_states/machine_top");
+    public static final ResourceLocation MACHINE_SIDE = FluxMachines.getResource("block/machine_states/machine_side");
+
+    public static final ResourceLocation MACHINE_BOTTOM_ANY_IN = FluxMachines.getResource("block/machine_states/machine_bottom_any");
+    public static final ResourceLocation MACHINE_TOP_ANY_IN = FluxMachines.getResource("block/machine_states/machine_top_any");
+    public static final ResourceLocation MACHINE_SIDE_ANY_IN = FluxMachines.getResource("block/machine_states/machine_side_any");
+
+    public static final ResourceLocation MACHINE_BOTTOM_ITEM_IN = FluxMachines.getResource("block/machine_states/machine_bottom_item_in");
+    public static final ResourceLocation MACHINE_TOP_ITEM_IN = FluxMachines.getResource("block/machine_states/machine_top_item_in");
+    public static final ResourceLocation MACHINE_SIDE_ITEM_IN = FluxMachines.getResource("block/machine_states/machine_side_item_in");
+
+    public static final ResourceLocation MACHINE_BOTTOM_ITEM_OUT = FluxMachines.getResource("block/machine_states/machine_bottom_item_out");
+    public static final ResourceLocation MACHINE_TOP_ITEM_OUT = FluxMachines.getResource("block/machine_states/machine_top_item_out");
+    public static final ResourceLocation MACHINE_SIDE_ITEM_OUT = FluxMachines.getResource("block/machine_states/machine_side_item_out");
+
+    public static final ResourceLocation MACHINE_BOTTOM_POWER_IN = FluxMachines.getResource("block/machine_states/machine_bottom_power_in");
+    public static final ResourceLocation MACHINE_TOP_POWER_IN = FluxMachines.getResource("block/machine_states/machine_top_power_in");
+    public static final ResourceLocation MACHINE_SIDE_POWER_IN = FluxMachines.getResource("block/machine_states/machine_side_power_in");
+
+    public static final ResourceLocation MACHINE_BOTTOM_POWER_OUT = FluxMachines.getResource("block/machine_states/machine_bottom_power_out");
+    public static final ResourceLocation MACHINE_TOP_POWER_OUT = FluxMachines.getResource("block/machine_states/machine_top_power_out");
+    public static final ResourceLocation MACHINE_SIDE_POWER_OUT = FluxMachines.getResource("block/machine_states/machine_side_power_out");
 
     public BlockModelProvider (PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, FluxMachines.MODID, exFileHelper);
@@ -35,10 +54,11 @@ public class BlockModelProvider extends FMBlockStateProvider {
     @Override
     protected void registerStatesAndModels () {
         blockWithItem(STEEL_BLOCK);
-        machineCasing(MACHINE_CASING);
+        blockWithItemRenderType(MACHINE_CASING, "translucent");
 
         machine(FLUX_FURNACE, "flux_furnace");
         machine(COAL_GENERATOR, "coal_generator");
+        fluidTank(FLUID_TANK);
 
         registerCable();
         registerFacade();
@@ -72,6 +92,10 @@ public class BlockModelProvider extends FMBlockStateProvider {
         simpleBlockWithItem(blockRegistryObject.block(), cubeAll(blockRegistryObject.block()));
     }
 
+    private void blockWithItemRenderType (BlockDefinition<?> blockRegistryObject, String renderType) {
+        simpleBlockWithItem(blockRegistryObject.block(), models().cubeAll(blockRegistryObject.id().getPath(), modLoc("block/" + blockRegistryObject.id().getPath())).renderType(renderType));
+    }
+
     private void registerCable (BlockDefinition<?> block, String loader, ResourceLocation resourceLocation) {
         BlockModelBuilder model = models().getBuilder(loader)
                 .parent(models().getExistingFile(mcLoc("cube")))
@@ -97,17 +121,35 @@ public class BlockModelProvider extends FMBlockStateProvider {
 
         err(List.of(on, off));
 
-        BlockModelBuilder modelOn = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_on", BOTTOM, TOP, on, SIDE, SIDE, SIDE).texture("particle", SIDE);
-        BlockModelBuilder modelOff = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off", BOTTOM, TOP, off, SIDE, SIDE, SIDE).texture("particle", SIDE);
+        BlockModelBuilder modelOn = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_on", MACHINE_BOTTOM, MACHINE_TOP, on, MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE).texture("particle", MACHINE_SIDE);
+        BlockModelBuilder modelOff = models().cube("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off", MACHINE_BOTTOM, MACHINE_TOP, off, MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE).texture("particle", MACHINE_SIDE);
         directionBlock(block.block(), (state, builder) -> builder.modelFile(state.getValue(BlockStateProperties.POWERED) ? modelOn : modelOff));
+    }
+
+    private void fluidTank (BlockDefinition<?> block) {
+        var side = FluxMachines.getResource("block/fluid_tank_side");
+        var top = FluxMachines.getResource("block/fluid_tank_top");
+        var bottom = MACHINE_BOTTOM;
+
+        err(List.of(side, top, bottom));
+
+        var model = models().cube("block/" + block.id().getPath(), bottom, top, side, side, side, side).texture("particle", side).renderType("translucent");
+
+        simpleBlockWithItem(block.block(), model);
     }
 
     private void solarPanel (BlockDefinition<?> block, String name) {
-        BlockModelBuilder modelOn = models().cube("block/" + "solar_panel/" + name + "/on", BOTTOM, modLoc("block/" + block.id().getPath() + "_top_on"), SIDE, SIDE, SIDE, SIDE).texture("particle", SIDE);
-        BlockModelBuilder modelOff = models().cube("block/" + "solar_panel/" + name + "/off", BOTTOM, modLoc("block/solar_panel_top_off"), SIDE, SIDE, SIDE, SIDE).texture("particle", SIDE);
+        BlockModelBuilder modelOn = models().cube("block/" + "solar_panel/" + name + "/on", MACHINE_BOTTOM, modLoc("block/" + block.id().getPath() + "_top_on"), MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE).texture("particle", MACHINE_SIDE);
+        BlockModelBuilder modelOff = models().cube("block/" + "solar_panel/" + name + "/off", MACHINE_BOTTOM, modLoc("block/solar_panel_top_off"), MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE).texture("particle", MACHINE_SIDE);
         directionBlock(block.block(), (state, builder) -> builder.modelFile(state.getValue(BlockStateProperties.POWERED) ? modelOn : modelOff));
     }
 
+    /**
+     * TODO: Modify for side states for input/output allowance
+     * @param block
+     * @param model
+     * @return
+     */
     private VariantBlockStateBuilder directionBlock (Block block, BiConsumer<BlockState, ConfiguredModel.Builder<?>> model) {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
         builder.forAllStates(state -> {

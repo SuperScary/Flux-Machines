@@ -10,7 +10,7 @@ import net.superscary.fluxmachines.gui.screen.base.BaseScreen;
 public class UpgradeSlot extends SlotItemHandler {
 
     public UpgradeSlot (IItemHandler itemHandler, int index, int x, int y) {
-        super(itemHandler, index, x + BaseScreen.SETTINGS_PANEL_X, y + BaseScreen.SETTINGS_PANEL_Y);
+        super(itemHandler, index, x, y);
     }
 
     @Override
@@ -18,4 +18,8 @@ public class UpgradeSlot extends SlotItemHandler {
         return stack.getItem() instanceof UpgradeBase;
     }
 
+    @Override
+    public boolean isActive () {
+        return true;
+    }
 }

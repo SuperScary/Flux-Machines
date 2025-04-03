@@ -8,15 +8,18 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.TooltipFlag;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.superscary.fluxmachines.api.blockentity.Crafter;
-import net.superscary.fluxmachines.api.data.DataLinkInteract;
 import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
 import net.superscary.fluxmachines.api.energy.PoweredBlock;
+import net.superscary.fluxmachines.api.gui.GuiFluid;
 import net.superscary.fluxmachines.api.gui.GuiPower;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.util.helper.MouseUtil;
 import net.superscary.fluxmachines.gui.EnergyDisplayTooltipArea;
 import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
+import net.superscary.fluxmachines.gui.FluidTankRenderer;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -41,6 +44,8 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public static int X;
     public static int Y;
 
+    private final int guiOffset;
+
     private EnergyDisplayTooltipArea energyInfoArea;
 
     private final ResourceLocation sideTabClosed = FluxMachines.getResource("textures/gui/elements/side_tab_closed.png");
@@ -52,7 +57,8 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     public BaseScreen (T menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 203;
+        this.imageWidth = menu.isUpgradeable() ? 203 : 176;
+        this.guiOffset = menu.isUpgradeable() ? -27 : 0;
     }
 
     @Override
@@ -62,7 +68,6 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
             assignEnergyInfoArea();
         }
 
-        this.imageWidth = 203;
         SETTINGS_PANEL_X = ((width - imageWidth) / 2) + imageWidth - 14;
         SETTINGS_PANEL_Y = ((height - imageHeight) / 2) + imageHeight - 84;
         SETTINGS_PANEL_X_HALF = SETTINGS_PANEL_X + (SETTINGS_PANEL_X / 2);
@@ -78,24 +83,22 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         int x = X = (width - imageWidth) / 2;
         int y = Y = (height - imageHeight) / 2;
 
-        int tabHeight = 84;
-        int offset = 14;
-
         if (Minecraft.getInstance().screen == this) {
-            if (isMouseAboveArea(mouseX, mouseY, x + imageWidth - offset, y + 82, 0, 0, 12, tabHeight) && !isSideTabOpen) {
-                guiGraphics.blit(sideTabSelected, x + offset, y, 0, 0, 256, 256);
+            if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y + 82, 0, 0, 12, 84) && !isSideTabOpen) {
+                guiGraphics.blit(sideTabSelected, x , y, 0, 0, 256, 256);
             } else if (!isSideTabOpen) {
-                guiGraphics.blit(sideTabClosed, x + offset, y, 0, 0, 256, 256);
+                guiGraphics.blit(sideTabClosed, x, y, 0, 0, 256, 256);
             }
         }
 
         toggleSideTab(guiGraphics, mouseX, mouseY, x, y);
 
-        // render main texture
-        guiGraphics.blit(getGuiTexture(), x + offset, y, 0, 0, imageWidth, imageHeight);
+        // render main texture after the side tab. Doesn't really matter the order it is rendered in.
+        guiGraphics.blit(getGuiTexture(), x, y, 0, 0, imageWidth, imageHeight);
 
-        renderArrow(guiGraphics, x - offset, y);
+        renderArrow(guiGraphics, x, y);
         renderEnergyArea(guiGraphics);
+        addAdditionalScreenElements(guiGraphics, v, mouseX, mouseY);
     }
 
     @Override
@@ -126,7 +129,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public boolean mouseClicked (double mouseX, double mouseY, int button) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        if (isMouseAboveArea((int) mouseX, (int) mouseY, x + imageWidth - 14, y, 0, 0, 12, imageHeight) && !isSideTabOpen && button == GLFW.GLFW_MOUSE_BUTTON_1) {
+        if (isMouseAboveArea((int) mouseX, (int) mouseY, x + imageWidth + guiOffset, y, 0, 0, 12, imageHeight) && !isSideTabOpen && button == GLFW.GLFW_MOUSE_BUTTON_1) {
             isSideTabOpen = true;
             return true;
         }
@@ -145,11 +148,11 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         if (!isSideTabOpen) return;
         settingsPanelOpen = true;
         menu.blockEntity.setSettingsPanelOpen(true);
-        graphics.blit(sideTabOpen, x + 14, y, 0, 0, 256, 256);
+        graphics.blit(sideTabOpen, x, y, 0, 0, 256, 256);
 
         addTabElements(graphics, mouseX, mouseY, x, y);
 
-        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth - 14, y, 0, 0, 256, 256)) {
+        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y, 0, 0, 256, 256)) {
             // DO SOMETHING
         } else {
             isSideTabOpen = false;
@@ -160,7 +163,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     private void addTabElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
         graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), SETTINGS_PANEL_X + 38, SETTINGS_PANEL_Y + 6, 0xFFFFFF);
-        addAdditionalElements(graphics, mouseX, mouseY, x, y);
+        addAdditionalTabElements(graphics, mouseX, mouseY, x, y);
     }
 
     /**
@@ -171,11 +174,22 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
      * @param x
      * @param y
      */
-    public abstract void addAdditionalElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y);
+    public abstract void addAdditionalTabElements(GuiGraphics graphics, int mouseX, int mouseY, int x, int y);
+
+    /**
+     * Render additional elements to the screen without overriding the parent.
+     * @param guiGraphics
+     * @param v
+     * @param mouseX
+     * @param mouseY
+     */
+    public void addAdditionalScreenElements (@NotNull GuiGraphics guiGraphics, float v, int mouseX, int mouseY) {
+
+    }
 
     public void renderEnergyArea (GuiGraphics guiGraphics) {
         if (isPoweredMenu()) {
-            int left = leftPos + ENERGY_LEFT;
+            int left = leftPos + ENERGY_LEFT + guiOffset;
             int top = topPos + ENERGY_TOP;
             energyInfoArea.render(guiGraphics, left, top);
         }
@@ -184,7 +198,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public void renderArrow (GuiGraphics graphics, int posX, int posY) {
         if (menu.blockEntity instanceof Crafter<?> entity) {
             if (entity.isCrafting()) {
-                graphics.blit(getGuiTexture(), posX + 79 + 27, posY + 35, 203, 0, entity.getScaledProgress(), 17);
+                graphics.blit(getGuiTexture(), posX + 79, posY + 35, 203, 0, entity.getScaledProgress(), 17);
             }
         }
     }
@@ -194,20 +208,53 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     }
 
     private void assignEnergyInfoArea () {
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
-        this.energyInfoArea = new EnergyDisplayTooltipArea(ENERGY_LEFT + 14, ENERGY_TOP, getEnergyStorage(), ENERGY_WIDTH, ENERGY_HEIGHT);
+        this.energyInfoArea = new EnergyDisplayTooltipArea(ENERGY_LEFT, ENERGY_TOP, getEnergyStorage(), ENERGY_WIDTH, ENERGY_HEIGHT);
     }
 
+    /**
+     * Renders the settings area tooltip
+     * @param guiGraphics
+     * @param mouseX
+     * @param mouseY
+     * @param x
+     * @param y
+     */
     private void renderOptionsAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
-        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth - 14, y + 82, 0, 0, 12, 84)) {
-            guiGraphics.renderTooltip(this.font, getOptionsTooltips(), Optional.empty(), mouseX - x - 14, mouseY - y);
+        if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y + 82, 0, 0, 12, 84)) {
+            guiGraphics.renderTooltip(this.font, getOptionsTooltips(), Optional.empty(), mouseX - x + (guiOffset / 2), mouseY - y);
         }
     }
 
+    /**
+     * Renders the energy area tooltip
+     * @param guiGraphics
+     * @param mouseX
+     * @param mouseY
+     * @param x
+     * @param y
+     */
     private void renderEnergyAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
-        if (isMouseAboveArea(mouseX, mouseY, x, y, ENERGY_LEFT + 14, ENERGY_TOP, ENERGY_WIDTH, ENERGY_HEIGHT)) {
-            guiGraphics.renderTooltip(this.font, getEnergyTooltips(), Optional.empty(), mouseX - x + 14, mouseY - y);
+        if (isMouseAboveArea(mouseX, mouseY, x, y, ENERGY_LEFT, ENERGY_TOP, ENERGY_WIDTH, ENERGY_HEIGHT)) {
+            guiGraphics.renderTooltip(this.font, getEnergyTooltips(), Optional.empty(), mouseX - x, mouseY - y);
+        }
+    }
+
+    /**
+     * Renders the fluid area tooltip
+     * @param guiGraphics Graphics renderer
+     * @param pMouseX mouse position x
+     * @param pMouseY mouse position y
+     * @param x position x
+     * @param y position y
+     * @param stack {@link FluidStack}
+     * @param offsetX offset x
+     * @param offsetY offset y
+     * @param renderer {@link FluidTankRenderer}
+     */
+    @SuppressWarnings("SameParameterValue")
+    protected void renderFluidTooltipArea (GuiGraphics guiGraphics, int pMouseX, int pMouseY, int x, int y, FluidStack stack, int offsetX, int offsetY, FluidTankRenderer renderer) {
+        if (isMouseAboveArea(pMouseX, pMouseY, x, y, offsetX, offsetY, renderer.getWidth(), renderer.getHeight())) {
+            guiGraphics.renderTooltip(font, renderer.getTooltip(stack, TooltipFlag.NORMAL), Optional.empty(), pMouseX - x, pMouseY - y);
         }
     }
 
@@ -235,6 +282,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     public boolean isPoweredMenu () {
         return menu instanceof GuiPower;
+    }
+
+    public boolean isFluidMenu () {
+        return menu instanceof GuiFluid;
     }
 
     @SuppressWarnings("unused")

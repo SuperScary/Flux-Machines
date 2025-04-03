@@ -7,12 +7,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.cable.CableBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.machine.CoalGeneratorBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.machine.FluxFurnaceBlockEntity;
-import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.blockentity.misc.FluidTankBlockEntity;
 import net.superscary.fluxmachines.core.util.DeferredBlockEntityType;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 
@@ -29,6 +30,8 @@ public final class FMBlockEntities {
 
     public static final DeferredBlockEntityType<FluxFurnaceBlockEntity> FLUX_FURNACE = create("flux_furnace", FluxFurnaceBlockEntity.class, FluxFurnaceBlockEntity::new, FMBlocks.FLUX_FURNACE);
     public static final DeferredBlockEntityType<CoalGeneratorBlockEntity> COAL_GENERATOR = create("coal_generator", CoalGeneratorBlockEntity.class, CoalGeneratorBlockEntity::new, FMBlocks.COAL_GENERATOR);
+
+    public static final DeferredBlockEntityType<FluidTankBlockEntity> FLUID_TANK = create("fluid_tank", FluidTankBlockEntity.class, FluidTankBlockEntity::new, FMBlocks.FLUID_TANK);
 
     public static final DeferredBlockEntityType<CableBlockEntity> CABLE = create("cable", CableBlockEntity.class, CableBlockEntity::new, FMBlocks.CABLE);
 

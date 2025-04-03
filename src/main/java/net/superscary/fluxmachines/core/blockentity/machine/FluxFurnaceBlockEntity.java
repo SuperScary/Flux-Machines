@@ -8,7 +8,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.core.blockentity.base.BaseEnergyCrafter;
@@ -55,11 +54,6 @@ public class FluxFurnaceBlockEntity extends BaseEnergyCrafter<FluxSmeltingRecipe
     @Override
     public int getEnergyAmount () {
         return 8;
-    }
-
-    @Override
-    public FluidHandlerItemStack getFluidInventory() {
-        return null;
     }
 
     @Override

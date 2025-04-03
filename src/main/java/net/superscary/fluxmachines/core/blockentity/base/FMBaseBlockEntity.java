@@ -223,6 +223,11 @@ public abstract class FMBaseBlockEntity extends BlockEntity implements MenuProvi
     }
 
     /**
+     * Called every tick. Main tick method for base powered block entities.
+     */
+    public abstract void tick (Level level, BlockPos pos, BlockState state);
+
+    /**
      * Returns first object if not null, otherwise returns second object.
      */
     public <T> T getEither (T obj, T obj2) {

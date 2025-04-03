@@ -35,8 +35,8 @@ public class FluxFurnaceMenu extends BaseMenu<FluxFurnaceBlock, FluxFurnaceBlock
 
     @Override
     public void addSlots () {
-        this.addSlot(new SlotItemHandler(this.blockEntity.getInventory(), getNextIndex(), 56, 35));
-        this.addSlot(new OutputSlot(this.blockEntity.getInventory(), getNextIndex(), 116, 35));
+        this.addSlot(new SlotItemHandler(this.blockEntity.getInventory(), getNextIndex(), 56 + getUpgradeableMoveFactor(), 35));
+        this.addSlot(new OutputSlot(this.blockEntity.getInventory(), getNextIndex(), 116 + getUpgradeableMoveFactor(), 35));
     }
 
     @Override

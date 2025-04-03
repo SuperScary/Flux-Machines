@@ -28,6 +28,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(MACHINE_CASING.block(), "Machine Casing");
         add(FLUX_FURNACE.block(), "Flux Furnace");
         add(COAL_GENERATOR.block(), "Coal Generator");
+        add(FLUID_TANK.block(), "Fluid Tank");
         add(CABLE.block(), "Network Cable");
         add(FACADE.block(), "Cable Facade");
     }
@@ -92,6 +93,9 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
         add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");
         add("armor.status.effect.kb2.tooltip", "§8- Knockback II§r");
+
+        add("fluxmachines.tooltip.liquid.amount.with.capacity", "%s / %s mB");
+        add("fluxmachines.tooltip.liquid.amount", "%s mB");
     }
 
     protected void subtitles () {

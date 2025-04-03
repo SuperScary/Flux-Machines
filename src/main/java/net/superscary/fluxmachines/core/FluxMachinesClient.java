@@ -6,6 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.superscary.fluxmachines.core.registries.FMMenus;
+import net.superscary.fluxmachines.gui.screen.FluidTankScreen;
 import net.superscary.fluxmachines.gui.screen.FluxFurnaceScreen;
 
 public class FluxMachinesClient extends FluxMachinesBase {
@@ -28,6 +29,7 @@ public class FluxMachinesClient extends FluxMachinesBase {
 
     private void registerMenuScreens (RegisterMenuScreensEvent event) {
         event.register(FMMenus.FLUX_FURNACE_MENU.get(), FluxFurnaceScreen::new);
+        event.register(FMMenus.FLUID_TANK_MENU.get(), FluidTankScreen::new);
     }
 
 }

@@ -1,6 +1,5 @@
 package net.superscary.fluxmachines.api.inventory;
 
-import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 /**
@@ -13,8 +12,6 @@ public interface MachineInventory {
      * @return the inventory
      */
     ItemStackHandler getInventory ();
-
-    FluidHandlerItemStack getFluidInventory ();
 
     /**
      * Clear the contents of the inventory

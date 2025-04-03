@@ -6,8 +6,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -15,10 +13,10 @@ import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import net.superscary.fluxmachines.core.hooks.*;
-import net.superscary.fluxmachines.impl.top.FMTopPlugin;
 import net.superscary.fluxmachines.core.item.material.FMArmorMaterials;
 import net.superscary.fluxmachines.core.registries.*;
 import net.superscary.fluxmachines.core.sound.FMSounds;
+import net.superscary.fluxmachines.impl.top.FMTopPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -37,7 +35,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         registerAll(modEventBus);
 
         modEventBus.addListener(Tab::initExternal);
-        modEventBus.addListener(this::registerCapabilities);
+        modEventBus.addListener(FMCapabilities::registerAll);
 
         modEventBus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey() == Registries.CREATIVE_MODE_TAB) {
@@ -102,15 +100,6 @@ public abstract class FluxMachinesBase implements FluxMachines {
 
     private void serverStopped (final ServerStoppedEvent event) {
 
-    }
-
-    private void registerCapabilities (RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getInventory());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.FLUX_FURNACE.get(), (o, direction) -> o.getEnergyStorage());
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.COAL_GENERATOR.get(), (o, direction) -> o.getInventory());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.COAL_GENERATOR.get(), (o, direction) -> o.getEnergyStorage());
-
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FMBlockEntities.CABLE.get(), (o, direction) -> o.getEnergyStorage());
     }
 
     @Override

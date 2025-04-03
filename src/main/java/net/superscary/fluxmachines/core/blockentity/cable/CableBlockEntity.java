@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.util.keys.Keys;
@@ -131,11 +130,6 @@ public class CableBlockEntity extends FMBasePoweredBlockEntity {
     @Override
     public @NotNull Component getDisplayName() {
         return Component.literal("");
-    }
-
-    @Override
-    public FluidHandlerItemStack getFluidInventory() {
-        return null;
     }
 
     @Override

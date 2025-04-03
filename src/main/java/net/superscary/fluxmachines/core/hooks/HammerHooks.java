@@ -52,6 +52,7 @@ public class HammerHooks {
                         continue;
                     }
 
+                    // Drops steel dust when breaking iron with the hammer. May not be final implementation.
                     if (VALID_ORES.contains(level.getBlockState(pos).getBlock())) {
                         ContentDropper.spawnDrops(level, pos, List.of(new ItemStack(FMItems.STEEL_DUST)));
                     }

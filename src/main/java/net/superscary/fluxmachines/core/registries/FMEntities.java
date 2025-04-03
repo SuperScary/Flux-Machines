@@ -9,7 +9,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.sound.FMSounds;
-import net.superscary.fluxmachines.core.util.helper.SoundHelper;
 
 public class FMEntities {
 

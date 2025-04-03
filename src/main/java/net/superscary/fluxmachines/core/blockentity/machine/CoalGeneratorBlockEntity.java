@@ -8,7 +8,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -43,8 +42,4 @@ public class CoalGeneratorBlockEntity extends FMBasePoweredBlockEntity {
         return Component.translatable("block.fluxmachines.coal_generator");
     }
 
-    @Override
-    public FluidHandlerItemStack getFluidInventory() {
-        return null;
-    }
 }
