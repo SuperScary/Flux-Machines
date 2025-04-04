@@ -9,9 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.core.item.FertilizerItem;
-import net.superscary.fluxmachines.core.item.base.BaseFood;
-import net.superscary.fluxmachines.core.item.base.BaseItem;
-import net.superscary.fluxmachines.core.item.base.EmptyItem;
+import net.superscary.fluxmachines.core.item.base.*;
 import net.superscary.fluxmachines.core.item.tool.DataLinkTool;
 import net.superscary.fluxmachines.core.item.tool.RSItem;
 import net.superscary.fluxmachines.core.item.tool.SteelTool;
@@ -19,7 +17,6 @@ import net.superscary.fluxmachines.core.item.tool.Wrench;
 import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.Nullable;
-import net.superscary.fluxmachines.core.item.base.SteelArmorItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +38,9 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> RUBBER = item("rubber", BaseItem::new);
     public static final ItemDefinition<BaseItem> INDUSTRIAL_SLAG = item("industrial_slag", BaseItem::new);
     public static final ItemDefinition<BaseItem> FERTILIZER = item("fertilizer", FertilizerItem::new);
+    public static final ItemDefinition<BaseItem> FLUX_POWDER = item("flux_powder", BaseItem::new);
+    public static final ItemDefinition<BaseItem> CALCITE_DUST = item("calcite_dust", BaseItem::new);
+    public static final ItemDefinition<BaseItem> COKE = item("coke", BaseFuel::new);
 
     public static final ItemDefinition<RSItem> REDSTONE_AND_STEEL = item("redstone_and_steel", RSItem::new);
 

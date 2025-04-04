@@ -9,7 +9,7 @@
     },
     {
       "type": "text",
-      "text": "The Flux Furnace has 3 upgrade slots, which can be used to upgrade the speed of the furnace. The upgrades can be crafted and placed in the upgrade slots to increase the speed of the furnace."
+      "text": "The Flux Furnace has 4 upgrade slots, which can be used to upgrade the speed of the furnace. The upgrades can be crafted and placed in the upgrade slots to increase the speed of the furnace."
     },
     {
       "type": "text",
@@ -18,7 +18,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "fluxmachines:machine/flux_furnace",
-      "text": "The Flux Furnace can be crafted using the following recipe: 6 Steel Ingots, 1 Furnace, 1 Redstone Torch, 1 Machine Casing."
+      "text": "The Flux Furnace can be crafted using the following recipe: 6 Steel Ingots, 1 Coal Generator, 1 Redstone Torch, & 1 Machine Casing."
     }
   ]
 }

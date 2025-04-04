@@ -46,6 +46,8 @@ public abstract class FluxMachinesBase implements FluxMachines {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(CableHooks::initModels);
         modEventBus.addListener(CableHooks::registerBlockColor);
+        modEventBus.addListener(FMRenderers::registerBER);
+
         NeoForge.EVENT_BUS.addListener(this::onServerAboutToStart);
         NeoForge.EVENT_BUS.addListener(this::serverStopped);
         NeoForge.EVENT_BUS.addListener(this::serverStopping);
@@ -54,6 +56,8 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(RedstoneHooks::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(DataLinkHooks::onPlayerUseBlockEvent);
         NeoForge.EVENT_BUS.addListener(BlockHooks::place);
+        NeoForge.EVENT_BUS.addListener(BlockHooks::pistonCrush);
+        NeoForge.EVENT_BUS.addListener(BlockHooks::calciteToFlux);
         NeoForge.EVENT_BUS.addListener(VillagerTrades::addCustomTrades);
         NeoForge.EVENT_BUS.addListener(VillagerTrades::addWandererTrades);
 

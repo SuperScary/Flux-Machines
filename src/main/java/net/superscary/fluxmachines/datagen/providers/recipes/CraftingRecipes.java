@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
@@ -79,6 +80,142 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer, FluxMachines.getResource("tool/data_link"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, REFRACTORY_BRICK, 1)
+                .pattern("CBC")
+                .pattern("BCB")
+                .pattern("CBC")
+                .define('C', FLUX_POWDER)
+                .define('B', Items.BRICK)
+                .unlockedBy("has_flux_powder", has(FLUX_POWDER))
+                .unlockedBy("has_brick", has(Items.BRICK))
+                .save(consumer, FluxMachines.getResource("blocks/refractory_brick_from_flux_powder_and_bricks"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, REFRACTORY_BRICK, 1)
+                .pattern("S")
+                .pattern("S")
+                .define('S', REFRACTORY_BRICK_SLAB)
+                .unlockedBy("has_refractory_brick_slab", has(REFRACTORY_BRICK_SLAB))
+                .save(consumer, FluxMachines.getResource("blocks/refractory_brick_from_refractory_brick_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, REFRACTORY_BRICK_SLAB, 6)
+                .pattern("SSS")
+                .define('S', REFRACTORY_BRICK)
+                .unlockedBy("has_refractory_brick", has(REFRACTORY_BRICK))
+                .save(consumer, FluxMachines.getResource("blocks/refractory_brick_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, REFRACTORY_BRICK_STAIRS, 4)
+                .pattern("S  ")
+                .pattern("SS ")
+                .pattern("SSS")
+                .define('S', REFRACTORY_BRICK)
+                .unlockedBy("has_refractory_brick", has(REFRACTORY_BRICK))
+                .save(consumer, FluxMachines.getResource("blocks/refractory_brick_stairs"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.CALCITE, 1)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', CALCITE_DUST)
+                .unlockedBy("has_calcite_dust", has(CALCITE_DUST))
+                .save(consumer, FluxMachines.getResource("blocks/calcite_block_from_dust"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.CALCITE, 1)
+                .pattern("S")
+                .pattern("S")
+                .define('S', CALCITE_SLAB)
+                .unlockedBy("has_calcite_slab", has(CALCITE_SLAB))
+                .save(consumer, FluxMachines.getResource("blocks/calcite_from_calcite_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, CALCITE_SLAB, 6)
+                .pattern("SSS")
+                .define('S', Blocks.CALCITE)
+                .unlockedBy("has_calcite", has(Blocks.CALCITE))
+                .save(consumer, FluxMachines.getResource("blocks/calcite_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, CALCITE_STAIRS, 4)
+                .pattern("S  ")
+                .pattern("SS ")
+                .pattern("SSS")
+                .define('S', Blocks.CALCITE)
+                .unlockedBy("has_calcite", has(Blocks.CALCITE))
+                .save(consumer, FluxMachines.getResource("blocks/calcite_stairs"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE, 1)
+                .pattern("S")
+                .pattern("S")
+                .define('S', LIMESTONE_SLAB)
+                .unlockedBy("has_limestone_slab", has(LIMESTONE_SLAB))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_from_limestone_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_SLAB, 6)
+                .pattern("SSS")
+                .define('S', LIMESTONE)
+                .unlockedBy("has_limestone", has(LIMESTONE))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_STAIRS, 4)
+                .pattern("S  ")
+                .pattern("SS ")
+                .pattern("SSS")
+                .define('S', LIMESTONE)
+                .unlockedBy("has_limestone", has(LIMESTONE))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_stairs"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_POLISHED, 4)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', LIMESTONE)
+                .unlockedBy("has_limestone", has(LIMESTONE))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_polished_from_limestone"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_POLISHED, 1)
+                .pattern("S")
+                .pattern("S")
+                .define('S', LIMESTONE_POLISHED_SLAB)
+                .unlockedBy("has_limestone_polished_slab", has(LIMESTONE_POLISHED_SLAB))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_polished_from_limestone_polished_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_POLISHED_SLAB, 6)
+                .pattern("SSS")
+                .define('S', LIMESTONE_POLISHED)
+                .unlockedBy("has_limestone_polished", has(LIMESTONE_POLISHED))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_polished_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_POLISHED_STAIRS, 4)
+                .pattern("S  ")
+                .pattern("SS ")
+                .pattern("SSS")
+                .define('S', LIMESTONE_POLISHED_STAIRS)
+                .unlockedBy("has_limestone_polished", has(LIMESTONE_POLISHED))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_polished_stairs"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_BRICKS, 4)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', LIMESTONE_POLISHED)
+                .unlockedBy("has_limestone_polished", has(LIMESTONE_POLISHED))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_brick_from_limestone_polished"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_BRICKS, 1)
+                .pattern("S")
+                .pattern("S")
+                .define('S', LIMESTONE_BRICK_SLAB)
+                .unlockedBy("has_limestone_brick_slab", has(LIMESTONE_BRICK_SLAB))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_brick_from_limestone_brick_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_BRICK_SLAB, 6)
+                .pattern("SSS")
+                .define('S', LIMESTONE_BRICKS)
+                .unlockedBy("has_limestone_brick", has(LIMESTONE_BRICKS))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_brick_slab"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LIMESTONE_BRICK_STAIRS, 4)
+                .pattern("S  ")
+                .pattern("SS ")
+                .pattern("SSS")
+                .define('S', LIMESTONE_BRICKS)
+                .unlockedBy("has_limestone_brick", has(LIMESTONE_BRICKS))
+                .save(consumer, FluxMachines.getResource("blocks/limestone_brick_stairs"));
+
     }
 
     protected void machine (RecipeOutput consumer) {
@@ -103,6 +240,16 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .define('F', Blocks.FURNACE)
                 .unlockedBy("has_casing", has(MACHINE_CASING))
                 .save(consumer, FluxMachines.getResource("machine/coal_generator"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, FLUID_TANK, 1)
+                .pattern("DFD")
+                .pattern("DBD")
+                .pattern("DFD")
+                .define('D', STEEL_INGOT)
+                .define('B', MACHINE_CASING)
+                .define('F', Tags.Items.BUCKETS_EMPTY)
+                .unlockedBy("has_casing", has(MACHINE_CASING))
+                .save(consumer, FluxMachines.getResource("machine/fluid_tank"));
     }
 
     /**

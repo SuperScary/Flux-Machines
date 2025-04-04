@@ -31,6 +31,20 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(FLUID_TANK.block(), "Fluid Tank");
         add(CABLE.block(), "Network Cable");
         add(FACADE.block(), "Cable Facade");
+        add(REFRACTORY_BRICK.block(), "Refractory Bricks");
+        add(REFRACTORY_BRICK_SLAB.block(), "Refractory Brick Slab");
+        add(REFRACTORY_BRICK_STAIRS.block(), "Refractory Brick Stairs");
+        add(CALCITE_STAIRS.block(), "Calcite Stairs");
+        add(CALCITE_SLAB.block(), "Calcite Slab");
+        add(LIMESTONE.block(), "Limestone");
+        add(LIMESTONE_STAIRS.block(), "Limestone Stairs");
+        add(LIMESTONE_SLAB.block(), "Limestone Slab");
+        add(LIMESTONE_BRICKS.block(), "Limestone Bricks");
+        add(LIMESTONE_BRICK_STAIRS.block(), "Limestone Brick Stairs");
+        add(LIMESTONE_BRICK_SLAB.block(), "Limestone Brick Slab");
+        add(LIMESTONE_POLISHED.block(), "Polished Limestone");
+        add(LIMESTONE_POLISHED_STAIRS.block(), "Polished Limestone Stairs");
+        add(LIMESTONE_POLISHED_SLAB.block(), "Polished Limestone Slab");
     }
 
     protected void items () {
@@ -53,6 +67,9 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(RUBBER.asItem(), "Rubber");
         add(INDUSTRIAL_SLAG.asItem(), "Industrial Slag");
         add(FERTILIZER.asItem(), "Fertilizer");
+        add(FLUX_POWDER.asItem(), "Flux Powder");
+        add(CALCITE_DUST.asItem(), "Calcite Dust");
+        add(COKE.asItem(), "Coke");
 
         add(REDSTONE_AND_STEEL.asItem(), "Redstone and Steel");
 

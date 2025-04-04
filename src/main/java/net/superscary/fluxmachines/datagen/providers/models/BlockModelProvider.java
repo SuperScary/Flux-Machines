@@ -6,6 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
@@ -54,6 +55,10 @@ public class BlockModelProvider extends FMBlockStateProvider {
     @Override
     protected void registerStatesAndModels () {
         blockWithItem(STEEL_BLOCK);
+        blockWithItem(REFRACTORY_BRICK);
+        blockWithItem(LIMESTONE);
+        blockWithItem(LIMESTONE_BRICKS);
+        blockWithItem(LIMESTONE_POLISHED);
         blockWithItemRenderType(MACHINE_CASING, "translucent");
 
         machine(FLUX_FURNACE, "flux_furnace");
@@ -63,10 +68,30 @@ public class BlockModelProvider extends FMBlockStateProvider {
         registerCable();
         registerFacade();
 
-        //stairsBlock(KineticBlocks.BRICK_STAIRS.block(), blockTexture(KineticBlocks.BRICK.block()));
-        //slabBlock(KineticBlocks.BRICK_SLAB.block(), blockTexture(KineticBlocks.BRICK.block()), blockTexture(KineticBlocks.BRICK.block()));
-        //blockItem(KineticBlocks.BRICK_STAIRS);
-        //blockItem(KineticBlocks.BRICK_SLAB);
+        stairsBlock(REFRACTORY_BRICK_STAIRS.block(), blockTexture(REFRACTORY_BRICK.block()));
+        slabBlock(REFRACTORY_BRICK_SLAB.block(), blockTexture(REFRACTORY_BRICK.block()), blockTexture(REFRACTORY_BRICK.block()));
+        blockItem(REFRACTORY_BRICK_SLAB);
+        blockItem(REFRACTORY_BRICK_STAIRS);
+
+        stairsBlock(CALCITE_STAIRS.block(), blockTexture(Blocks.CALCITE));
+        slabBlock(CALCITE_SLAB.block(), blockTexture(Blocks.CALCITE), blockTexture(Blocks.CALCITE));
+        blockItem(CALCITE_STAIRS);
+        blockItem(CALCITE_SLAB);
+
+        stairsBlock(LIMESTONE_STAIRS.block(), blockTexture(LIMESTONE.block()));
+        slabBlock(LIMESTONE_SLAB.block(), blockTexture(LIMESTONE.block()), blockTexture(LIMESTONE.block()));
+        blockItem(LIMESTONE_STAIRS);
+        blockItem(LIMESTONE_SLAB);
+
+        stairsBlock(LIMESTONE_BRICK_STAIRS.block(), blockTexture(LIMESTONE_BRICKS.block()));
+        slabBlock(LIMESTONE_BRICK_SLAB.block(), blockTexture(LIMESTONE_BRICKS.block()), blockTexture(LIMESTONE_BRICKS.block()));
+        blockItem(LIMESTONE_BRICK_STAIRS);
+        blockItem(LIMESTONE_BRICK_SLAB);
+
+        stairsBlock(LIMESTONE_POLISHED_STAIRS.block(), blockTexture(LIMESTONE_POLISHED.block()));
+        slabBlock(LIMESTONE_POLISHED_SLAB.block(), blockTexture(LIMESTONE_POLISHED.block()), blockTexture(LIMESTONE_POLISHED.block()));
+        blockItem(LIMESTONE_POLISHED_STAIRS);
+        blockItem(LIMESTONE_POLISHED_SLAB);
 
     }
 

@@ -3,13 +3,10 @@ package net.superscary.fluxmachines.datagen.providers.tag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.PoiTypeTags;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.core.registries.FMEntities;
 import net.superscary.fluxmachines.core.util.tags.FMTag;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,13 +27,32 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(MACHINE_CASING.block())
                 .add(STEEL_BLOCK.block())
                 .add(FLUX_FURNACE.block())
-                .add(COAL_GENERATOR.block());
+                .add(COAL_GENERATOR.block())
+                .add(FLUID_TANK.block())
+                .add(REFRACTORY_BRICK.block())
+                .add(REFRACTORY_BRICK_SLAB.block())
+                .add(REFRACTORY_BRICK_STAIRS.block())
+                .add(CALCITE_SLAB.block())
+                .add(CALCITE_STAIRS.block())
+                .add(LIMESTONE.block())
+                .add(LIMESTONE_STAIRS.block())
+                .add(LIMESTONE_SLAB.block())
+                .add(LIMESTONE_BRICKS.block())
+                .add(LIMESTONE_BRICK_STAIRS.block())
+                .add(LIMESTONE_BRICK_SLAB.block())
+                .add(LIMESTONE_POLISHED.block())
+                .add(LIMESTONE_POLISHED_STAIRS.block())
+                .add(LIMESTONE_POLISHED_SLAB.block());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(MACHINE_CASING.block())
                 .add(STEEL_BLOCK.block())
                 .add(FLUX_FURNACE.block())
-                .add(COAL_GENERATOR.block());
+                .add(COAL_GENERATOR.block())
+                .add(FLUID_TANK.block())
+                .add(REFRACTORY_BRICK.block())
+                .add(REFRACTORY_BRICK_SLAB.block())
+                .add(REFRACTORY_BRICK_STAIRS.block());
 
         this.tag(FMTag.Blocks.NEEDS_STEEL_TOOL)
                 .addTag(BlockTags.NEEDS_IRON_TOOL);
@@ -52,7 +68,8 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
         this.tag(FMTag.Blocks.WRENCHABLE)
                 .add(MACHINE_CASING.block())
                 .add(FLUX_FURNACE.block())
-                .add(COAL_GENERATOR.block());
+                .add(COAL_GENERATOR.block())
+                .add(FLUID_TANK.block());
 
         this.tag(FMTag.Blocks.STEEL)
                 .add(STEEL_BLOCK.block());

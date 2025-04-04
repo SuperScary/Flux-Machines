@@ -6,6 +6,7 @@ import net.superscary.fluxmachines.core.FluxMachines;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Utils {
 
@@ -29,6 +30,11 @@ public class Utils {
 
     public static ItemStack convertToItemStack (Ingredient from) {
         return Arrays.stream(from.getItems()).findFirst().get();
+    }
+
+    public static int randomInteger (int base, int max) {
+        Random random = new Random();
+        return random.nextInt(base, max);
     }
 
 }
