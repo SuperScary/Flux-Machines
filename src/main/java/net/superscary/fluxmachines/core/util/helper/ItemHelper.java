@@ -1,8 +1,11 @@
 package net.superscary.fluxmachines.core.util.helper;
 
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.capabilities.Capabilities;
 
 public class ItemHelper {
 
@@ -21,8 +24,29 @@ public class ItemHelper {
     }
 
     public static void destroy (ItemStack stack, Level level, Player player) {
+        destroy(stack, level, player, true);
+    }
+
+    public static void destroy (ItemStack stack, Level level, Player player, boolean playBreakSound) {
         stack.shrink(1);
-        SoundHelper.fire(level, player, player.blockPosition(), SoundHelper.Sounds.BREAK);
+        if (playBreakSound) SoundHelper.fire(level, player, player.blockPosition(), SoundHelper.Sounds.BREAK);
+    }
+
+    public static void giveOrDropBucket (Player player, ItemStack filledBucket) {
+        ItemStack heldItem = player.getMainHandItem();
+
+        if (heldItem.getCapability(Capabilities.FluidHandler.ITEM) != null) {
+            if (heldItem.getCount() == 1) {
+                player.setItemInHand(InteractionHand.MAIN_HAND, filledBucket);
+            } else {
+                player.setItemInHand(player.getUsedItemHand(), ItemStack.EMPTY);
+                player.setItemInHand(player.getUsedItemHand(), new ItemStack(heldItem.getItem(), heldItem.getCount() - 1));
+
+                if (!player.getInventory().add(filledBucket)) {
+                    player.drop(filledBucket.copy(), false);
+                }
+            }
+        }
     }
 
 }

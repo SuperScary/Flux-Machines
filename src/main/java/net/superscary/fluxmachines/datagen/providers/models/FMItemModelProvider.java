@@ -75,6 +75,7 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
         simpleBlockItem(CABLE.block());
         simpleBlockItem(FACADE.block());
+        simpleBlockItem(CRUCIBLE.block());
 
         trimmedArmorItem(STEEL_HELMET);
         trimmedArmorItem(STEEL_CHESTPLATE);

@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.superscary.fluxmachines.api.inventory.MachineFluidInventory;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
@@ -82,7 +81,7 @@ public class FluidTankBlockEntity extends FMBaseBlockEntity implements MachineFl
     }
 
     @Override
-    public IFluidHandler getTank(@Nullable Direction direction) {
+    public FluidTank getTank(@Nullable Direction direction) {
         return fluidTank;
     }
 

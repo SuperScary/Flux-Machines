@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
-import net.superscary.fluxmachines.core.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.core.blockentity.misc.FluidTankBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +35,7 @@ public class FluidTankBlock extends FMBaseEntityBlock<FluidTankBlockEntity> {
 
     @Override
     public MapCodec<BaseBlock> getCodec () {
-        return simpleCodec(FluxFurnaceBlock::new);
+        return simpleCodec(FluidTankBlock::new);
     }
 
     @Override

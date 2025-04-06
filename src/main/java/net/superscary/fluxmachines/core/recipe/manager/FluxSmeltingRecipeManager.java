@@ -13,17 +13,17 @@ import net.superscary.fluxmachines.core.registries.FMRecipes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FluxSmeltingManager implements IRecipeManager<FluxSmeltingRecipe> {
+public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRecipe> {
 
-    private static final FluxSmeltingManager INSTANCE = new FluxSmeltingManager();
+    private static final FluxSmeltingRecipeManager INSTANCE = new FluxSmeltingRecipeManager();
 
     protected List<RecipeHolder<FluxSmeltingRecipe>> convertedRecipes = new ArrayList<>();
 
-    private FluxSmeltingManager() {
+    private FluxSmeltingRecipeManager () {
 
     }
 
-    public static FluxSmeltingManager instance () {
+    public static FluxSmeltingRecipeManager instance () {
         return INSTANCE;
     }
 

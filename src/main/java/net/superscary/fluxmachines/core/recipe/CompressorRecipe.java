@@ -66,7 +66,7 @@ public record CompressorRecipe(Ingredient input, int energyReq, int craftTime, I
     }
 
     static {
-        TYPE_ID = FluxMachines.getResource("fluxsmelting");
+        TYPE_ID = FluxMachines.getResource("compress");
         TYPE = FMRecipes.COMPRESSOR_TYPE.get();
         CODEC = RecordCodecBuilder.mapCodec(
                 builder -> builder

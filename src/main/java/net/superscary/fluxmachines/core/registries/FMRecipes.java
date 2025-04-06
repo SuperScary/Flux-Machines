@@ -7,8 +7,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.recipe.CompressorRecipe;
+import net.superscary.fluxmachines.core.recipe.CrucibleRecipe;
 import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
 import net.superscary.fluxmachines.core.recipe.serializer.CompressorSerializer;
+import net.superscary.fluxmachines.core.recipe.serializer.CrucibleSerializer;
 import net.superscary.fluxmachines.core.recipe.serializer.FluxSmeltingSerializer;
 
 public class FMRecipes {
@@ -29,6 +31,14 @@ public class FMRecipes {
         @Override
         public String toString() {
             return "compressor";
+        }
+    });
+
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CrucibleRecipe>> CRUCIBLE_SERIALIZER = SERIALIZERS.register("crucible", CrucibleSerializer::new);
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CrucibleRecipe>> CRUCIBLE_TYPE = TYPES.register("crucible", () -> new RecipeType<>() {
+        @Override
+        public String toString() {
+            return "crucible";
         }
     });
 

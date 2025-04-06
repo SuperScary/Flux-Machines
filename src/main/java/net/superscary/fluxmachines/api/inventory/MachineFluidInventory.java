@@ -7,7 +7,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidActionResult;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nullable;
@@ -16,7 +15,7 @@ public interface MachineFluidInventory {
 
     FluidStack getFluid ();
 
-    IFluidHandler getTank (@Nullable Direction direction);
+    FluidTank getTank (@Nullable Direction direction);
 
     default boolean hasFluidStackInSlot (int slot, MachineItemStackHandler inventory) {
         return !inventory.getStackInSlot(slot).isEmpty()

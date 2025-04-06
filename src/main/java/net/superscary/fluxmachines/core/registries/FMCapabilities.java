@@ -2,6 +2,7 @@ package net.superscary.fluxmachines.core.registries;
 
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.misc.FluidTankBlockEntity;
 
 /**
@@ -30,6 +31,9 @@ public class FMCapabilities {
     protected static void misc (RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.FLUID_TANK.get(), (o, direction) -> o.getInventory());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FMBlockEntities.FLUID_TANK.get(), FluidTankBlockEntity::getTank);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FMBlockEntities.CRUCIBLE.get(), (o, direction) -> o.getInventory());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FMBlockEntities.CRUCIBLE.get(), CrucibleBlockEntity::getTank);
     }
 
 }

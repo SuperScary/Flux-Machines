@@ -25,4 +25,14 @@ public class MachineItemStackHandler extends ItemStackHandler {
         return 128;
     }
 
+    /**
+     * Returns true if the stack can be inserted. Does not check if stack is over limit.
+     * @param slot slot to be checked.
+     * @param stack stack to be checked against.
+     * @return true if you can insert.
+     */
+    public boolean canInsert (int slot, ItemStack stack) {
+        return getStackInSlot(slot).getItem() == stack.getItem() || getStackInSlot(slot).isEmpty();
+    }
+
 }

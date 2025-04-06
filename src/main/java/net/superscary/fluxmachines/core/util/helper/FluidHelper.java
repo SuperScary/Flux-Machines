@@ -6,6 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -29,6 +32,22 @@ public class FluidHelper {
 		ResourceLocation fluidStill = renderProperties.getStillTexture(stack);
 		Minecraft minecraft = Minecraft.getInstance();
 		return minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
+	}
+
+	public static Block getBlockFromFluidStack (FluidStack fluidStack) {
+		if (fluidStack == null || fluidStack.isEmpty()) {
+			return Blocks.AIR; // or null, depending on your logic
+		}
+
+		Fluid fluid = fluidStack.getFluid();
+
+		// Get the default fluid state and the corresponding block state
+		FluidState fluidState = fluid.defaultFluidState();
+
+		// Only fluids that are placed in the world as blocks will return a non-null block state
+		BlockState blockState = fluidState.createLegacyBlock();
+
+		return blockState.getBlock();
 	}
 
 	public record RGBA(int tint) {

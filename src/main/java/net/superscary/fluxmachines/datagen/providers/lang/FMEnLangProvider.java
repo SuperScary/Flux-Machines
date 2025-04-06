@@ -29,6 +29,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(FLUX_FURNACE.block(), "Flux Furnace");
         add(COAL_GENERATOR.block(), "Coal Generator");
         add(FLUID_TANK.block(), "Fluid Tank");
+        add(CRUCIBLE.block(), "Crucible");
         add(CABLE.block(), "Network Cable");
         add(FACADE.block(), "Cable Facade");
         add(REFRACTORY_BRICK.block(), "Refractory Bricks");
@@ -105,7 +106,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
         add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");
 
-        add("item.fluxmachines.patchouli.book.name", "Flux Machines");
+        add("item.fluxmachines.patchouli.book.name", "Flux Machines Field Manual");
         add("item.fluxmachines.patchouli.book.subtitle", "Flux Machines & You");
 
         add("armor.status.effect.tooltip", "§7§nFull Set Status Effect:§r");

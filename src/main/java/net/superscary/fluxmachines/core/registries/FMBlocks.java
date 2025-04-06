@@ -16,6 +16,7 @@ import net.superscary.fluxmachines.core.block.machine.CoalGeneratorBlock;
 import net.superscary.fluxmachines.core.block.machine.FluxFurnaceBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
+import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
 import net.superscary.fluxmachines.core.block.misc.FluidTankBlock;
 import net.superscary.fluxmachines.core.item.FacadeBlockItem;
 import net.superscary.fluxmachines.core.item.base.BaseBlockItem;
@@ -55,6 +56,7 @@ public class FMBlocks {
 
 	public static final BlockDefinition<FluxFurnaceBlock> FLUX_FURNACE = reg("flux_furnace", FluxFurnaceBlock::new);
 	public static final BlockDefinition<CoalGeneratorBlock> COAL_GENERATOR = reg("coal_generator", CoalGeneratorBlock::new);
+	public static final BlockDefinition<CrucibleBlock> CRUCIBLE = reg("crucible", CrucibleBlock::new);
 
 	public static final BlockDefinition<FluidTankBlock> FLUID_TANK = reg("fluid_tank", FluidTankBlock::new);
 

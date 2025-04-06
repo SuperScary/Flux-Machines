@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CompressorSerializer implements RecipeSerializer<CompressorRecipe> {
 
-    public static final FluxSmeltingSerializer INSTANCE = new FluxSmeltingSerializer();
+    public static final CrucibleSerializer INSTANCE = new CrucibleSerializer();
 
     @Override
     public @NotNull MapCodec<CompressorRecipe> codec () {
