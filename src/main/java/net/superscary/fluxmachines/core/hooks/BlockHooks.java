@@ -1,26 +1,40 @@
 package net.superscary.fluxmachines.core.hooks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.PistonEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
+import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
+import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMItems;
+import net.superscary.fluxmachines.core.util.helper.ItemHelper;
 import net.superscary.fluxmachines.core.util.helper.Utils;
+import net.superscary.fluxmachines.core.util.inventory.ContentDropper;
+import net.superscary.fluxmachines.network.CrucibleBlockHit;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BlockHooks {
@@ -100,6 +114,36 @@ public class BlockHooks {
                 level.addFreshEntity(flux);
 
                 level.playSound(flux, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.f, 1.f);
+            }
+        }
+    }
+
+    public static void leftClickCrucible (PlayerInteractEvent.LeftClickBlock event) {
+        var pos = event.getPos();
+        var level = event.getLevel();
+        var state = level.getBlockState(pos);
+        var area = 0;
+
+        if (state.getBlock() == FMBlocks.CRUCIBLE.block()) {
+            var facing = state.getValue(BlockStateProperties.FACING);
+            if (facing == event.getFace() && level.getBlockEntity(pos) instanceof CrucibleBlockEntity be) {
+                event.setCanceled(true);
+                var hit = Utils.getClientMouseOver();
+                var relative = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
+                area = CrucibleBlock.getArea(facing, relative);
+                var stack = be.getInventory().getStackInSlot(area);
+
+                if (!level.isClientSide()) {
+                    if (hit.getType() == HitResult.Type.BLOCK) {
+                        if (stack != ItemStack.EMPTY) {
+                            //PacketDistributor.sendToServer(new CrucibleBlockHit(pos, area, be.getInventory().getStackInSlot(area)));
+                            ItemHelper.giveOrDrop(level, event.getEntity(), stack);
+                            be.getInventory().setStackInSlot(area, ItemStack.EMPTY);
+                        }
+
+                        level.sendBlockUpdated(pos, be.getBlockState(), be.getBlockState(), 3);
+                    }
+                }
             }
         }
     }

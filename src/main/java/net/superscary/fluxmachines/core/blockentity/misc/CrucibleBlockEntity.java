@@ -29,7 +29,7 @@ import java.util.Optional;
 
 public class CrucibleBlockEntity extends FMBaseBlockEntity implements MachineFluidInventory, Crafter<CrucibleRecipe> {
 
-	private FluidTank fluidTank = new FluidTank(64_000) {
+	private final FluidTank fluidTank = new FluidTank(64_000) {
 		@Override
 		protected void onContentsChanged() {
 			setChanged();
@@ -52,7 +52,7 @@ public class CrucibleBlockEntity extends FMBaseBlockEntity implements MachineFlu
 
 	@Override
 	public MachineItemStackHandler createInventory () {
-		return new MachineItemStackHandler(4) {
+		return new MachineItemStackHandler(5) {
 			@Override
 			protected void onContentsChanged (int slot) {
 				setChanged();
@@ -76,7 +76,7 @@ public class CrucibleBlockEntity extends FMBaseBlockEntity implements MachineFlu
 
 	@Override
 	public @NotNull Component getDisplayName () {
-		return Component.literal("block.fluxmachines.crucible");
+		return Component.translatable("block.fluxmachines.crucible");
 	}
 
 	@Override

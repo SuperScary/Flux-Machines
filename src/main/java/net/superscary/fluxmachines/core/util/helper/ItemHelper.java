@@ -3,11 +3,13 @@ package net.superscary.fluxmachines.core.util.helper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 
-public class ItemHelper {
+/**
+ * A collection of item related utility functions.
+ */
+public final class ItemHelper {
 
     public static void damageStack (ItemStack stack, Level level, Player player) {
         damageStack(stack, 1, level, player);
@@ -46,6 +48,12 @@ public class ItemHelper {
                     player.drop(filledBucket.copy(), false);
                 }
             }
+        }
+    }
+
+    public static void giveOrDrop (Level level, Player player, ItemStack stack) {
+        if (!level.isClientSide() && !player.getInventory().add(stack) ) {
+            player.drop(stack, false);
         }
     }
 

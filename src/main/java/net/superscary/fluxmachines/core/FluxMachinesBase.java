@@ -17,6 +17,7 @@ import net.superscary.fluxmachines.core.item.material.FMArmorMaterials;
 import net.superscary.fluxmachines.core.registries.*;
 import net.superscary.fluxmachines.core.sound.FMSounds;
 import net.superscary.fluxmachines.impl.top.FMTopPlugin;
+import net.superscary.fluxmachines.network.Channel;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -47,6 +48,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         modEventBus.addListener(CableHooks::initModels);
         modEventBus.addListener(CableHooks::registerBlockColor);
         modEventBus.addListener(FMRenderers::registerBER);
+        modEventBus.addListener(Channel::register);
 
         NeoForge.EVENT_BUS.addListener(this::onServerAboutToStart);
         NeoForge.EVENT_BUS.addListener(this::serverStopped);
@@ -58,6 +60,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(BlockHooks::place);
         NeoForge.EVENT_BUS.addListener(BlockHooks::pistonCrush);
         NeoForge.EVENT_BUS.addListener(BlockHooks::calciteToFlux);
+        NeoForge.EVENT_BUS.addListener(BlockHooks::leftClickCrucible);
         NeoForge.EVENT_BUS.addListener(VillagerTrades::addCustomTrades);
         NeoForge.EVENT_BUS.addListener(VillagerTrades::addWandererTrades);
 

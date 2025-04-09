@@ -21,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
 import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
 import net.superscary.fluxmachines.core.util.helper.FluidHelper;
 import org.jetbrains.annotations.NotNull;
@@ -54,9 +53,10 @@ public class CrucibleBlockEntityRenderer implements BlockEntityRenderer<Crucible
 	@Override
 	public void render (@NotNull CrucibleBlockEntity blockEntity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
 		renderFluid(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay);
-		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 0, ItemPosition.LEFT);
-		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 1, ItemPosition.CENTER);
-		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 2, ItemPosition.RIGHT);
+		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 0, ItemPosition.LEFT_TOP);
+		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 1, ItemPosition.RIGHT_TOP);
+		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 2, ItemPosition.LEFT_BOTTOM);
+		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 3, ItemPosition.RIGHT_BOTTOM);
 	}
 
 	private void renderItem (CrucibleBlockEntity pBlockEntity, float pPartialTick, @NotNull PoseStack pPoseStack, @NotNull MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay, int slot, ItemPosition position) {
@@ -78,8 +78,6 @@ public class CrucibleBlockEntityRenderer implements BlockEntityRenderer<Crucible
 	private void renderFluid (CrucibleBlockEntity pBlockEntity, float pPartialTick, @NotNull PoseStack pPoseStack, @NotNull MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
 		FluidStack fluidStack = pBlockEntity.getFluid();
 		if (fluidStack.isEmpty()) return;
-
-		var block = FluidHelper.getBlockFromFluidStack(fluidStack);
 
 		FluidState state = fluidStack.getFluid().defaultFluidState();
 
@@ -121,9 +119,10 @@ public class CrucibleBlockEntityRenderer implements BlockEntityRenderer<Crucible
 	}
 
 	enum ItemPosition {
-		LEFT(0.25f, 0.65f),
-		CENTER(0.5f, 0.25f),
-		RIGHT(0.75f, 0.65f);
+		LEFT_TOP(0.25f, 0.25f),
+		RIGHT_TOP(0.75f, 0.25f),
+		LEFT_BOTTOM(0.25f, 0.75f),
+		RIGHT_BOTTOM(0.75f, 0.75f);
 
 		final float x, z;
 		ItemPosition (float x, float z) {

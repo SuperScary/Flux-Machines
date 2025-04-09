@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity extends FMBaseBlockEntity implements MachineFluidInventory {
 
-    private FluidTank fluidTank = new FluidTank(64_000) {
+    private final FluidTank fluidTank = new FluidTank(64_000) {
         @Override
         protected void onContentsChanged() {
             setChanged();
