@@ -10,6 +10,7 @@ import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.datagen.providers.data.AchievementProvider;
 import net.superscary.fluxmachines.datagen.providers.data.CompostableProvider;
 import net.superscary.fluxmachines.datagen.providers.data.SoundProvider;
+import net.superscary.fluxmachines.datagen.providers.data.StructureUpdater;
 import net.superscary.fluxmachines.datagen.providers.lang.FMEnLangProvider;
 import net.superscary.fluxmachines.datagen.providers.loot.FMLootTableProvider;
 import net.superscary.fluxmachines.datagen.providers.models.BlockModelProvider;
@@ -69,6 +70,7 @@ public class DataGenerators {
 
         pack.addProvider(packOutput -> new CompostableProvider(packOutput, registries));
         pack.addProvider(packOutput -> new AchievementProvider(packOutput, registries, existingFileHelper));
+        pack.addProvider(pOutput -> new StructureUpdater("structures", FluxMachines.MODID, existingFileHelper, pOutput));
 
         // LOCALIZATION MUST RUN LAST
         pack.addProvider(output -> localization);

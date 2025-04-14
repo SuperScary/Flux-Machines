@@ -2,7 +2,9 @@
   "required": true,
   "package": "net.superscary.fluxmachines.core.mixins",
   "compatibilityLevel": "JAVA_21",
+  "plugin": "net.superscary.fluxmachines.core.mixin.FMMixinConfig",
   "mixins": [
+    "TemplatePoolAccess",
     "chunkloading.ChunkMapMixin"
   ],
   "client": [

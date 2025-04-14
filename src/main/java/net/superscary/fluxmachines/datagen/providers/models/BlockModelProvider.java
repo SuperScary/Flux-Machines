@@ -70,6 +70,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
 
         stairsBlock(REFRACTORY_BRICK_STAIRS.block(), blockTexture(REFRACTORY_BRICK.block()));
         slabBlock(REFRACTORY_BRICK_SLAB.block(), blockTexture(REFRACTORY_BRICK.block()), blockTexture(REFRACTORY_BRICK.block()));
+        wall(REFRACTORY_WALL, blockTexture(REFRACTORY_BRICK.block()));
         blockItem(REFRACTORY_BRICK_SLAB);
         blockItem(REFRACTORY_BRICK_STAIRS);
 

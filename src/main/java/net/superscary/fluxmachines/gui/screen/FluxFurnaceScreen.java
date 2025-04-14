@@ -24,8 +24,4 @@ public class FluxFurnaceScreen extends BaseScreen<FluxFurnaceMenu> {
 
     }
 
-    @Override
-    public boolean isPoweredMenu() {
-        return false;
-    }
 }

@@ -4,6 +4,7 @@ import com.google.gson.JsonPrimitive;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.blockstates.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
@@ -91,9 +92,9 @@ public abstract class FMBlockStateProvider extends BlockStateProvider implements
         simpleBlockItem(block.block(), model);
     }
 
-    protected void wall (BlockDefinition<WallBlock> block, String texture) {
-        wallBlock(block.block(), FluxMachines.getResource(texture));
-        itemModels().wallInventory(block.id().getPath(), FluxMachines.getResource(texture));
+    protected void wall (BlockDefinition<WallBlock> block, ResourceLocation texture) {
+        wallBlock(block.block(), texture);
+        itemModels().wallInventory(block.id().getPath(), texture);
     }
 
     protected void slabBlock (BlockDefinition<SlabBlock> slab, BlockDefinition<?> base) {

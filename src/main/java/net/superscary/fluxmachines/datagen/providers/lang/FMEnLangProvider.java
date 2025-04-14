@@ -35,6 +35,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(REFRACTORY_BRICK.block(), "Refractory Bricks");
         add(REFRACTORY_BRICK_SLAB.block(), "Refractory Brick Slab");
         add(REFRACTORY_BRICK_STAIRS.block(), "Refractory Brick Stairs");
+        add(REFRACTORY_WALL.block(), "Refractory Wall");
         add(CALCITE_STAIRS.block(), "Calcite Stairs");
         add(CALCITE_SLAB.block(), "Calcite Slab");
         add(LIMESTONE.block(), "Limestone");

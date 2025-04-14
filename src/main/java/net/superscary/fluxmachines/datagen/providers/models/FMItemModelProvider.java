@@ -1,5 +1,7 @@
 package net.superscary.fluxmachines.datagen.providers.models;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -69,6 +71,8 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         basicItem(FLUX_POWDER.asItem());
         basicItem(CALCITE_DUST.asItem());
         basicItem(COKE.asItem());
+
+        wallItem(REFRACTORY_WALL, REFRACTORY_BRICK);
 
         blockOff(FLUX_FURNACE);
         blockOff(COAL_GENERATOR);
@@ -142,6 +146,11 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
     private ItemModelBuilder builtInItemModel (String name) {
         var model = getBuilder("item/" + name);
         return model;
+    }
+
+    private void wallItem (BlockDefinition<?> block, BlockDefinition<?> base) {
+        this.withExistingParent(BuiltInRegistries.BLOCK.getKey(block.block()).getPath(), mcLoc("block/wall_inventory"))
+                .texture("wall", FluxMachines.getResource("block/" + BuiltInRegistries.BLOCK.getKey(base.block()).getPath()));
     }
 
 }

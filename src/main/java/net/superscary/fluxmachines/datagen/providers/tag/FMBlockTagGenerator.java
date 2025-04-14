@@ -32,6 +32,7 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(REFRACTORY_BRICK.block())
                 .add(REFRACTORY_BRICK_SLAB.block())
                 .add(REFRACTORY_BRICK_STAIRS.block())
+                .add(REFRACTORY_WALL.block())
                 .add(CALCITE_SLAB.block())
                 .add(CALCITE_STAIRS.block())
                 .add(LIMESTONE.block())
@@ -52,7 +53,8 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(FLUID_TANK.block())
                 .add(REFRACTORY_BRICK.block())
                 .add(REFRACTORY_BRICK_SLAB.block())
-                .add(REFRACTORY_BRICK_STAIRS.block());
+                .add(REFRACTORY_BRICK_STAIRS.block())
+                .add(REFRACTORY_WALL.block());
 
         this.tag(FMTag.Blocks.NEEDS_STEEL_TOOL)
                 .addTag(BlockTags.NEEDS_IRON_TOOL);
@@ -73,6 +75,9 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
 
         this.tag(FMTag.Blocks.STEEL)
                 .add(STEEL_BLOCK.block());
+
+        this.tag(BlockTags.WALLS)
+                .add(REFRACTORY_WALL.block());
 
     }
 

@@ -29,12 +29,8 @@ import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.util.helper.ItemHelper;
-import net.superscary.fluxmachines.core.util.helper.PropertyHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import static net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
-import static net.superscary.fluxmachines.core.util.block.FMBlockStates.REDSTONE_ON;
 
 public class CrucibleBlock extends FMBaseEntityBlock<CrucibleBlockEntity> {
 
@@ -151,8 +147,7 @@ public class CrucibleBlock extends FMBaseEntityBlock<CrucibleBlockEntity> {
 						FluidUtil.tryFluidTransfer(tank, optional, contained.getAmount(), true);
 
 						if (player.isCreative()) return ItemInteractionResult.SUCCESS;
-						var result = optional.getContainer();
-						player.setItemInHand(hand, result);
+						player.setItemInHand(hand, optional.getContainer());
 						return ItemInteractionResult.SUCCESS;
 					}
 				}

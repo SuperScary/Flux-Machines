@@ -2,7 +2,6 @@ package net.superscary.fluxmachines.gui.menu;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.superscary.fluxmachines.api.gui.GuiPower;
@@ -11,12 +10,7 @@ import net.superscary.fluxmachines.core.blockentity.machine.FluxFurnaceBlockEnti
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMMenus;
 import net.superscary.fluxmachines.core.util.inventory.slots.OutputSlot;
-import net.superscary.fluxmachines.core.util.inventory.slots.UpgradeSlot;
 import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
-import org.jetbrains.annotations.NotNull;
-
-import static net.superscary.fluxmachines.gui.screen.base.BaseScreen.SETTINGS_PANEL_X_HALF;
-import static net.superscary.fluxmachines.gui.screen.base.BaseScreen.Y;
 
 public class FluxFurnaceMenu extends BaseMenu<FluxFurnaceBlock, FluxFurnaceBlockEntity> implements GuiPower {
 

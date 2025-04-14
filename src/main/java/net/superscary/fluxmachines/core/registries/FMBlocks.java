@@ -3,10 +3,7 @@ package net.superscary.fluxmachines.core.registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.DecorativeBlock;
@@ -52,6 +49,7 @@ public class FMBlocks {
 	public static final BlockDefinition<DecorativeBlock> REFRACTORY_BRICK = reg("refractory_bricks", DecorativeBlock::new);
 	public static final BlockDefinition<SlabBlock> REFRACTORY_BRICK_SLAB = reg("refractory_brick_slab", () -> new SlabBlock(Blocks.BRICK_SLAB.properties()));
 	public static final BlockDefinition<StairBlock> REFRACTORY_BRICK_STAIRS = reg("refractory_brick_stairs", () -> new StairBlock(REFRACTORY_BRICK.block().defaultBlockState(), Blocks.BRICK_STAIRS.properties()));
+	public static final BlockDefinition<WallBlock> REFRACTORY_WALL = reg("refractory_wall", () -> new WallBlock(REFRACTORY_BRICK.block().properties()));
 	public static final BlockDefinition<SlabBlock> CALCITE_SLAB = reg("calcite_slab", () -> new SlabBlock(Blocks.CALCITE.properties()));
 	public static final BlockDefinition<StairBlock> CALCITE_STAIRS = reg("calcite_stairs", () -> new StairBlock(Blocks.CALCITE.defaultBlockState(), Blocks.CALCITE.properties()));
 

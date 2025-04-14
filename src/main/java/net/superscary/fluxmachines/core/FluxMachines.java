@@ -25,7 +25,7 @@ public interface FluxMachines {
     }
 
     static ResourceLocation getMinecraftResource (String name) {
-        return custom("minecraft", name);
+        return ResourceLocation.withDefaultNamespace(name);
     }
 
     static ResourceLocation custom (String id, String name) {

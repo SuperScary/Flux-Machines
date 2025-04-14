@@ -29,22 +29,18 @@ import java.util.Optional;
 
 public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractContainerScreen<T> {
 
-    private final int ENERGY_LEFT = 158;
-    private final int ENERGY_WIDTH = 8;
-    private final int ENERGY_TOP = 9;
-    private final int ENERGY_HEIGHT = 64;
-    private boolean isSideTabOpen = false;
-
-    private boolean settingsPanelOpen = false;
-    public static final int SETTINGS_PANEL_WIDTH = 256;
-    public static final int SETTINGS_PANEL_HEIGHT = 84;
-    public static int SETTINGS_PANEL_X;
-    public static int SETTINGS_PANEL_Y;
-    public static int SETTINGS_PANEL_X_HALF;
-    public static int X;
-    public static int Y;
-
     private final int guiOffset;
+
+    private final int energyLeft;
+    private final int energyWidth;
+    private final int energyTop;
+    private final int energyHeight;
+    private boolean isSideTabOpen;
+
+    private boolean settingsPanelOpen;
+    public static int settingsPanelX;
+    public static int settingsPanelY;
+    public static int settingsPanelXHalf;
 
     private EnergyDisplayTooltipArea energyInfoArea;
 
@@ -59,6 +55,12 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         super(menu, playerInventory, title);
         this.imageWidth = menu.isUpgradeable() ? 203 : 176;
         this.guiOffset = menu.isUpgradeable() ? -27 : 0;
+        this.energyLeft = 158 - guiOffset / 2;
+        this.energyWidth = 8;
+        this.energyTop = 9;
+        this.energyHeight = 64;
+        this.isSideTabOpen = false;
+        this.settingsPanelOpen = false;
     }
 
     @Override
@@ -68,20 +70,31 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
             assignEnergyInfoArea();
         }
 
-        SETTINGS_PANEL_X = ((width - imageWidth) / 2) + imageWidth - 14;
-        SETTINGS_PANEL_Y = ((height - imageHeight) / 2) + imageHeight - 84;
-        SETTINGS_PANEL_X_HALF = SETTINGS_PANEL_X + (SETTINGS_PANEL_X / 2);
+        settingsPanelX = ((width - imageWidth) / 2) + imageWidth - 14;
+        settingsPanelY = ((height - imageHeight) / 2) + imageHeight - 84;
+        settingsPanelXHalf = settingsPanelX + (settingsPanelX / 2);
     }
 
+    /**
+     * Returns the gui texture to render.
+     * @return {@link ResourceLocation} of a gui texture.
+     */
     public abstract ResourceLocation getGuiTexture ();
 
+    /**
+     * Renders the main background for the screen.
+     * @param guiGraphics {@link GuiGraphics}
+     * @param v {@link Float}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     */
     @Override
     protected void renderBg (@NotNull GuiGraphics guiGraphics, float v, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderTexture(0, getGuiTexture());
-        int x = X = (width - imageWidth) / 2;
-        int y = Y = (height - imageHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         if (Minecraft.getInstance().screen == this) {
             if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y + 82, 0, 0, 12, 84) && !isSideTabOpen) {
@@ -101,6 +114,12 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         addAdditionalScreenElements(guiGraphics, v, mouseX, mouseY);
     }
 
+    /**
+     * Handles rendering the labels for objects.
+     * @param graphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     */
     @Override
     protected void renderLabels (GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(font, title, ((imageWidth / 2) - font.width(title) / 2) - modifiedWidth(), titleLabelY, 4210752, false);
@@ -118,6 +137,13 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         }
     }
 
+    /**
+     * Main render method.
+     * @param guiGraphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param delta Delta movement.
+     */
     @Override
     public void render (@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         renderBackground(guiGraphics, mouseX, mouseY, delta);
@@ -125,6 +151,13 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
+    /**
+     * Checks for mouse clicks for opening the side tab.
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param button Mouse button pressed
+     * @return true if the mouse is clicked in a defined area or the super method.
+     */
     @Override
     public boolean mouseClicked (double mouseX, double mouseY, int button) {
         int x = (width - imageWidth) / 2;
@@ -136,6 +169,14 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    /**
+     * Use for mouse release on the gui
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param button Mouse button pressed
+     * @return true if the mouse button is released.
+     */
+    @Deprecated(forRemoval = true)
     @Override
     public boolean mouseReleased (double mouseX, double mouseY, int button) {
         if (super.mouseReleased(mouseX, mouseY, button)) {
@@ -144,6 +185,14 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         return false;
     }
 
+    /**
+     * Toggles the side settings tab menu.
+     * @param graphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param x Position X
+     * @param y Position Y
+     */
     public void toggleSideTab (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
         if (!isSideTabOpen) return;
         settingsPanelOpen = true;
@@ -153,7 +202,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         addTabElements(graphics, mouseX, mouseY, x, y);
 
         if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y, 0, 0, 256, 256)) {
-            // DO SOMETHING
+            // TODO: DO SOMETHING
         } else {
             isSideTabOpen = false;
             settingsPanelOpen = false;
@@ -161,40 +210,58 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         }
     }
 
+    /**
+     * Internal for rendering the settings tabs elements.
+     * @param graphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param x Position X
+     * @param y Position Y
+     */
     private void addTabElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
-        graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), SETTINGS_PANEL_X + 38, SETTINGS_PANEL_Y + 6, 0xFFFFFF);
+        graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), settingsPanelX + 38, settingsPanelY + 6, 0xFFFFFF);
         addAdditionalTabElements(graphics, mouseX, mouseY, x, y);
     }
 
     /**
      * Currently for rendering custom objects onto the settings pane
-     * @param graphics
-     * @param mouseX
-     * @param mouseY
-     * @param x
-     * @param y
+     * @param graphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param x X position
+     * @param y Y position
      */
     public abstract void addAdditionalTabElements(GuiGraphics graphics, int mouseX, int mouseY, int x, int y);
 
     /**
      * Render additional elements to the screen without overriding the parent.
-     * @param guiGraphics
-     * @param v
-     * @param mouseX
-     * @param mouseY
+     * @param guiGraphics {@link GuiGraphics}
+     * @param v {@link Float}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
      */
     public void addAdditionalScreenElements (@NotNull GuiGraphics guiGraphics, float v, int mouseX, int mouseY) {
 
     }
 
+    /**
+     * Renders the energy info onto the screen.
+     * @param guiGraphics {@link GuiGraphics}
+     */
     public void renderEnergyArea (GuiGraphics guiGraphics) {
         if (isPoweredMenu()) {
-            int left = leftPos + ENERGY_LEFT + guiOffset;
-            int top = topPos + ENERGY_TOP;
+            int left = leftPos + energyLeft + guiOffset;
+            int top = topPos + energyTop;
             energyInfoArea.render(guiGraphics, left, top);
         }
     }
 
+    /**
+     * Renders the progress arrow for progress crafting.
+     * @param graphics {@link GuiGraphics}
+     * @param posX X position of the arrow
+     * @param posY Y position of the arrow
+     */
     public void renderArrow (GuiGraphics graphics, int posX, int posY) {
         if (menu.blockEntity instanceof Crafter<?> entity) {
             if (entity.isCrafting()) {
@@ -203,21 +270,28 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         }
     }
 
+    /**
+     * For centering the text labels on the main gui window.
+     * @return 15 offset if the image width is 203
+     */
     protected int modifiedWidth () {
         return imageWidth == 203 ? 15 : 0;
     }
 
+    /**
+     * Creates the energy info area
+     */
     private void assignEnergyInfoArea () {
-        this.energyInfoArea = new EnergyDisplayTooltipArea(ENERGY_LEFT, ENERGY_TOP, getEnergyStorage(), ENERGY_WIDTH, ENERGY_HEIGHT);
+        this.energyInfoArea = new EnergyDisplayTooltipArea(energyLeft, energyTop, getEnergyStorage(), energyWidth, energyHeight);
     }
 
     /**
      * Renders the settings area tooltip
-     * @param guiGraphics
-     * @param mouseX
-     * @param mouseY
-     * @param x
-     * @param y
+     * @param guiGraphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param x X position
+     * @param y Y position
      */
     private void renderOptionsAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
         if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y + 82, 0, 0, 12, 84)) {
@@ -227,14 +301,14 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     /**
      * Renders the energy area tooltip
-     * @param guiGraphics
-     * @param mouseX
-     * @param mouseY
-     * @param x
-     * @param y
+     * @param guiGraphics {@link GuiGraphics}
+     * @param mouseX Mouse Position X
+     * @param mouseY Mouse Position Y
+     * @param x X position
+     * @param y Y position
      */
     private void renderEnergyAreaTooltips (GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y) {
-        if (isMouseAboveArea(mouseX, mouseY, x, y, ENERGY_LEFT, ENERGY_TOP, ENERGY_WIDTH, ENERGY_HEIGHT)) {
+        if (isMouseAboveArea(mouseX, mouseY, x, y, energyLeft, energyTop, energyWidth, energyHeight)) {
             guiGraphics.renderTooltip(this.font, getEnergyTooltips(), Optional.empty(), mouseX - x, mouseY - y);
         }
     }

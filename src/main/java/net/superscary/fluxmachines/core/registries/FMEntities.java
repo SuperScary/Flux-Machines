@@ -15,7 +15,7 @@ public class FMEntities {
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, FluxMachines.MODID);
     public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, FluxMachines.MODID);
 
-    public static final Holder<PoiType> ENGINEER_POI = POI_TYPES.register("engineer_poi", () -> new PoiType(ImmutableSet.copyOf(FMBlocks.MACHINE_CASING.block().getStateDefinition().getPossibleStates()), 1, 1));
+    public static final Holder<PoiType> ENGINEER_POI = POI_TYPES.register("engineer_poi", () -> new PoiType(ImmutableSet.copyOf(FMBlocks.CRUCIBLE.block().getStateDefinition().getPossibleStates()), 1, 1));
 
     public static final Holder<VillagerProfession> ENGINEER = VILLAGER_PROFESSIONS.register("engineer", () -> new VillagerProfession("engineer", holder -> holder.value() == ENGINEER_POI.value(), poiTypeHolder -> poiTypeHolder.value() == ENGINEER_POI.value(),
             ImmutableSet.of(), ImmutableSet.of(), FMSounds.RATCHET_1.get()));
