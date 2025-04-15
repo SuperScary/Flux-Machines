@@ -216,6 +216,27 @@ public class CraftingRecipes extends FMRecipeProvider {
                 .unlockedBy("has_limestone_brick", has(LIMESTONE_BRICKS))
                 .save(consumer, FluxMachines.getResource("blocks/limestone_brick_stairs"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, DURACITE_BLOCK_RAW, 1)
+                .pattern("SSS")
+                .pattern("SSS")
+                .pattern("SSS")
+                .define('S', RAW_DURACITE)
+                .unlockedBy("has_raw_duracite", has(RAW_DURACITE))
+                .save(consumer, FluxMachines.getResource("blocks/raw_duracite_block_from_raw_duracite"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, DURACITE_BLOCK, 1)
+                .pattern("SSS")
+                .pattern("SSS")
+                .pattern("SSS")
+                .define('S', DURACITE_INGOT)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("blocks/duracite_block_from_duracite_ingot"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DURACITE_NUGGET, 9)
+                .requires(DURACITE_INGOT)
+                .unlockedBy("has_duracite_ingot", has(DURACITE_INGOT))
+                .save(consumer, FluxMachines.getResource("blocks/duracite_nugget_from_duracite_ingot"));
+
     }
 
     protected void machine (RecipeOutput consumer) {

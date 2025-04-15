@@ -26,6 +26,8 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.registries.FMBlocks;
+import net.superscary.fluxmachines.core.registries.FMItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -39,6 +41,9 @@ public class DropProvider extends BlockLootSubProvider {
     @NotNull
     private ImmutableMap<Block, Function<Block, LootTable.Builder>> createOverrides () {
         return ImmutableMap.<Block, Function<Block, LootTable.Builder>>builder()
+                .put(FMBlocks.DURACITE_ORE.block(), oreBlock(FMBlocks.DURACITE_ORE.block(), FMItems.RAW_DURACITE.asItem()))
+                .put(FMBlocks.DURACITE_NETHER_ORE.block(), oreBlock(FMBlocks.DURACITE_NETHER_ORE.block(), FMItems.RAW_DURACITE.asItem()))
+                .put(FMBlocks.DURACITE_DEEPSLATE_ORE.block(), oreBlock(FMBlocks.DURACITE_DEEPSLATE_ORE.block(), FMItems.RAW_DURACITE.asItem()))
                 .build();
     }
 
@@ -47,7 +52,7 @@ public class DropProvider extends BlockLootSubProvider {
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks () {
+    protected @NotNull Iterable<Block> getKnownBlocks () {
         return BuiltInRegistries.BLOCK.stream().filter(entry -> entry.getLootTable().location().getNamespace().equals(FluxMachines.MODID))
                 .toList();
     }

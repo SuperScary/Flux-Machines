@@ -12,7 +12,7 @@ import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.core.blockentity.base.BaseEnergyCrafter;
 import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
-import net.superscary.fluxmachines.core.recipe.manager.FluxSmeltingRecipeManager;
+import net.superscary.fluxmachines.core.registries.FMRecipeManagers;
 import net.superscary.fluxmachines.gui.menu.FluxFurnaceMenu;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,7 @@ public class FluxFurnaceBlockEntity extends BaseEnergyCrafter<FluxSmeltingRecipe
 
     @Override
     public IRecipeManager<FluxSmeltingRecipe> getRecipeManager() {
-        return FluxSmeltingRecipeManager.instance();
+        return FMRecipeManagers.FLUX_SMELTING_RECIPE_MANAGER.get();
     }
 
     @Override

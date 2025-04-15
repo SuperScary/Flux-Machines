@@ -5,6 +5,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
@@ -12,6 +14,9 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import net.superscary.fluxmachines.core.config.FMClientConfig;
+import net.superscary.fluxmachines.core.config.FMCommonConfig;
+import net.superscary.fluxmachines.core.config.FMServerConfig;
 import net.superscary.fluxmachines.core.hooks.*;
 import net.superscary.fluxmachines.core.item.material.FMArmorMaterials;
 import net.superscary.fluxmachines.core.registries.*;
@@ -27,7 +32,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
 
     static FluxMachinesBase INSTANCE;
 
-    public FluxMachinesBase (IEventBus modEventBus) {
+    public FluxMachinesBase (ModContainer container, IEventBus modEventBus) {
         if (INSTANCE != null) {
             throw new IllegalStateException();
         }
@@ -37,6 +42,10 @@ public abstract class FluxMachinesBase implements FluxMachines {
 
         modEventBus.addListener(Tab::initExternal);
         modEventBus.addListener(FMCapabilities::registerAll);
+
+        container.registerConfig(ModConfig.Type.STARTUP, FMCommonConfig.CONFIG_SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, FMClientConfig.CONFIG_SPEC);
+        container.registerConfig(ModConfig.Type.SERVER, FMServerConfig.CONFIG_SPEC);
 
         modEventBus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey() == Registries.CREATIVE_MODE_TAB) {
@@ -49,6 +58,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         modEventBus.addListener(CableHooks::registerBlockColor);
         modEventBus.addListener(FMRenderers::registerBER);
         modEventBus.addListener(Channel::register);
+        modEventBus.addListener(FMRegistries::registerRegistries);
 
         NeoForge.EVENT_BUS.addListener(this::onServerAboutToStart);
         NeoForge.EVENT_BUS.addListener(this::serverStopped);
@@ -81,6 +91,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         FMSounds.REGISTRY.register(modEventBus);
         FMRecipes.SERIALIZERS.register(modEventBus);
         FMRecipes.TYPES.register(modEventBus);
+        FMRecipeManagers.REGISTRY.register(modEventBus);
         FMEntities.register(modEventBus);
     }
 

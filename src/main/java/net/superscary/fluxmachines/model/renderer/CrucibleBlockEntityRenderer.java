@@ -22,6 +22,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
+import net.superscary.fluxmachines.core.config.FMClientConfig;
 import net.superscary.fluxmachines.core.util.helper.FluidHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -53,6 +54,8 @@ public class CrucibleBlockEntityRenderer implements BlockEntityRenderer<Crucible
 	@Override
 	public void render (@NotNull CrucibleBlockEntity blockEntity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
 		renderFluid(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay);
+
+		if (!FMClientConfig.renderCrucibleItems.get()) return;
 		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 0, ItemPosition.LEFT_TOP);
 		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 1, ItemPosition.RIGHT_TOP);
 		renderItem(blockEntity, partialTick, poseStack, multiBufferSource, packedLight, packedOverlay, 2, ItemPosition.LEFT_BOTTOM);

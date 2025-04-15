@@ -46,13 +46,16 @@ public class FMItemTagGenerator extends ItemTagsProvider implements IDataProvide
                 .add(STEEL_HAMMER.asItem());
 
         this.tag(Tags.Items.INGOTS)
-                .add(STEEL_INGOT.asItem());
+                .add(STEEL_INGOT.asItem())
+                .add(DURACITE_INGOT.asItem());
 
         this.tag(FMTag.Items.DUST)
-                .add(STEEL_DUST.asItem());
+                .add(STEEL_DUST.asItem())
+                .add(DURACITE_DUST.asItem());
 
         this.tag(Tags.Items.NUGGETS)
-                .add(STEEL_NUGGET.asItem());
+                .add(STEEL_NUGGET.asItem())
+                .add(DURACITE_NUGGET.asItem());
     }
 
     @Override

@@ -43,7 +43,12 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(LIMESTONE_BRICK_SLAB.block())
                 .add(LIMESTONE_POLISHED.block())
                 .add(LIMESTONE_POLISHED_STAIRS.block())
-                .add(LIMESTONE_POLISHED_SLAB.block());
+                .add(LIMESTONE_POLISHED_SLAB.block())
+                .add(DURACITE_ORE.block())
+                .add(DURACITE_DEEPSLATE_ORE.block())
+                .add(DURACITE_NETHER_ORE.block())
+                .add(DURACITE_BLOCK.block())
+                .add(DURACITE_BLOCK_RAW.block());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(MACHINE_CASING.block())
@@ -55,6 +60,13 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(REFRACTORY_BRICK_SLAB.block())
                 .add(REFRACTORY_BRICK_STAIRS.block())
                 .add(REFRACTORY_WALL.block());
+
+        this.tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(DURACITE_ORE.block())
+                .add(DURACITE_DEEPSLATE_ORE.block())
+                .add(DURACITE_NETHER_ORE.block())
+                .add(DURACITE_BLOCK.block())
+                .add(DURACITE_BLOCK_RAW.block());
 
         this.tag(FMTag.Blocks.NEEDS_STEEL_TOOL)
                 .addTag(BlockTags.NEEDS_IRON_TOOL);

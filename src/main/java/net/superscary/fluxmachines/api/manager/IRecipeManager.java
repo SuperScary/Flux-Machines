@@ -19,4 +19,6 @@ public interface IRecipeManager<T extends Recipe<?>> {
 
     List<T> asRecipeList ();
 
+    IRecipeManager<T> getInstance();
+
 }

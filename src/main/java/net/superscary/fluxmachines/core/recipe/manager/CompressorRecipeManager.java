@@ -16,16 +16,12 @@ import java.util.List;
  */
 public class CompressorRecipeManager implements IRecipeManager<CompressorRecipe> {
 
-    private static final CompressorRecipeManager INSTANCE = new CompressorRecipeManager();
+    private final CompressorRecipeManager INSTANCE;
 
     protected List<RecipeHolder<CompressorRecipe>> convertedRecipes = new ArrayList<>();
 
-    private CompressorRecipeManager() {
-
-    }
-
-    public static CompressorRecipeManager instance () {
-        return INSTANCE;
+    public CompressorRecipeManager() {
+        INSTANCE = this;
     }
 
     public void createConvertedRecipes (RecipeManager recipeManager) {
@@ -48,6 +44,11 @@ public class CompressorRecipeManager implements IRecipeManager<CompressorRecipe>
     @Override
     public List<CompressorRecipe> asRecipeList() {
         return convertedRecipes.stream().map(RecipeHolder::value).toList();
+    }
+
+    @Override
+    public IRecipeManager<CompressorRecipe> getInstance () {
+        return INSTANCE;
     }
 
     @Override

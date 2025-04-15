@@ -3,6 +3,7 @@ package net.superscary.fluxmachines.core;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.superscary.fluxmachines.core.registries.FMMenus;
@@ -11,10 +12,11 @@ import net.superscary.fluxmachines.gui.screen.FluxFurnaceScreen;
 
 public class FluxMachinesClient extends FluxMachinesBase {
 
-    public FluxMachinesClient (IEventBus eventBus) {
-        super(eventBus);
+    public FluxMachinesClient (ModContainer container, IEventBus eventBus) {
+        super(container, eventBus);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::registerMenuScreens);
+
     }
 
     @Override

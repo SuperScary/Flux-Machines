@@ -15,16 +15,12 @@ import java.util.List;
 
 public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRecipe> {
 
-    private static final FluxSmeltingRecipeManager INSTANCE = new FluxSmeltingRecipeManager();
+    private final FluxSmeltingRecipeManager INSTANCE;
 
     protected List<RecipeHolder<FluxSmeltingRecipe>> convertedRecipes = new ArrayList<>();
 
-    private FluxSmeltingRecipeManager () {
-
-    }
-
-    public static FluxSmeltingRecipeManager instance () {
-        return INSTANCE;
+    public FluxSmeltingRecipeManager () {
+        INSTANCE = this;
     }
 
     public void createConvertedRecipes (RecipeManager recipeManager) {
@@ -37,18 +33,17 @@ public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRec
         convertedRecipes.addAll(recipeManager.getAllRecipesFor(FMRecipes.FLUX_SMELTING_TYPE.get()));
     }
 
-    protected boolean createConvertedRecipe (AbstractCookingRecipe recipe) {
-        if (recipe.isSpecial() || recipe.getResultItem(null).isEmpty()) return false;
+    protected void createConvertedRecipe (AbstractCookingRecipe recipe) {
+        if (recipe.isSpecial() || recipe.getResultItem(null).isEmpty()) return;
         convertedRecipes.add(convert(recipe));
-        return true;
     }
 
     protected RecipeHolder<FluxSmeltingRecipe> convert (AbstractCookingRecipe recipe) {
         ItemStack recipeOutput = recipe.getResultItem(null);
         float experience = recipe.getExperience();
-        int cookingTime = recipe.getCookingTime();
+        int cookingTime = recipe.getCookingTime() / 2;
         int energy = 200; //TODO: Get energy from recipe
-        return new RecipeHolder<>(FluxMachines.getResource("fluxsmelting/fluxfurnace_" + recipe.getIngredients().get(0).hashCode()), new FluxSmeltingRecipe(recipe.getIngredients().getFirst(), energy, cookingTime, recipeOutput));
+        return new RecipeHolder<>(FluxMachines.getResource("fluxsmelting/fluxfurnace_" + recipe.getIngredients().getFirst().hashCode()), new FluxSmeltingRecipe(recipe.getIngredients().getFirst(), energy, cookingTime, recipeOutput));
     }
 
     @Override
@@ -67,6 +62,11 @@ public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRec
     }
 
     @Override
+    public IRecipeManager<FluxSmeltingRecipe> getInstance () {
+        return INSTANCE;
+    }
+
+    @Override
     public void refresh(RecipeManager recipeManager) {
         clear();
         createConvertedRecipes(recipeManager);
@@ -76,6 +76,5 @@ public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRec
     public void clear() {
         convertedRecipes.clear();
     }
-
 
 }

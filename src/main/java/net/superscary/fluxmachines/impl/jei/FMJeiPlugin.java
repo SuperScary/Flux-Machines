@@ -9,7 +9,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.superscary.fluxmachines.core.FluxMachines;
-import net.superscary.fluxmachines.core.recipe.manager.FluxSmeltingRecipeManager;
+import net.superscary.fluxmachines.core.registries.FMRecipeManagers;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.gui.screen.FluxFurnaceScreen;
 import net.superscary.fluxmachines.impl.jei.category.FluxFurnaceCategory;
@@ -31,7 +31,7 @@ public class FMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(FluxFurnaceCategory.TYPE, FluxSmeltingRecipeManager.instance().asRecipeList());
+        registration.addRecipes(FluxFurnaceCategory.TYPE, FMRecipeManagers.FLUX_SMELTING_RECIPE_MANAGER.get().asRecipeList());
     }
 
     @Override

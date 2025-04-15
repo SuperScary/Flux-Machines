@@ -1,6 +1,7 @@
 package net.superscary.fluxmachines.core.registries;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -35,6 +36,13 @@ public class FMBlocks {
 	public static final List<BlockDefinition<?>> BLOCKS = new ArrayList<>();
 
 	public static final BlockDefinition<DecorativeBlock> STEEL_BLOCK = reg("steel_block", DecorativeBlock::new);
+
+	public static final BlockDefinition<DropExperienceBlock> DURACITE_ORE = reg("duracite_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.IRON_ORE.properties().requiresCorrectToolForDrops()));
+	public static final BlockDefinition<DropExperienceBlock> DURACITE_DEEPSLATE_ORE = reg("duracite_deepslate_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.DEEPSLATE_IRON_ORE.properties().requiresCorrectToolForDrops()));
+	public static final BlockDefinition<DropExperienceBlock> DURACITE_NETHER_ORE = reg("duracite_nether_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.NETHER_GOLD_ORE.properties().requiresCorrectToolForDrops()));
+	public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK_RAW = reg("duracite_block_raw", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
+	public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK = reg("duracite_block", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
+
 	public static final BlockDefinition<DecorativeBlock> MACHINE_CASING = reg("machine_casing", MachineCasingBlock::new);
 
 	public static final BlockDefinition<DecorativeBlock> LIMESTONE = reg("limestone", DecorativeBlock::new);

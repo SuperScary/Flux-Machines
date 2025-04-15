@@ -16,9 +16,17 @@ public class FMPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> STEEL_GEODE_PLACED_KEY = registerKey("steel_geode_placed_key");
 
+    public static final ResourceKey<PlacedFeature> DURACITE_ORE_PLACED_SMALL_KEY = registerKey("duracite_ore_placed_small");
+    public static final ResourceKey<PlacedFeature> DURACITE_ORE_PLACED_LARGE_KEY = registerKey("duracite_ore_placed_large");
+
     public static void bootstrap (BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         register(context, STEEL_GEODE_PLACED_KEY, configuredFeatures.getOrThrow(FMConfiguredFeatures.STEEL_GEODE_KEY), List.of(RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(60)), BiomeFilter.biome()));
+
+        register(context, DURACITE_ORE_PLACED_SMALL_KEY, configuredFeatures.getOrThrow(FMConfiguredFeatures.OVERWORLD_DURACITE_ORE_KEY_SMALL),
+                FMOrePlacement.commonOrePlacement(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
+        register(context, DURACITE_ORE_PLACED_LARGE_KEY, configuredFeatures.getOrThrow(FMConfiguredFeatures.OVERWORLD_DURACITE_ORE_KEY_LARGE),
+                FMOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
     }
 
     public static ResourceKey<PlacedFeature> registerKey (String name) {

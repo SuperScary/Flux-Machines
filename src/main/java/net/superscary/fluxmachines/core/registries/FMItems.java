@@ -35,6 +35,12 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> STEEL_DUST = item("steel_dust", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_INGOT = item("steel_ingot", BaseItem::new);
     public static final ItemDefinition<BaseItem> STEEL_NUGGET = item("steel_nugget", BaseItem::new);
+
+    public static final ItemDefinition<BaseItem> RAW_DURACITE = item("duracite_raw", BaseItem::new);
+    public static final ItemDefinition<BaseItem> DURACITE_DUST = item("duracite_dust", BaseItem::new);
+    public static final ItemDefinition<BaseItem> DURACITE_INGOT = item("duracite_ingot", BaseItem::new);
+    public static final ItemDefinition<BaseItem> DURACITE_NUGGET = item("duracite_nugget", BaseItem::new);
+
     public static final ItemDefinition<BaseItem> RUBBER = item("rubber", BaseItem::new);
     public static final ItemDefinition<BaseItem> INDUSTRIAL_SLAG = item("industrial_slag", BaseItem::new);
     public static final ItemDefinition<BaseItem> FERTILIZER = item("fertilizer", FertilizerItem::new);

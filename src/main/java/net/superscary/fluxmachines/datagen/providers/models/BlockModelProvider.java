@@ -55,6 +55,13 @@ public class BlockModelProvider extends FMBlockStateProvider {
     @Override
     protected void registerStatesAndModels () {
         blockWithItem(STEEL_BLOCK);
+
+        blockWithItem(DURACITE_ORE);
+        blockWithItem(DURACITE_DEEPSLATE_ORE);
+        blockWithItem(DURACITE_NETHER_ORE);
+        blockWithItem(DURACITE_BLOCK);
+        blockWithItem(DURACITE_BLOCK_RAW);
+
         blockWithItem(REFRACTORY_BRICK);
         blockWithItem(LIMESTONE);
         blockWithItem(LIMESTONE_BRICKS);

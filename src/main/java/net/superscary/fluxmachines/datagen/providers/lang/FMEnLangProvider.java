@@ -25,6 +25,13 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
     protected void blocks () {
         add(STEEL_BLOCK.block(), "Steel Block");
+
+        add(DURACITE_ORE.block(), "Duracite Ore");
+        add(DURACITE_DEEPSLATE_ORE.block(), "Duracite Deepslate Ore");
+        add(DURACITE_NETHER_ORE.block(), "Duracite Nether Ore");
+        add(DURACITE_BLOCK_RAW.block(), "Raw Duracite Block");
+        add(DURACITE_BLOCK.block(), "Block of Duracite");
+
         add(MACHINE_CASING.block(), "Machine Casing");
         add(FLUX_FURNACE.block(), "Flux Furnace");
         add(COAL_GENERATOR.block(), "Coal Generator");
@@ -53,6 +60,12 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(STEEL_DUST.asItem(), "Steel Dust");
         add(STEEL_INGOT.asItem(), "Steel Ingot");
         add(STEEL_NUGGET.asItem(), "Steel Nugget");
+
+        add(RAW_DURACITE.asItem(), "Raw Duracite");
+        add(DURACITE_DUST.asItem(), "Duracite Dust");
+        add(DURACITE_INGOT.asItem(), "Duracite Ingot");
+        add(DURACITE_NUGGET.asItem(), "Duracite Nugget");
+
         add(STEEL_HELMET.asItem(), "Steel Helmet");
         add(STEEL_CHESTPLATE.asItem(), "Steel Chestplate");
         add(STEEL_LEGGINGS.asItem(), "Steel Leggings");

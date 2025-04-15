@@ -12,12 +12,12 @@ import java.util.List;
 
 public class CrucibleRecipeManager implements IRecipeManager<CrucibleRecipe> {
 
-	private static final CrucibleRecipeManager INSTANCE = new CrucibleRecipeManager();
+	private final CrucibleRecipeManager INSTANCE;
 
 	protected List<RecipeHolder<CrucibleRecipe>> convertedRecipes = new ArrayList<>();
 
-	public static CrucibleRecipeManager instance () {
-		return INSTANCE;
+	public CrucibleRecipeManager () {
+		INSTANCE = this;
 	}
 
 	public void createConvertedRecipes (RecipeManager recipeManager) {
@@ -48,5 +48,10 @@ public class CrucibleRecipeManager implements IRecipeManager<CrucibleRecipe> {
 	@Override
 	public List<CrucibleRecipe> asRecipeList () {
 		return getConvertedRecipes().stream().map(RecipeHolder::value).toList();
+	}
+
+	@Override
+	public IRecipeManager<CrucibleRecipe> getInstance () {
+		return INSTANCE;
 	}
 }
