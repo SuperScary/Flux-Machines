@@ -1,10 +1,10 @@
 {
-  "homepage": "https://legacy.curseforge.com/minecraft/mc-mods/flux-machines",
-  "1.21.1": {
-    "1.21.1_neo-1.0.0": "Initial Version"
-  },
+  "homepage": "https://minecraft.curseforge.com/projects/flux-machines",
   "promos": {
     "1.21.1-latest": "1.21_neo-1.0.0",
     "1.21.1-recommended": "1.21_neo-1.0.0"
+  },
+  "1.21.1": {
+    "1.21.1_neo-1.0.0": "Initial Version"
   }
 }
