@@ -75,12 +75,7 @@ public class FMItems {
         return item(name, FluxMachines.getResource(name), factory, Keys.MAIN);
     }
 
-    static <T extends Item> ItemDefinition<T> item (String name, ResourceLocation id, Function<Item.Properties, T> factory) {
-        return item(name, id, factory, Keys.MAIN);
-    }
-
     static <T extends Item> ItemDefinition<T> item (String name, ResourceLocation id, Function<Item.Properties, T> factory, @Nullable ResourceKey<CreativeModeTab> group) {
-        Item.Properties p = new Item.Properties();
         Preconditions.checkArgument(id.getNamespace().equals(FluxMachines.MODID), "Can only register items in FluxMachines");
         var definition = new ItemDefinition<>(name, REGISTRY.registerItem(id.getPath(), factory));
 

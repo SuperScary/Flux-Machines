@@ -21,4 +21,6 @@ public interface IRecipeManager<T extends Recipe<?>> {
 
     IRecipeManager<T> getInstance();
 
+    RecipeManager getRecipeManager ();
+
 }

@@ -86,6 +86,7 @@ public abstract class FluxMachinesBase implements FluxMachines {
         FMDataComponents.REGISTRY.register(modEventBus);
         FMBlocks.REGISTRY.register(modEventBus);
         FMItems.REGISTRY.register(modEventBus);
+        FMUpgrades.REGISTRY.register(modEventBus);
         FMBlockEntities.REGISTRY.register(modEventBus);
         FMMenus.REGISTRY.register(modEventBus);
         FMSounds.REGISTRY.register(modEventBus);

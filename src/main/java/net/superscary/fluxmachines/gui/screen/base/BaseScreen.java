@@ -16,6 +16,7 @@ import net.superscary.fluxmachines.api.energy.PoweredBlock;
 import net.superscary.fluxmachines.api.gui.GuiFluid;
 import net.superscary.fluxmachines.api.gui.GuiPower;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.helper.MouseUtil;
 import net.superscary.fluxmachines.gui.EnergyDisplayTooltipArea;
 import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
@@ -54,7 +55,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public BaseScreen (T menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageWidth = menu.isUpgradeable() ? 203 : 176;
-        this.guiOffset = menu.isUpgradeable() ? -27 : 0;
+        this.guiOffset = menu.isUpgradeable() ? Utilities.guiScaleOffset() : 0;
         this.energyLeft = 158 - guiOffset / 2;
         this.energyWidth = 8;
         this.energyTop = 9;
@@ -123,7 +124,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     @Override
     protected void renderLabels (GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(font, title, ((imageWidth / 2) - font.width(title) / 2) - modifiedWidth(), titleLabelY, 4210752, false);
-        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
+        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX - modifiedWidth(), this.inventoryLabelY, 4210752, false);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -219,7 +220,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
      * @param y Position Y
      */
     private void addTabElements (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
-        graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), settingsPanelX + 38, settingsPanelY + 6, 0xFFFFFF);
+        graphics.drawCenteredString(this.font, Component.translatable("gui.fluxmachines.gui.settings"), settingsPanelX + Math.abs(guiOffset), settingsPanelY + 6, 0xFFFFFF);
         addAdditionalTabElements(graphics, mouseX, mouseY, x, y);
     }
 

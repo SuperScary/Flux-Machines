@@ -4,9 +4,13 @@ import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.item.upgrade.UpgradeBase;
+import net.superscary.fluxmachines.core.registries.FMUpgrades;
+import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
 import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
 import static net.superscary.fluxmachines.core.registries.FMItems.*;
+import static net.superscary.fluxmachines.core.registries.FMUpgrades.*;
 
 public class FMEnLangProvider extends LanguageProvider implements IDataProvider {
 
@@ -21,6 +25,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         misc();
         subtitles();
         entity();
+        upgrades();
     }
 
     protected void blocks () {
@@ -92,6 +97,25 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(HARD_BOILED_EGG.asItem(), "Hard Boiled Egg");
     }
 
+    protected void upgrades () {
+        add(FMUpgrades.EMPTY.asItem(), "Upgrade Base");
+        addUpgrade(SPEED, "Speed Module", "§7§oIncreases machine operation speed.");
+        addUpgrade(CAPACITY, "Capacity Mod", "§7§oExpands the operational size of machines.");
+        addUpgrade(EFFICIENCY, "Efficiency Core", "§7§oReduces power consumption per operation.");
+        addUpgrade(OVERCLOCK, "Overclock Chip", "§7§oGreatly increases speed but at a power efficiency cost.");
+        addUpgrade(THERMAL_BUFFER, "Thermal Buffer", "§7§oAllows the machine to operate under extreme conditions.");
+        addUpgrade(AUTO_EJECTOR, "Auto Ejector", "§7§oAutomatically pushes output to connected inventories.");
+        addUpgrade(INPUT_EXPANDER, "Input Expander", "§7§oAllows the machine to accept input from multiple sides.");
+        addUpgrade(MULTI_PROCESSOR_UNIT, "Multi-Processor Unit", "§7§oEnables running multiple operations at once.");
+        addUpgrade(SILENCING_COIL, "Silencing Coil", "§7§oSuppresses sounds emitted from the machine.");
+        addUpgrade(NANITE_INJECTOR, "Nanite Injector", "§7§oIncreases yield of byproducts or rare drops.");
+        addUpgrade(PRECISION_GEARBOX, "Precision Gearbox", "§7§oIncreases accuracy for machines with chance-based outputs.");
+        addUpgrade(REDSTONE_INTERFACE, "Redstone Interface", "§7§oAdds advanced redstone control options.");
+        addUpgrade(ECO_DRIVE, "EcoDrive Module", "§7§oIdle machines draw near-zero power.");
+        addUpgrade(VOID_MOD, "Void Module", "§7§oDestroys overflow items instead of clogging the machine.");
+        addUpgrade(REPLICATION_NODE, "Replication Node", "§7§oDuplicates output at a high power cost.");
+    }
+
     protected void misc () {
         add("itemGroup.fluxmachines", "Flux Machines");
         add("advancement.fluxmachines.title", "Flux Machines");
@@ -137,6 +161,11 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
     protected void entity () {
         add("entity.minecraft.villager.fluxmachines.engineer", "Engineer");
+    }
+
+    protected void addUpgrade (ItemDefinition<UpgradeBase> item, String name, String desc) {
+        add(item.asItem(), name);
+        add(item.asItem().getDescriptionId() + ".desc", desc);
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRecipe> {
 
     private final FluxSmeltingRecipeManager INSTANCE;
+    private RecipeManager recipeManager;
 
     protected List<RecipeHolder<FluxSmeltingRecipe>> convertedRecipes = new ArrayList<>();
 
@@ -48,6 +49,8 @@ public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRec
 
     @Override
     public List<RecipeHolder<FluxSmeltingRecipe>> getConvertedRecipes () {
+        if (recipeManager != null) refresh(recipeManager);
+        if (convertedRecipes.isEmpty()) FluxMachines.LOGGER.warn("Flux Smelting Recipes list is empty!");
         return convertedRecipes;
     }
 
@@ -68,13 +71,20 @@ public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRec
 
     @Override
     public void refresh(RecipeManager recipeManager) {
+        this.recipeManager = recipeManager;
+
         clear();
-        createConvertedRecipes(recipeManager);
+        createConvertedRecipes(getRecipeManager());
     }
 
     @Override
     public void clear() {
         convertedRecipes.clear();
+    }
+
+    @Override
+    public RecipeManager getRecipeManager () {
+        return recipeManager;
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.List;
 public class CompressorRecipeManager implements IRecipeManager<CompressorRecipe> {
 
     private final CompressorRecipeManager INSTANCE;
+    private RecipeManager recipeManager;
 
     protected List<RecipeHolder<CompressorRecipe>> convertedRecipes = new ArrayList<>();
 
@@ -53,13 +54,20 @@ public class CompressorRecipeManager implements IRecipeManager<CompressorRecipe>
 
     @Override
     public void refresh(RecipeManager recipeManager) {
+        this.recipeManager = recipeManager;
+
         clear();
-        createConvertedRecipes(recipeManager);
+        createConvertedRecipes(getRecipeManager());
     }
 
     @Override
     public void clear() {
         convertedRecipes.clear();
+    }
+
+    @Override
+    public RecipeManager getRecipeManager () {
+        return recipeManager;
     }
 
 }

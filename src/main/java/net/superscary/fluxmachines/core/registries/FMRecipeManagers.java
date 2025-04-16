@@ -11,7 +11,6 @@ import net.superscary.fluxmachines.core.recipe.manager.CompressorRecipeManager;
 import net.superscary.fluxmachines.core.recipe.manager.CrucibleRecipeManager;
 import net.superscary.fluxmachines.core.recipe.manager.FluxSmeltingRecipeManager;
 import net.superscary.fluxmachines.core.util.DeferredRecipeManager;
-import net.superscary.fluxmachines.core.util.keys.Keys;
 
 import java.util.ArrayList;
 import java.util.Collections;
