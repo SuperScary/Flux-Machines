@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
+import net.superscary.fluxmachines.attributes.Attribute;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +36,7 @@ public class CableBlockEntity extends FMBasePoweredBlockEntity {
     public static final int CAPACITY = 1000;
 
     public CableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state, CAPACITY, MAX_TRANSFER);
+        super(type, pos, state, Attribute.Builder.of(Keys.MAX_POWER, CAPACITY), Attribute.Builder.of(Keys.MAX_DRAIN, MAX_TRANSFER));
     }
 
     @Override

@@ -1,9 +1,13 @@
 package net.superscary.fluxmachines.core.registries;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.superscary.fluxmachines.attributes.Attribute;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.core.item.upgrade.UpgradeBase;
@@ -14,14 +18,18 @@ import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-public class FMUpgrades {
+public final class FMUpgrades {
+
+	public static final Integer MAX_UPGRADES = 8;
 
 	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(FluxMachines.MODID);
 
 	private static final List<ItemDefinition<?>> UPGRADES = new ArrayList<>();
+	private static final List<Pair<ItemDefinition<?>, UpgradeFunction<?, ?>>> FUNCTIONS = new ArrayList<>();
 
 	public static final ItemDefinition<UpgradeBase> EMPTY = create("upgrade_base", UpgradeEmpty::new, null);
 	public static final ItemDefinition<UpgradeBase> SPEED = create("speed_upgrade", UpgradeBase::new, SpeedUpgrade::new);
@@ -40,18 +48,42 @@ public class FMUpgrades {
 	public static final ItemDefinition<UpgradeBase> VOID_MOD = create("void_mod_upgrade", UpgradeBase::new, null);
 	public static final ItemDefinition<UpgradeBase> REPLICATION_NODE = create("replication_node_upgrade", UpgradeBase::new, null);
 
+	public static List<ItemDefinition<?>> getUpgrades () {
+		return Collections.unmodifiableList(UPGRADES);
+	}
 
-	static <T extends UpgradeBase> ItemDefinition<T> create (String id, Function<Item.Properties, T> factory, @Nullable UpgradeFunction<T> caller) {
+	public static List<Pair<ItemDefinition<?>, UpgradeFunction<?, ?>>> getFunctions () {
+		return Collections.unmodifiableList(FUNCTIONS);
+	}
+
+	/**
+	 * Returns a list of registered upgrades for a given block.
+	 * @param block the block to check. This should be the main block and linked to a {@link net.minecraft.world.level.block.entity.BlockEntity}
+	 * @return an {@link ImmutableList} of upgrade pairs.
+	 */
+	public static ImmutableList<Pair<ItemDefinition<UpgradeBase>, Integer>> getCompatibleUpgrades (Block block) {
+		var id = BuiltInRegistries.BLOCK.getKey(block);
+
+		var upgradeMap = FMRegistries.UPGRADE_MAP_REGISTRY.get(id);
+		return upgradeMap != null && !upgradeMap.upgrades().isEmpty() ? upgradeMap.upgrades() : ImmutableList.of();
+	}
+
+	public static <T extends UpgradeBase, I> ItemDefinition<T> create (String id, Function<Item.Properties, T> factory, @Nullable UpgradeFunctionBuilder<T, I> caller) {
 		return create(id, FluxMachines.getResource(id), factory, caller);
 	}
 
-	static <T extends UpgradeBase> ItemDefinition<T> create (String name, ResourceLocation id, Function<Item.Properties, T> factory, @Nullable UpgradeFunction<T> caller) {
-		Preconditions.checkArgument(id.getNamespace().equals(FluxMachines.MODID), "Can only register items in FluxMachines");
+	public static <T extends UpgradeBase, I> ItemDefinition<T> create (String name, ResourceLocation id, Function<Item.Properties, T> factory, @Nullable UpgradeFunctionBuilder<T, I> caller) {
 		var definition = new ItemDefinition<>(name, REGISTRY.registerItem(id.getPath(), factory));
 		Tab.add(definition);
 
 		UPGRADES.add(definition);
+		if (caller != null) FUNCTIONS.add(new Pair<>(definition, caller.build()));
 		return definition;
+	}
+
+	@FunctionalInterface
+	public interface UpgradeFunctionBuilder<T extends UpgradeBase, I> {
+		UpgradeFunction<T, I> build ();
 	}
 
 }

@@ -1,7 +1,6 @@
 package net.superscary.fluxmachines.datagen.providers.models;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +14,7 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.registries.FMUpgrades;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
@@ -25,19 +25,7 @@ import static net.superscary.fluxmachines.core.registries.FMItems.*;
 
 public class FMItemModelProvider extends ItemModelProvider implements IDataProvider {
 
-    private static LinkedHashMap<ResourceKey<TrimMaterial>, Float> trimMaterials = new LinkedHashMap<>();
-    static {
-        trimMaterials.put(TrimMaterials.QUARTZ, 0.1F);
-        trimMaterials.put(TrimMaterials.IRON, 0.2F);
-        trimMaterials.put(TrimMaterials.NETHERITE, 0.3F);
-        trimMaterials.put(TrimMaterials.REDSTONE, 0.4F);
-        trimMaterials.put(TrimMaterials.COPPER, 0.5F);
-        trimMaterials.put(TrimMaterials.GOLD, 0.6F);
-        trimMaterials.put(TrimMaterials.EMERALD, 0.7F);
-        trimMaterials.put(TrimMaterials.DIAMOND, 0.8F);
-        trimMaterials.put(TrimMaterials.LAPIS, 0.9F);
-        trimMaterials.put(TrimMaterials.AMETHYST, 1.0F);
-    }
+    private static final LinkedHashMap<ResourceKey<TrimMaterial>, Float> trimMaterials = new LinkedHashMap<>();
 
     public FMItemModelProvider (PackOutput packOutput, ExistingFileHelper existingFileHelper) {
         super(packOutput, FluxMachines.MODID, existingFileHelper);
@@ -49,43 +37,45 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
     @Override
     protected void registerModels () {
-        handheldItem(STEEL_DUST.asItem());
-        handheldItem(STEEL_INGOT.asItem());
-        handheldItem(STEEL_NUGGET.asItem());
+        handheldItem(STEEL_DUST);
+        handheldItem(STEEL_INGOT);
+        handheldItem(STEEL_NUGGET);
 
-        handheldItem(RAW_DURACITE.asItem());
-        handheldItem(DURACITE_DUST.asItem());
-        handheldItem(DURACITE_INGOT.asItem());
-        handheldItem(DURACITE_NUGGET.asItem());
+        handheldItem(RAW_DURACITE);
+        handheldItem(DURACITE_DUST);
+        handheldItem(DURACITE_INGOT);
+        handheldItem(DURACITE_NUGGET);
 
-        handheldItem(STEEL_SWORD.asItem());
-        handheldItem(STEEL_PICKAXE.asItem());
-        handheldItem(STEEL_SHOVEL.asItem());
-        handheldItem(STEEL_AXE.asItem());
-        handheldItem(STEEL_HOE.asItem());
-        handheldItem(STEEL_PAXEL.asItem());
-        handheldItem(STEEL_HAMMER.asItem());
-        handheldItem(WRENCH.asItem());
-        handheldItem(DATA_LINK.asItem());
+        handheldItem(STEEL_SWORD);
+        handheldItem(STEEL_PICKAXE);
+        handheldItem(STEEL_SHOVEL);
+        handheldItem(STEEL_AXE);
+        handheldItem(STEEL_HOE);
+        handheldItem(STEEL_PAXEL);
+        handheldItem(STEEL_HAMMER);
+        handheldItem(WRENCH);
+        handheldItem(DATA_LINK);
 
-        basicItem(REDSTONE_AND_STEEL.asItem());
-        basicItem(HONEY_BUN.asItem());
-        basicItem(HARD_BOILED_EGG.asItem());
-        basicItem(RUBBER.asItem());
-        basicItem(INDUSTRIAL_SLAG.asItem());
-        basicItem(FERTILIZER.asItem());
-        basicItem(FLUX_POWDER.asItem());
-        basicItem(CALCITE_DUST.asItem());
-        basicItem(COKE.asItem());
+        basicItem(REDSTONE_AND_STEEL);
+        basicItem(HONEY_BUN);
+        basicItem(HARD_BOILED_EGG);
+        basicItem(RUBBER);
+        basicItem(INDUSTRIAL_SLAG);
+        basicItem(FERTILIZER);
+        basicItem(FLUX_POWDER);
+        basicItem(CALCITE_DUST);
+        basicItem(COKE);
+
+        basicItem(FMUpgrades.EMPTY);
 
         wallItem(REFRACTORY_WALL, REFRACTORY_BRICK);
 
         blockOff(FLUX_FURNACE);
         blockOff(COAL_GENERATOR);
 
-        simpleBlockItem(CABLE.block());
-        simpleBlockItem(FACADE.block());
-        simpleBlockItem(CRUCIBLE.block());
+        simpleBlockItem(CABLE);
+        simpleBlockItem(FACADE);
+        simpleBlockItem(CRUCIBLE);
 
         trimmedArmorItem(STEEL_HELMET);
         trimmedArmorItem(STEEL_CHESTPLATE);
@@ -150,13 +140,37 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
     }
 
     private ItemModelBuilder builtInItemModel (String name) {
-        var model = getBuilder("item/" + name);
-        return model;
+		return getBuilder("item/" + name);
+    }
+
+    public ItemModelBuilder handheldItem (ItemDefinition<?> item) {
+        return handheldItem(item.asItem());
+    }
+
+    public ItemModelBuilder basicItem (ItemDefinition<?> item) {
+        return basicItem(item.asItem());
+    }
+
+    private ItemModelBuilder simpleBlockItem (BlockDefinition<?> block) {
+        return simpleBlockItem(block.block());
     }
 
     private void wallItem (BlockDefinition<?> block, BlockDefinition<?> base) {
         this.withExistingParent(BuiltInRegistries.BLOCK.getKey(block.block()).getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall", FluxMachines.getResource("block/" + BuiltInRegistries.BLOCK.getKey(base.block()).getPath()));
+    }
+
+    static {
+        trimMaterials.put(TrimMaterials.QUARTZ, 0.1F);
+        trimMaterials.put(TrimMaterials.IRON, 0.2F);
+        trimMaterials.put(TrimMaterials.NETHERITE, 0.3F);
+        trimMaterials.put(TrimMaterials.REDSTONE, 0.4F);
+        trimMaterials.put(TrimMaterials.COPPER, 0.5F);
+        trimMaterials.put(TrimMaterials.GOLD, 0.6F);
+        trimMaterials.put(TrimMaterials.EMERALD, 0.7F);
+        trimMaterials.put(TrimMaterials.DIAMOND, 0.8F);
+        trimMaterials.put(TrimMaterials.LAPIS, 0.9F);
+        trimMaterials.put(TrimMaterials.AMETHYST, 1.0F);
     }
 
 }

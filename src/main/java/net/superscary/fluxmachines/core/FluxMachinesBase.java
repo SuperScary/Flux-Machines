@@ -71,8 +71,8 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(BlockHooks::pistonCrush);
         NeoForge.EVENT_BUS.addListener(BlockHooks::calciteToFlux);
         NeoForge.EVENT_BUS.addListener(BlockHooks::leftClickCrucible);
-        NeoForge.EVENT_BUS.addListener(VillagerTrades::addCustomTrades);
-        NeoForge.EVENT_BUS.addListener(VillagerTrades::addWandererTrades);
+        NeoForge.EVENT_BUS.addListener(FMVillages.Trades::addCustomTrades);
+        NeoForge.EVENT_BUS.addListener(FMVillages.Trades::addWandererTrades);
 
     }
 
@@ -93,7 +93,8 @@ public abstract class FluxMachinesBase implements FluxMachines {
         FMRecipes.SERIALIZERS.register(modEventBus);
         FMRecipes.TYPES.register(modEventBus);
         FMRecipeManagers.REGISTRY.register(modEventBus);
-        FMEntities.register(modEventBus);
+        FMUpgradeRegistry.REGISTRY.register(modEventBus);
+        FMVillages.Villagers.register(modEventBus);
     }
 
     private void commonSetup (FMLCommonSetupEvent event) {

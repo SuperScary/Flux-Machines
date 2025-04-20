@@ -17,6 +17,7 @@ import net.superscary.fluxmachines.api.data.DataLinkInteract;
 import net.superscary.fluxmachines.api.data.PropertyComponent;
 import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
 import net.superscary.fluxmachines.api.energy.PoweredBlock;
+import net.superscary.fluxmachines.attributes.Attribute;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.registries.FMDataComponents;
 import net.superscary.fluxmachines.core.util.helper.PropertyHelper;
@@ -30,13 +31,13 @@ public abstract class FMBasePoweredBlockEntity extends FMBaseBlockEntity impleme
     private final FMEnergyStorage energyStorage;
     private ArrayList<PropertyComponent<?>> dataComponents = new ArrayList<>();
 
-    public FMBasePoweredBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, int capacity, int maxReceive) {
-        this(type, pos, blockState, capacity, maxReceive, 0);
+    public FMBasePoweredBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, Attribute.IntValue capacity, Attribute.IntValue maxReceive) {
+        this(type, pos, blockState, capacity, maxReceive, Attribute.Builder.of(Keys.POWER, 0));
     }
 
-    public FMBasePoweredBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, int capacity, int maxReceive, int current) {
+    public FMBasePoweredBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, Attribute.IntValue capacity, Attribute.IntValue maxReceive, Attribute.IntValue current) {
         super(type, pos, blockState);
-        this.energyStorage = new FMEnergyStorage(capacity, maxReceive, maxReceive, current);
+        this.energyStorage = new FMEnergyStorage(capacity.get(), maxReceive.get(), maxReceive.get(), current.getAsInt());
     }
 
     @Override

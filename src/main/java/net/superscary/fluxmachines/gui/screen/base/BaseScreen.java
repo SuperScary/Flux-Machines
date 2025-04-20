@@ -19,8 +19,9 @@ import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.helper.MouseUtil;
 import net.superscary.fluxmachines.gui.EnergyDisplayTooltipArea;
-import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
 import net.superscary.fluxmachines.gui.FluidTankRenderer;
+import net.superscary.fluxmachines.gui.UpgradeSlotTooltipArea;
+import net.superscary.fluxmachines.gui.menu.base.BaseMenu;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -44,6 +45,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     public static int settingsPanelXHalf;
 
     private EnergyDisplayTooltipArea energyInfoArea;
+    private UpgradeSlotTooltipArea upgradeSlotTooltipArea;
 
     private final ResourceLocation sideTabClosed = FluxMachines.getResource("textures/gui/elements/side_tab_closed.png");
     private final ResourceLocation sideTabSelected = FluxMachines.getResource("textures/gui/elements/side_tab_selected.png");
@@ -69,6 +71,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         super.init();
         if (isPoweredMenu()) {
             assignEnergyInfoArea();
+        }
+
+        if (getMenu().isUpgradeable()) {
+            assignUpgradeSlotTooltipArea();
         }
 
         settingsPanelX = ((width - imageWidth) / 2) + imageWidth - 14;
@@ -135,6 +141,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
         if (isPoweredMenu()) {
             renderEnergyAreaTooltips(graphics, mouseX, mouseY, x, y);
+        }
+
+        if (menu.isUpgradeable()) {
+            renderUpgradeSlotTooltips(graphics, mouseX, mouseY, x, y);
         }
     }
 
@@ -286,6 +296,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         this.energyInfoArea = new EnergyDisplayTooltipArea(energyLeft, energyTop, getEnergyStorage(), energyWidth, energyHeight);
     }
 
+    private void assignUpgradeSlotTooltipArea () {
+        this.upgradeSlotTooltipArea = new UpgradeSlotTooltipArea(182, 5, 16, 16, 4, 2, menu.block);
+    }
+
     /**
      * Renders the settings area tooltip
      * @param guiGraphics {@link GuiGraphics}
@@ -312,6 +326,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         if (isMouseAboveArea(mouseX, mouseY, x, y, energyLeft, energyTop, energyWidth, energyHeight)) {
             guiGraphics.renderTooltip(this.font, getEnergyTooltips(), Optional.empty(), mouseX - x, mouseY - y);
         }
+    }
+
+    private void renderUpgradeSlotTooltips (GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
+        upgradeSlotTooltipArea.render(this.font, graphics, mouseX, mouseY, x, y);
     }
 
     /**

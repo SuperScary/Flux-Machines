@@ -1,25 +1,76 @@
 package net.superscary.fluxmachines.core.util.inventory.slots;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import net.superscary.fluxmachines.core.blockentity.base.FMBaseBlockEntity;
 import net.superscary.fluxmachines.core.item.upgrade.UpgradeBase;
-import net.superscary.fluxmachines.gui.screen.base.BaseScreen;
+import net.superscary.fluxmachines.core.registries.FMUpgrades;
 
 public class UpgradeSlot extends SlotItemHandler {
 
-    public UpgradeSlot (IItemHandler itemHandler, int index, int x, int y) {
-        super(itemHandler, index, x, y);
-    }
+	private final Block block;
 
-    @Override
-    public boolean mayPlace (ItemStack stack) {
-        return stack.getItem() instanceof UpgradeBase;
-    }
+	public UpgradeSlot (Block block, IItemHandler itemHandler, int index, int x, int y) {
+		super(itemHandler, index, x, y);
+		this.block = block;
+	}
 
-    @Override
-    public boolean isActive () {
-        return true;
-    }
+	@Override
+	public boolean mayPlace (ItemStack stack) {
+		if (!(stack.getItem() instanceof UpgradeBase upgrade)) return false;
+
+		var upgrades = FMUpgrades.getCompatibleUpgrades(block);
+
+		var optionalPair = upgrades.stream()
+				.filter(pair -> pair.getFirst().asItem().equals(upgrade))
+				.findFirst();
+
+		if (optionalPair.isEmpty()) return false;
+
+		int maxAllowed = optionalPair.get().getSecond();
+		int currentCount = 0;
+
+		for (int i = 0; i < getItemHandler().getSlots(); i++) {
+			ItemStack existing = getItemHandler().getStackInSlot(i);
+			if (existing.getItem().equals(upgrade)) {
+				currentCount += existing.getCount();
+			}
+		}
+
+		// Prevent inserting if the max is already reached
+		return currentCount < maxAllowed;
+	}
+
+	@Override
+	public int getMaxStackSize () {
+		if (!(getItem().getItem() instanceof UpgradeBase upgrade)) return super.getMaxStackSize();
+
+		var upgrades = FMUpgrades.getCompatibleUpgrades(block);
+
+		var optionalPair = upgrades.stream()
+				.filter(pair -> pair.getFirst().asItem().equals(upgrade))
+				.findFirst();
+
+		if (optionalPair.isEmpty()) return super.getMaxStackSize();
+
+		int maxAllowed = optionalPair.get().getSecond();
+		int currentCount = 0;
+
+		for (int i = 0; i < getItemHandler().getSlots(); i++) {
+			ItemStack existing = getItemHandler().getStackInSlot(i);
+			if (existing.getItem().equals(upgrade)) {
+				currentCount += existing.getCount();
+			}
+		}
+
+		// Don't allow more than the remaining amount
+		int remaining = maxAllowed - currentCount;
+		return Math.max(0, Math.min(super.getMaxStackSize(), remaining));
+	}
+
+	@Override
+	public boolean isActive () {
+		return true;
+	}
 }

@@ -65,10 +65,10 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
             return;
         }
 
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 5));
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 23));
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 41));
-        this.addSlot(new UpgradeSlot(this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 59));
+        this.addSlot(new UpgradeSlot(this.block, this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 5));
+        this.addSlot(new UpgradeSlot(this.block, this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 23));
+        this.addSlot(new UpgradeSlot(this.block, this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 41));
+        this.addSlot(new UpgradeSlot(this.block, this.blockEntity.getInventory(), getNextIndex(), 182 + getUpgradeableMoveFactor(), 59));
     }
 
     @Override

@@ -23,4 +23,5 @@ public class DeferredUpgradeMap<T extends FMBasePoweredBlockEntity> implements S
 	public UpgradeMap<T> get () {
 		return holder.get();
 	}
+
 }

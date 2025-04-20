@@ -8,6 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.superscary.fluxmachines.core.util.item.ItemDefinition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -48,7 +49,7 @@ public class BlockDefinition<T extends Block> implements ItemLike {
     }
 
     @Override
-    public Item asItem() {
+    public @NotNull Item asItem() {
         return item.asItem();
     }
 

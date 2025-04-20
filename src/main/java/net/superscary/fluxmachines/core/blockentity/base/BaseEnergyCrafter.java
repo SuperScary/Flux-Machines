@@ -14,6 +14,7 @@ import net.superscary.fluxmachines.api.energy.EnergizedCrafter;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.api.network.NetworkComponent;
 import net.superscary.fluxmachines.api.recipe.FMRecipe;
+import net.superscary.fluxmachines.attributes.Attribute.*;
 import net.superscary.fluxmachines.core.util.Utilities;
 import net.superscary.fluxmachines.core.util.block.FMBlockStates;
 import net.superscary.fluxmachines.core.util.helper.PropertyHelper;
@@ -26,16 +27,16 @@ import java.util.Optional;
 
 public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePoweredBlockEntity implements EnergizedCrafter<T>, NetworkComponent {
 
-    private float progress;
-    private boolean isCrafting = false;
+    private FloatValue progress;
+    private BooleanValue isCrafting = Builder.of(Keys.CRAFTING, false);
 
-    public BaseEnergyCrafter(BlockEntityType<?> type, BlockPos pos, BlockState blockState, int capacity, int maxReceive) {
-        this(type, pos, blockState, capacity, maxReceive, 0);
+    public BaseEnergyCrafter(BlockEntityType<?> type, BlockPos pos, BlockState blockState, IntValue capacity, IntValue maxReceive) {
+        this(type, pos, blockState, capacity, maxReceive, Builder.of(Keys.POWER, 0));
     }
 
-    public BaseEnergyCrafter(BlockEntityType<?> type, BlockPos pos, BlockState blockState, int capacity, int maxReceive, int current) {
+    public BaseEnergyCrafter(BlockEntityType<?> type, BlockPos pos, BlockState blockState, IntValue capacity, IntValue maxReceive, IntValue current) {
         super(type, pos, blockState, capacity, maxReceive, current);
-        progress = 0;
+        progress = Builder.of(Keys.PROGRESS, 0f);
     }
 
     @Override
@@ -55,12 +56,12 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
 
     @Override
     public void increaseCraftingProgress () {
-        progress++;
+        progress.increase(1f);
     }
 
     @Override
     public float getProgress () {
-        return progress;
+        return progress.get();
     }
 
     @Override
@@ -75,19 +76,19 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
         if (Utilities.isDevEnvironment()) getEnergyStorage().receiveEnergy(10_000, false); // TODO: Dev only environment
 
         if (getInventory().getStackInSlot(inputSlot()) == ItemStack.EMPTY) {
-            progress = 0;
+            progress.set(0f);
             updateBlockState(state.setValue(BlockStateProperties.CRAFTING, false));
         }
 
         if (hasRecipe(state)) {
-            isCrafting = true;
+            isCrafting.set(true);
             increaseCraftingProgress();
             getEnergyStorage().extractEnergy(getEnergyAmount(), false);
 
             if (hasFinished()) {
                 craftItem(Objects.requireNonNull(getRecipeResultItem(level)));
-                progress = 0;
-                isCrafting = false;
+                progress.set(0f);
+                isCrafting.set(false);
             }
         }
     }
@@ -100,7 +101,7 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
             return false;
         }
         var result = getRecipeResultItem(Objects.requireNonNull(getLevel()));
-        isCrafting = result != null;
+        isCrafting.set(result != null);
         var hasRecipe = this.canInsertAmount(result.getCount(), inputSlot(), outputSlot(), getInventory()) && canInsertItem(getInventory(), result.getItem(), outputSlot()) && hasEnoughEnergy(getEnergyAmount());
         updateBlockState(state.setValue(BlockStateProperties.CRAFTING, hasRecipe));
         PropertyHelper.setValues(state, isCrafting(), BlockStateProperties.POWERED, FMBlockStates.REDSTONE_ON);
@@ -111,8 +112,8 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
     public void craftItem (ItemStack result) {
         this.getInventory().extractItem(inputSlot(), 1, false);
         this.getInventory().setStackInSlot(outputSlot(), new ItemStack(result.getItem(), this.getInventory().getStackInSlot(1).getCount() + result.getCount()));
-        isCrafting = false;
-        progress = 0;
+        isCrafting.set(false);
+        progress.set(0f);
         PropertyHelper.setValues(getBlockState(), isCrafting(), BlockStateProperties.POWERED, FMBlockStates.REDSTONE_ON);
     }
 
@@ -126,8 +127,8 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
     @Override
     public void loadClientData (CompoundTag tag, HolderLookup.Provider registries) {
         super.loadClientData(tag, registries);
-        progress = tag.getInt(Keys.PROGRESS);
-        isCrafting = tag.getBoolean(Keys.CRAFTING);
+        progress.set(tag.getFloat(Keys.PROGRESS));
+        isCrafting.set(tag.getBoolean(Keys.CRAFTING));
     }
 
     @Override
@@ -138,7 +139,7 @@ public abstract class BaseEnergyCrafter<T extends FMRecipe<?>> extends FMBasePow
 
     @Override
     public boolean isCrafting () {
-        return isCrafting;
+        return isCrafting.getAsBoolean();
     }
 
     @Override

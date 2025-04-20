@@ -9,7 +9,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
+import net.superscary.fluxmachines.attributes.Attribute;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
+import net.superscary.fluxmachines.core.util.keys.Keys;
 import org.jetbrains.annotations.NotNull;
 
 public class CoalGeneratorBlockEntity extends FMBasePoweredBlockEntity {
@@ -19,7 +21,7 @@ public class CoalGeneratorBlockEntity extends FMBasePoweredBlockEntity {
     }
 
     public CoalGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, int capacity, int maxReceive) {
-        super(type, pos, blockState, capacity, maxReceive);
+        super(type, pos, blockState, Attribute.Builder.of(Keys.MAX_POWER, capacity), Attribute.Builder.of(Keys.MAX_DRAIN, maxReceive));
     }
 
     @Override

@@ -43,4 +43,14 @@ public class FMJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(FMBlocks.FLUX_FURNACE), FluxFurnaceCategory.TYPE);
     }
 
+    @Override
+    public void registerRuntime (IRuntimeRegistration registration) {
+        registration.getRecipeManager().addRecipes(FluxFurnaceCategory.TYPE, FMRecipeManagers.FLUX_SMELTING_RECIPE_MANAGER.get().asRecipeList());
+    }
+
+    @Override
+    public void onRuntimeAvailable (IJeiRuntime jeiRuntime) {
+        jeiRuntime.getRecipeManager().addRecipes(FluxFurnaceCategory.TYPE, FMRecipeManagers.FLUX_SMELTING_RECIPE_MANAGER.get().asRecipeList());
+    }
+
 }

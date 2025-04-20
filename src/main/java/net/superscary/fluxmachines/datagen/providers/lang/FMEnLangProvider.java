@@ -99,21 +99,21 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
     protected void upgrades () {
         add(FMUpgrades.EMPTY.asItem(), "Upgrade Base");
-        addUpgrade(SPEED, "Speed Module", "§7§oIncreases machine operation speed.");
-        addUpgrade(CAPACITY, "Capacity Mod", "§7§oExpands the operational size of machines.");
-        addUpgrade(EFFICIENCY, "Efficiency Core", "§7§oReduces power consumption per operation.");
-        addUpgrade(OVERCLOCK, "Overclock Chip", "§7§oGreatly increases speed but at a power efficiency cost.");
-        addUpgrade(THERMAL_BUFFER, "Thermal Buffer", "§7§oAllows the machine to operate under extreme conditions.");
-        addUpgrade(AUTO_EJECTOR, "Auto Ejector", "§7§oAutomatically pushes output to connected inventories.");
-        addUpgrade(INPUT_EXPANDER, "Input Expander", "§7§oAllows the machine to accept input from multiple sides.");
-        addUpgrade(MULTI_PROCESSOR_UNIT, "Multi-Processor Unit", "§7§oEnables running multiple operations at once.");
-        addUpgrade(SILENCING_COIL, "Silencing Coil", "§7§oSuppresses sounds emitted from the machine.");
-        addUpgrade(NANITE_INJECTOR, "Nanite Injector", "§7§oIncreases yield of byproducts or rare drops.");
-        addUpgrade(PRECISION_GEARBOX, "Precision Gearbox", "§7§oIncreases accuracy for machines with chance-based outputs.");
-        addUpgrade(REDSTONE_INTERFACE, "Redstone Interface", "§7§oAdds advanced redstone control options.");
-        addUpgrade(ECO_DRIVE, "EcoDrive Module", "§7§oIdle machines draw near-zero power.");
-        addUpgrade(VOID_MOD, "Void Module", "§7§oDestroys overflow items instead of clogging the machine.");
-        addUpgrade(REPLICATION_NODE, "Replication Node", "§7§oDuplicates output at a high power cost.");
+        addUpgrade(SPEED, "Speed Module", "Increases machine operation speed.");
+        addUpgrade(CAPACITY, "Capacity Mod", "Expands the operational size of machines.");
+        addUpgrade(EFFICIENCY, "Efficiency Core", "Reduces power consumption per operation.");
+        addUpgrade(OVERCLOCK, "Overclock Chip", "Greatly increases speed but at a power efficiency cost.");
+        addUpgrade(THERMAL_BUFFER, "Thermal Buffer", "Allows the machine to operate under extreme conditions.");
+        addUpgrade(AUTO_EJECTOR, "Auto Ejector", "Automatically pushes output to connected inventories.");
+        addUpgrade(INPUT_EXPANDER, "Input Expander", "Allows the machine to accept input from multiple sides.");
+        addUpgrade(MULTI_PROCESSOR_UNIT, "Multi-Processor Unit", "Enables running multiple operations at once.");
+        addUpgrade(SILENCING_COIL, "Silencing Coil", "Suppresses sounds emitted from the machine.");
+        addUpgrade(NANITE_INJECTOR, "Nanite Injector", "Increases yield of byproducts or rare drops.");
+        addUpgrade(PRECISION_GEARBOX, "Precision Gearbox", "Increases accuracy for machines with chance-based outputs.");
+        addUpgrade(REDSTONE_INTERFACE, "Redstone Interface", "Adds advanced redstone control options.");
+        addUpgrade(ECO_DRIVE, "EcoDrive Module", "Idle machines draw near-zero power.");
+        addUpgrade(VOID_MOD, "Void Module", "Destroys overflow items instead of clogging the machine.");
+        addUpgrade(REPLICATION_NODE, "Replication Node", "Duplicates output at a high power cost.");
     }
 
     protected void misc () {
@@ -134,15 +134,16 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("gui.fluxmachines.gui.settings.right", "Right Click to Expand");
         add("gui.fluxmachines.gui.settings.left", "Left Click to Expand");
         add("gui.fluxmachines.gui.settings", "Settings");
+        add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
+        add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");
+        add("gui.fluxmachines.upgrade_tooltip", "Compatible Upgrades");
+        add("gui.fluxmachines.upgrade_tooltip.item", "§7§o- §7§o%s §7§ox%s");
 
         add("message.fluxmachines.data_link_tool.copied_data", "§aCopied Data");
         add("message.fluxmachines.data_link_tool.wrote_data", "§aWrote Data");
         add("message.fluxmachines.data_link_tool.empty_data", "§cNo Data");
         add("message.fluxmachines.data_link_tool.cleared_data", "§9§oCleared Data");
         add("tooltip.fluxmachines.data_link_tool.has_data", "§aHas Data");
-
-        add("gui.fluxmachines.itemlist", "Slot %s: %sx %s");
-        add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");
 
         add("item.fluxmachines.patchouli.book.name", "Flux Machines Field Manual");
         add("item.fluxmachines.patchouli.book.subtitle", "Flux Machines & You");
@@ -165,7 +166,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
 
     protected void addUpgrade (ItemDefinition<UpgradeBase> item, String name, String desc) {
         add(item.asItem(), name);
-        add(item.asItem().getDescriptionId() + ".desc", desc);
+        add(item.asItem().getDescriptionId() + ".desc", "§7§o" + desc);
     }
 
 }

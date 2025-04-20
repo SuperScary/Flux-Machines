@@ -49,7 +49,7 @@ public class FluxSmeltingRecipeManager implements IRecipeManager<FluxSmeltingRec
 
     @Override
     public List<RecipeHolder<FluxSmeltingRecipe>> getConvertedRecipes () {
-        if (recipeManager != null) refresh(recipeManager);
+        //if (recipeManager != null) refresh(recipeManager);
         if (convertedRecipes.isEmpty()) FluxMachines.LOGGER.warn("Flux Smelting Recipes list is empty!");
         return convertedRecipes;
     }

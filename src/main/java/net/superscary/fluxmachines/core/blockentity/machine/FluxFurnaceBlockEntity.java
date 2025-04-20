@@ -10,20 +10,22 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.superscary.fluxmachines.api.inventory.MachineItemStackHandler;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
+import net.superscary.fluxmachines.attributes.Attribute;
 import net.superscary.fluxmachines.core.blockentity.base.BaseEnergyCrafter;
 import net.superscary.fluxmachines.core.recipe.FluxSmeltingRecipe;
 import net.superscary.fluxmachines.core.registries.FMRecipeManagers;
+import net.superscary.fluxmachines.core.util.keys.Keys;
 import net.superscary.fluxmachines.gui.menu.FluxFurnaceMenu;
 import org.jetbrains.annotations.NotNull;
 
 public class FluxFurnaceBlockEntity extends BaseEnergyCrafter<FluxSmeltingRecipe> {
 
     public FluxFurnaceBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
-        super(type, pos, blockState, 100_000, 256);
+        super(type, pos, blockState, Attribute.Builder.of(Keys.MAX_POWER, 100_000), Attribute.Builder.of(Keys.MAX_DRAIN, 256));
     }
 
     public FluxFurnaceBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, int current) {
-        super(type, pos, blockState, 100_000, 256, current);
+        super(type, pos, blockState, Attribute.Builder.of(Keys.MAX_POWER, 100_000), Attribute.Builder.of(Keys.MAX_DRAIN, 256), Attribute.Builder.of(Keys.POWER, current));
     }
 
     @Override
