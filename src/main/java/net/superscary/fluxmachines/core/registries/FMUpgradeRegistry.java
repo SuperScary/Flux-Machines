@@ -7,6 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.api.blockentity.Upgradeable;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
+import net.superscary.fluxmachines.core.blockentity.machine.CoalGeneratorBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.machine.FluxFurnaceBlockEntity;
 import net.superscary.fluxmachines.core.item.upgrade.UpgradeBase;
 import net.superscary.fluxmachines.core.util.DeferredBlockEntityType;
@@ -27,6 +28,7 @@ public class FMUpgradeRegistry {
 	public static final DeferredRegister<UpgradeMap<?>> REGISTRY = DeferredRegister.create(FMRegistries.UPGRADE_MAP_REGISTRY, FluxMachines.MODID);
 
 	public static final DeferredUpgradeMap<FluxFurnaceBlockEntity> FLUX_FURNACE_BLOCK_ENTITY_UPGRADES = build(FMBlocks.FLUX_FURNACE, FluxFurnaceBlockEntity.class, FMBlockEntities.FLUX_FURNACE, UpgradePairs.POWERED_CRAFTER.getUpgrades());
+	public static final DeferredUpgradeMap<CoalGeneratorBlockEntity> COAL_GENERATOR_BLOCK_ENTITY_UPGRADES = build(FMBlocks.COAL_GENERATOR, CoalGeneratorBlockEntity.class, FMBlockEntities.COAL_GENERATOR, UpgradePairs.POWERED_CRAFTER.getUpgrades());
 
 	private static <T extends FMBasePoweredBlockEntity> DeferredUpgradeMap<T> build (BlockDefinition<?> id, Class<? extends FMBasePoweredBlockEntity> cl, DeferredBlockEntityType<T> entity, ImmutableList<Pair<ItemDefinition<UpgradeBase>, Integer>> upgrades) {
 		return build(id.getEnglishName(), cl, entity, upgrades);

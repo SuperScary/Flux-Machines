@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class FluxFurnaceBlockEntity extends BaseEnergyCrafter<FluxSmeltingRecipe> {
 
     public FluxFurnaceBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
-        super(type, pos, blockState, Attribute.Builder.of(Keys.MAX_POWER, 100_000), Attribute.Builder.of(Keys.MAX_DRAIN, 256));
+        this(type, pos, blockState, 0);
     }
 
     public FluxFurnaceBlockEntity (BlockEntityType<?> type, BlockPos pos, BlockState blockState, int current) {
