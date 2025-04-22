@@ -12,6 +12,8 @@ public class FMTag {
     public static class Blocks {
         public static final TagKey<Block> INCORRECT_FOR_STEEL_TOOL = createTag("incorrect_for_steel_tool");
         public static final TagKey<Block> NEEDS_STEEL_TOOL = createTag("needs_steel_tool");
+        public static final TagKey<Block> REACTOR_BLOCK = createTag("reactor_block");
+        public static final TagKey<Block> COKE_OVEN_BLOCK = createTag("coke_oven_block");
 
         public static final TagKey<Block> STEEL = createTag("steel_block");
 
@@ -30,6 +32,8 @@ public class FMTag {
 
         public static final TagKey<Item> STEEL = createTag("steel");
         public static final TagKey<Item> DUST = createTag("dust");
+
+        public static final TagKey<Item> REACTOR_FUEL = createTag("reactor_fuel");
 
         private static TagKey<Item> createTag (String key) {
             return ItemTags.create(FluxMachines.getResource(key));

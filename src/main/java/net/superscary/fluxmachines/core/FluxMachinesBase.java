@@ -74,6 +74,9 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(FMVillages.Trades::addCustomTrades);
         NeoForge.EVENT_BUS.addListener(FMVillages.Trades::addWandererTrades);
 
+        // NeoForge.EVENT_BUS.addListener(BlockHooks::rightClickReactorBlock);
+        // NeoForge.EVENT_BUS.addListener(BlockHooks::rightClickRefractoryBlock);
+
     }
 
     private void registerCreativeTabs () {

@@ -68,6 +68,10 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItem(LIMESTONE_POLISHED);
         blockWithItemRenderType(MACHINE_CASING, "translucent");
 
+        blockWithItem(REACTOR_FRAME);
+        blockWithItemRenderType(REACTOR_GLASS, "translucent");
+        blockWithItem(REACTOR_CORE);
+
         machine(FLUX_FURNACE, "flux_furnace");
         machine(COAL_GENERATOR, "coal_generator");
         fluidTank(FLUID_TANK);
@@ -122,6 +126,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
     }
 
     private void blockWithItem (BlockDefinition<?> blockRegistryObject) {
+        err(List.of(blockRegistryObject.id()));
         simpleBlockWithItem(blockRegistryObject.block(), cubeAll(blockRegistryObject.block()));
     }
 

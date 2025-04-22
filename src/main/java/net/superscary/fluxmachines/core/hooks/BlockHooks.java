@@ -1,14 +1,12 @@
 package net.superscary.fluxmachines.core.hooks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -21,20 +19,19 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.PistonEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
+import net.superscary.fluxmachines.core.block.multiblock.CokeOvenMultiblock;
+import net.superscary.fluxmachines.core.block.multiblock.ReactorMultiBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.helper.ItemHelper;
 import net.superscary.fluxmachines.core.util.helper.Utils;
-import net.superscary.fluxmachines.core.util.inventory.ContentDropper;
-import net.superscary.fluxmachines.network.CrucibleBlockHit;
+import net.superscary.fluxmachines.core.util.tags.FMTag;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BlockHooks {
@@ -145,6 +142,44 @@ public class BlockHooks {
                     }
                 }
             }
+        }
+    }
+
+    public static void rightClickReactorBlock (PlayerInteractEvent.RightClickBlock event) {
+        var level = event.getLevel();
+        var pos = event.getPos();
+        var player = event.getEntity();
+        var state = level.getBlockState(pos);
+
+        if (!(state.is(FMTag.Blocks.REACTOR_BLOCK))) return;
+
+        if (player.getMainHandItem().is(FMBlocks.REACTOR_FRAME.asItem()) || player.getMainHandItem().is(FMBlocks.REACTOR_GLASS.asItem())) {
+            return;
+        }
+
+        if (ReactorMultiBlock.isValid(level, pos)) {
+            player.displayClientMessage(Component.literal("Reactor is valid!"), true);
+        } else {
+            player.displayClientMessage(Component.literal("Reactor is invalid!"), true);
+        }
+    }
+
+    public static void rightClickRefractoryBlock (PlayerInteractEvent.RightClickBlock event) {
+        var level = event.getLevel();
+        var pos = event.getPos();
+        var player = event.getEntity();
+        var state = level.getBlockState(pos);
+
+        if (!(state.is(FMTag.Blocks.COKE_OVEN_BLOCK))) return;
+
+        if (player.getMainHandItem().is(FMBlocks.REFRACTORY_BRICK.asItem())) {
+            return;
+        }
+
+        if (CokeOvenMultiblock.isValid(level, pos)) {
+            player.displayClientMessage(Component.literal("Oven is valid!"), true);
+        } else {
+            player.displayClientMessage(Component.literal("Oven is invalid!"), true);
         }
     }
 

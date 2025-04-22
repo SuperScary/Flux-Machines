@@ -53,7 +53,7 @@ public class FluidTankBlockEntity extends FMBaseBlockEntity implements MachineFl
     }
 
     @Override
-    public AbstractContainerMenu menu(int id, Inventory playerInventory, Player player) {
+    public AbstractContainerMenu menu (int id, Inventory playerInventory, Player player) {
         return new FluidTankMenu(id, playerInventory, this);
     }
 

@@ -103,7 +103,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        if (Minecraft.getInstance().screen == this) {
+        if (isConfigurable() && Minecraft.getInstance().screen == this) {
             if (isMouseAboveArea(mouseX, mouseY, x + imageWidth + guiOffset, y + 82, 0, 0, 12, 84) && !isSideTabOpen) {
                 guiGraphics.blit(sideTabSelected, x , y, 0, 0, 256, 256);
             } else if (!isSideTabOpen) {
@@ -111,7 +111,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
             }
         }
 
-        toggleSideTab(guiGraphics, mouseX, mouseY, x, y);
+        if (isConfigurable()) toggleSideTab(guiGraphics, mouseX, mouseY, x, y);
 
         // render main texture after the side tab. Doesn't really matter the order it is rendered in.
         guiGraphics.blit(getGuiTexture(), x, y, 0, 0, imageWidth, imageHeight);
@@ -129,13 +129,12 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
      */
     @Override
     protected void renderLabels (GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(font, title, ((imageWidth / 2) - font.width(title) / 2) - modifiedWidth(), titleLabelY, 4210752, false);
-        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX - modifiedWidth(), this.inventoryLabelY, 4210752, false);
+        renderTitles(graphics, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        if (!isSideTabOpen) {
+        if (isConfigurable() && !isSideTabOpen) {
             renderOptionsAreaTooltips(graphics, mouseX, mouseY, x, y);
         }
 
@@ -146,6 +145,11 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
         if (menu.isUpgradeable()) {
             renderUpgradeSlotTooltips(graphics, mouseX, mouseY, x, y);
         }
+    }
+
+    public void renderTitles (GuiGraphics graphics, int mouseX, int mouseY) {
+        graphics.drawString(font, title, ((imageWidth / 2) - font.width(title) / 2) - modifiedWidth(), titleLabelY, 4210752, false);
+        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX - modifiedWidth(), this.inventoryLabelY, 4210752, false);
     }
 
     /**
@@ -379,6 +383,10 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
 
     public boolean isFluidMenu () {
         return menu instanceof GuiFluid;
+    }
+
+    public boolean isConfigurable () {
+        return true;
     }
 
     @SuppressWarnings("unused")

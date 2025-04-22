@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.DecorativeBlock;
+import net.superscary.fluxmachines.core.block.reactor.ReactorBlock;
 import net.superscary.fluxmachines.core.block.cable.CableBlock;
 import net.superscary.fluxmachines.core.block.cable.FacadeBlock;
 import net.superscary.fluxmachines.core.block.machine.CoalGeneratorBlock;
@@ -17,6 +18,7 @@ import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.core.block.machine.MachineCasingBlock;
 import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
 import net.superscary.fluxmachines.core.block.misc.FluidTankBlock;
+import net.superscary.fluxmachines.core.block.reactor.ReactorCoreBlock;
 import net.superscary.fluxmachines.core.item.FacadeBlockItem;
 import net.superscary.fluxmachines.core.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
@@ -44,6 +46,10 @@ public class FMBlocks {
 	public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK = reg("duracite_block", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
 
 	public static final BlockDefinition<DecorativeBlock> MACHINE_CASING = reg("machine_casing", MachineCasingBlock::new);
+
+	public static final BlockDefinition<ReactorBlock> REACTOR_FRAME = reg("reactor_frame", ReactorBlock::new);
+	public static final BlockDefinition<ReactorBlock> REACTOR_GLASS = reg("reactor_glass", ReactorBlock::new);
+	public static final BlockDefinition<ReactorCoreBlock> REACTOR_CORE = reg("reactor_core", ReactorCoreBlock::new);
 
 	public static final BlockDefinition<DecorativeBlock> LIMESTONE = reg("limestone", DecorativeBlock::new);
 	public static final BlockDefinition<SlabBlock> LIMESTONE_SLAB = reg("limestone_slab", () -> new SlabBlock(Blocks.BRICK_SLAB.properties()));

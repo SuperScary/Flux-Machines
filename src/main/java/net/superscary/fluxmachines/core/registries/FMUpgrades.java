@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.superscary.fluxmachines.attributes.Attribute;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.core.item.upgrade.UpgradeBase;
@@ -23,8 +22,6 @@ import java.util.List;
 import java.util.function.Function;
 
 public final class FMUpgrades {
-
-	public static final Integer MAX_UPGRADES = 8;
 
 	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(FluxMachines.MODID);
 

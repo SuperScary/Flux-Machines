@@ -6,6 +6,7 @@ import net.superscary.fluxmachines.api.data.IDataProvider;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.item.upgrade.UpgradeBase;
 import net.superscary.fluxmachines.core.registries.FMUpgrades;
+import net.superscary.fluxmachines.core.util.block.BlockDefinition;
 import net.superscary.fluxmachines.core.util.item.ItemDefinition;
 
 import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
@@ -23,82 +24,86 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         blocks();
         items();
         misc();
+        multiblock();
         subtitles();
         entity();
         upgrades();
     }
 
     protected void blocks () {
-        add(STEEL_BLOCK.block(), "Steel Block");
+        add(STEEL_BLOCK, "Steel Block");
 
-        add(DURACITE_ORE.block(), "Duracite Ore");
-        add(DURACITE_DEEPSLATE_ORE.block(), "Duracite Deepslate Ore");
-        add(DURACITE_NETHER_ORE.block(), "Duracite Nether Ore");
-        add(DURACITE_BLOCK_RAW.block(), "Raw Duracite Block");
-        add(DURACITE_BLOCK.block(), "Block of Duracite");
+        add(DURACITE_ORE, "Duracite Ore");
+        add(DURACITE_DEEPSLATE_ORE, "Duracite Deepslate Ore");
+        add(DURACITE_NETHER_ORE, "Duracite Nether Ore");
+        add(DURACITE_BLOCK_RAW, "Raw Duracite Block");
+        add(DURACITE_BLOCK, "Block of Duracite");
 
-        add(MACHINE_CASING.block(), "Machine Casing");
-        add(FLUX_FURNACE.block(), "Flux Furnace");
-        add(COAL_GENERATOR.block(), "Coal Generator");
-        add(FLUID_TANK.block(), "Fluid Tank");
-        add(CRUCIBLE.block(), "Crucible");
-        add(CABLE.block(), "Network Cable");
-        add(FACADE.block(), "Cable Facade");
-        add(REFRACTORY_BRICK.block(), "Refractory Bricks");
-        add(REFRACTORY_BRICK_SLAB.block(), "Refractory Brick Slab");
-        add(REFRACTORY_BRICK_STAIRS.block(), "Refractory Brick Stairs");
-        add(REFRACTORY_WALL.block(), "Refractory Wall");
-        add(CALCITE_STAIRS.block(), "Calcite Stairs");
-        add(CALCITE_SLAB.block(), "Calcite Slab");
-        add(LIMESTONE.block(), "Limestone");
-        add(LIMESTONE_STAIRS.block(), "Limestone Stairs");
-        add(LIMESTONE_SLAB.block(), "Limestone Slab");
-        add(LIMESTONE_BRICKS.block(), "Limestone Bricks");
-        add(LIMESTONE_BRICK_STAIRS.block(), "Limestone Brick Stairs");
-        add(LIMESTONE_BRICK_SLAB.block(), "Limestone Brick Slab");
-        add(LIMESTONE_POLISHED.block(), "Polished Limestone");
-        add(LIMESTONE_POLISHED_STAIRS.block(), "Polished Limestone Stairs");
-        add(LIMESTONE_POLISHED_SLAB.block(), "Polished Limestone Slab");
+        add(MACHINE_CASING, "Machine Casing");
+        add(REACTOR_FRAME, "Reactor Frame");
+        add(REACTOR_GLASS, "Reactor Glass");
+        add(REACTOR_CORE, "Reactor Core");
+        add(FLUX_FURNACE, "Flux Furnace");
+        add(COAL_GENERATOR, "Coal Generator");
+        add(FLUID_TANK, "Fluid Tank");
+        add(CRUCIBLE, "Crucible");
+        add(CABLE, "Network Cable");
+        add(FACADE, "Cable Facade");
+        add(REFRACTORY_BRICK, "Refractory Bricks");
+        add(REFRACTORY_BRICK_SLAB, "Refractory Brick Slab");
+        add(REFRACTORY_BRICK_STAIRS, "Refractory Brick Stairs");
+        add(REFRACTORY_WALL, "Refractory Wall");
+        add(CALCITE_STAIRS, "Calcite Stairs");
+        add(CALCITE_SLAB, "Calcite Slab");
+        add(LIMESTONE, "Limestone");
+        add(LIMESTONE_STAIRS, "Limestone Stairs");
+        add(LIMESTONE_SLAB, "Limestone Slab");
+        add(LIMESTONE_BRICKS, "Limestone Bricks");
+        add(LIMESTONE_BRICK_STAIRS, "Limestone Brick Stairs");
+        add(LIMESTONE_BRICK_SLAB, "Limestone Brick Slab");
+        add(LIMESTONE_POLISHED, "Polished Limestone");
+        add(LIMESTONE_POLISHED_STAIRS, "Polished Limestone Stairs");
+        add(LIMESTONE_POLISHED_SLAB, "Polished Limestone Slab");
     }
 
     protected void items () {
-        add(STEEL_DUST.asItem(), "Steel Dust");
-        add(STEEL_INGOT.asItem(), "Steel Ingot");
-        add(STEEL_NUGGET.asItem(), "Steel Nugget");
+        add(STEEL_DUST, "Steel Dust");
+        add(STEEL_INGOT, "Steel Ingot");
+        add(STEEL_NUGGET, "Steel Nugget");
 
-        add(RAW_DURACITE.asItem(), "Raw Duracite");
-        add(DURACITE_DUST.asItem(), "Duracite Dust");
-        add(DURACITE_INGOT.asItem(), "Duracite Ingot");
-        add(DURACITE_NUGGET.asItem(), "Duracite Nugget");
+        add(RAW_DURACITE, "Raw Duracite");
+        add(DURACITE_DUST, "Duracite Dust");
+        add(DURACITE_INGOT, "Duracite Ingot");
+        add(DURACITE_NUGGET, "Duracite Nugget");
 
-        add(STEEL_HELMET.asItem(), "Steel Helmet");
-        add(STEEL_CHESTPLATE.asItem(), "Steel Chestplate");
-        add(STEEL_LEGGINGS.asItem(), "Steel Leggings");
-        add(STEEL_BOOTS.asItem(), "Steel Boots");
-        add(STEEL_SWORD.asItem(), "Steel Sword");
-        add(STEEL_PICKAXE.asItem(), "Steel Pickaxe");
-        add(STEEL_SHOVEL.asItem(), "Steel Shovel");
-        add(STEEL_AXE.asItem(), "Steel Axe");
-        add(STEEL_HOE.asItem(), "Steel Hoe");
-        add(STEEL_PAXEL.asItem(), "Steel Paxel");
-        add(STEEL_HAMMER.asItem(), "Steel Hammer");
-        add(WRENCH.asItem(), "Wrench");
-        add(DATA_LINK.asItem(), "Data Linker");
-        add(RUBBER.asItem(), "Rubber");
-        add(INDUSTRIAL_SLAG.asItem(), "Industrial Slag");
-        add(FERTILIZER.asItem(), "Fertilizer");
-        add(FLUX_POWDER.asItem(), "Flux Powder");
-        add(CALCITE_DUST.asItem(), "Calcite Dust");
-        add(COKE.asItem(), "Coke");
+        add(STEEL_HELMET, "Steel Helmet");
+        add(STEEL_CHESTPLATE, "Steel Chestplate");
+        add(STEEL_LEGGINGS, "Steel Leggings");
+        add(STEEL_BOOTS, "Steel Boots");
+        add(STEEL_SWORD, "Steel Sword");
+        add(STEEL_PICKAXE, "Steel Pickaxe");
+        add(STEEL_SHOVEL, "Steel Shovel");
+        add(STEEL_AXE, "Steel Axe");
+        add(STEEL_HOE, "Steel Hoe");
+        add(STEEL_PAXEL, "Steel Paxel");
+        add(STEEL_HAMMER, "Steel Hammer");
+        add(WRENCH, "Wrench");
+        add(DATA_LINK, "Data Linker");
+        add(RUBBER, "Rubber");
+        add(INDUSTRIAL_SLAG, "Industrial Slag");
+        add(FERTILIZER, "Fertilizer");
+        add(FLUX_POWDER, "Flux Powder");
+        add(CALCITE_DUST, "Calcite Dust");
+        add(COKE, "Coke");
 
-        add(REDSTONE_AND_STEEL.asItem(), "Redstone and Steel");
+        add(REDSTONE_AND_STEEL, "Redstone and Steel");
 
-        add(HONEY_BUN.asItem(), "Honey Bun");
-        add(HARD_BOILED_EGG.asItem(), "Hard Boiled Egg");
+        add(HONEY_BUN, "Honey Bun");
+        add(HARD_BOILED_EGG, "Hard Boiled Egg");
     }
 
     protected void upgrades () {
-        add(FMUpgrades.EMPTY.asItem(), "Upgrade Base");
+        add(FMUpgrades.EMPTY, "Upgrade Base");
         addUpgrade(SPEED, "Speed Module", "Increases machine operation speed.");
         addUpgrade(CAPACITY, "Capacity Mod", "Expands the operational size of machines.");
         addUpgrade(EFFICIENCY, "Efficiency Core", "Reduces power consumption per operation.");
@@ -155,6 +160,12 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("fluxmachines.tooltip.liquid.amount", "%s mB");
     }
 
+    protected void multiblock () {
+        add("multiblock.fluxmachines.reactor", "Reactor");
+        add("multiblock.fluxmachines.reactor.invalid", "Invalid Reactor Structure");
+        add("multiblock.fluxmachines.reactor.valid", "Reactor Structure Validated");
+    }
+
     protected void subtitles () {
         add("sound.fluxmachines.flux_furnace_on", "Flux Furnace");
         add("sound.fluxmachines.ratchet", "Ratchet");
@@ -167,6 +178,14 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
     protected void addUpgrade (ItemDefinition<UpgradeBase> item, String name, String desc) {
         add(item.asItem(), name);
         add(item.asItem().getDescriptionId() + ".desc", "§7§o" + desc);
+    }
+
+    protected void add (ItemDefinition<?> item, String name) {
+        add(item.asItem(), name);
+    }
+
+    protected void add (BlockDefinition<?> block, String name) {
+        add(block.block(), name);
     }
 
 }

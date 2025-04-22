@@ -9,6 +9,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.superscary.fluxmachines.core.registries.FMMenus;
 import net.superscary.fluxmachines.gui.screen.FluidTankScreen;
 import net.superscary.fluxmachines.gui.screen.FluxFurnaceScreen;
+import net.superscary.fluxmachines.gui.screen.ReactorScreen;
 
 public class FluxMachinesClient extends FluxMachinesBase {
 
@@ -24,7 +25,6 @@ public class FluxMachinesClient extends FluxMachinesBase {
         return Minecraft.getInstance().level;
     }
 
-    // TODO: Deprecated method to allow transparency.
     private void clientSetup (FMLClientSetupEvent event) {
 
     }
@@ -32,6 +32,7 @@ public class FluxMachinesClient extends FluxMachinesBase {
     private void registerMenuScreens (RegisterMenuScreensEvent event) {
         event.register(FMMenus.FLUX_FURNACE_MENU.get(), FluxFurnaceScreen::new);
         event.register(FMMenus.FLUID_TANK_MENU.get(), FluidTankScreen::new);
+        event.register(FMMenus.REACTOR_MENU.get(), ReactorScreen::new);
     }
 
 }

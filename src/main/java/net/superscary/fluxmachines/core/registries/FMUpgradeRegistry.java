@@ -23,12 +23,17 @@ import static net.superscary.fluxmachines.core.registries.FMUpgrades.*;
 
 public class FMUpgradeRegistry {
 
+	public static final int MAX_UPGRADES = 8;
+
+	/**
+	 * A list of all registered upgrade maps.
+	 */
 	public static final List<DeferredUpgradeMap<?>> UPGRADE_MAPS = new ArrayList<>();
 
 	public static final DeferredRegister<UpgradeMap<?>> REGISTRY = DeferredRegister.create(FMRegistries.UPGRADE_MAP_REGISTRY, FluxMachines.MODID);
 
 	public static final DeferredUpgradeMap<FluxFurnaceBlockEntity> FLUX_FURNACE_BLOCK_ENTITY_UPGRADES = build(FMBlocks.FLUX_FURNACE, FluxFurnaceBlockEntity.class, FMBlockEntities.FLUX_FURNACE, UpgradePairs.POWERED_CRAFTER.getUpgrades());
-	public static final DeferredUpgradeMap<CoalGeneratorBlockEntity> COAL_GENERATOR_BLOCK_ENTITY_UPGRADES = build(FMBlocks.COAL_GENERATOR, CoalGeneratorBlockEntity.class, FMBlockEntities.COAL_GENERATOR, UpgradePairs.POWERED_CRAFTER.getUpgrades());
+	public static final DeferredUpgradeMap<CoalGeneratorBlockEntity> COAL_GENERATOR_BLOCK_ENTITY_UPGRADES = build(FMBlocks.COAL_GENERATOR, CoalGeneratorBlockEntity.class, FMBlockEntities.COAL_GENERATOR, UpgradePairs.POWER_GENERATOR.getUpgrades());
 
 	private static <T extends FMBasePoweredBlockEntity> DeferredUpgradeMap<T> build (BlockDefinition<?> id, Class<? extends FMBasePoweredBlockEntity> cl, DeferredBlockEntityType<T> entity, ImmutableList<Pair<ItemDefinition<UpgradeBase>, Integer>> upgrades) {
 		return build(id.getEnglishName(), cl, entity, upgrades);
@@ -55,6 +60,15 @@ public class FMUpgradeRegistry {
 				make(ECO_DRIVE, 4),
 				make(VOID_MOD, 1),
 				make(REPLICATION_NODE)
+		)),
+		POWER_GENERATOR (ImmutableList.of(
+				make(SPEED),
+				make(EFFICIENCY),
+				make(OVERCLOCK),
+				make(SILENCING_COIL, 1),
+				make(REDSTONE_INTERFACE, 1),
+				make(ECO_DRIVE, 4),
+				make(VOID_MOD, 1)
 		));
 
 		private final ImmutableList<Pair<ItemDefinition<UpgradeBase>, Integer>> upgrades;

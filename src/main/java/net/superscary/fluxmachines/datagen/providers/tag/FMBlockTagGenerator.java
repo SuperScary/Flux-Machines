@@ -48,7 +48,10 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(DURACITE_DEEPSLATE_ORE.block())
                 .add(DURACITE_NETHER_ORE.block())
                 .add(DURACITE_BLOCK.block())
-                .add(DURACITE_BLOCK_RAW.block());
+                .add(DURACITE_BLOCK_RAW.block())
+                .add(REACTOR_FRAME.block())
+                .add(REACTOR_GLASS.block())
+                .add(REACTOR_CORE.block());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(MACHINE_CASING.block())
@@ -66,7 +69,17 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(DURACITE_DEEPSLATE_ORE.block())
                 .add(DURACITE_NETHER_ORE.block())
                 .add(DURACITE_BLOCK.block())
-                .add(DURACITE_BLOCK_RAW.block());
+                .add(DURACITE_BLOCK_RAW.block())
+                .add(REACTOR_FRAME.block())
+                .add(REACTOR_GLASS.block())
+                .add(REACTOR_CORE.block());
+
+        this.tag(FMTag.Blocks.REACTOR_BLOCK)
+                .add(REACTOR_FRAME.block())
+                .add(REACTOR_GLASS.block());
+
+        this.tag(FMTag.Blocks.COKE_OVEN_BLOCK)
+                .add(REFRACTORY_BRICK.block());
 
         this.tag(FMTag.Blocks.NEEDS_STEEL_TOOL)
                 .addTag(BlockTags.NEEDS_IRON_TOOL);
