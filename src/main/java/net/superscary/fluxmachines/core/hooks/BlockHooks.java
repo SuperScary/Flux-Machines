@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +27,7 @@ import net.superscary.fluxmachines.core.block.multiblock.CokeOvenMultiblock;
 import net.superscary.fluxmachines.core.block.multiblock.ReactorMultiBlock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
+import net.superscary.fluxmachines.core.blockentity.reactor.ReactorCoreBlockEntity;
 import net.superscary.fluxmachines.core.registries.FMBlocks;
 import net.superscary.fluxmachines.core.registries.FMItems;
 import net.superscary.fluxmachines.core.util.helper.ItemHelper;
@@ -145,23 +148,38 @@ public class BlockHooks {
         }
     }
 
+    /**
+     * Allows opening the reactor GUI by right-clicking the reactor frame or glass
+     * @param event the event
+     */
     public static void rightClickReactorBlock (PlayerInteractEvent.RightClickBlock event) {
         var level = event.getLevel();
         var pos = event.getPos();
         var player = event.getEntity();
         var state = level.getBlockState(pos);
 
-        if (!(state.is(FMTag.Blocks.REACTOR_BLOCK))) return;
+        if (level.isClientSide()) return;
+
+        if (!(state.is(FMTag.Blocks.REACTOR_BLOCK)) || state.is(FMTag.Blocks.REACTOR_PART) || state.is(FMBlocks.REACTOR_CORE.block())) return;
 
         if (player.getMainHandItem().is(FMBlocks.REACTOR_FRAME.asItem()) || player.getMainHandItem().is(FMBlocks.REACTOR_GLASS.asItem())) {
             return;
         }
 
-        if (ReactorMultiBlock.isValid(level, pos)) {
-            player.displayClientMessage(Component.literal("Reactor is valid!"), true);
+        var corePos = ReactorMultiBlock.getCorePos(level, pos);
+
+        if (ReactorMultiBlock.isValidAtCore(level, pos) && corePos != null) {
+            var entity = level.getBlockEntity(corePos);
+            if (entity instanceof ReactorCoreBlockEntity reactorCore) {
+                player.openMenu(new SimpleMenuProvider(reactorCore, Component.translatable("multiblock.fluxmachines.reactor")), corePos);
+            } else {
+                throw new IllegalStateException("Container provider is missing.");
+            }
         } else {
             player.displayClientMessage(Component.literal("Reactor is invalid!"), true);
         }
+
+        event.setCancellationResult(InteractionResult.SUCCESS);
     }
 
     public static void rightClickRefractoryBlock (PlayerInteractEvent.RightClickBlock event) {

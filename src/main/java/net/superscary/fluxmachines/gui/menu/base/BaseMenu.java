@@ -61,7 +61,6 @@ public abstract class BaseMenu<B extends FMBaseEntityBlock<?>, T extends FMBaseB
      */
     public void addUpgradeSlots () {
         if (!isUpgradeable()) {
-            FluxMachines.LOGGER.info("{} is not upgradeable.", blockEntity.toString());
             return;
         }
 

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
+import static net.superscary.fluxmachines.core.util.block.FMBlockStates.FLUID_PORT_INPUT;
 
 public class BlockModelProvider extends FMBlockStateProvider {
 
@@ -71,6 +72,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItem(REACTOR_FRAME);
         blockWithItemRenderType(REACTOR_GLASS, "translucent");
         blockWithItem(REACTOR_CORE);
+        reactorFluidPort();
 
         machine(FLUX_FURNACE, "flux_furnace");
         machine(COAL_GENERATOR, "coal_generator");
@@ -164,6 +166,18 @@ public class BlockModelProvider extends FMBlockStateProvider {
         directionBlock(block.block(), (state, builder) -> builder.modelFile(state.getValue(BlockStateProperties.POWERED) ? modelOn : modelOff));
     }
 
+    private void reactorFluidPort () {
+        var in = modLoc("block/reactor_fluid_port_in");
+        var out = modLoc("block/reactor_fluid_port_out");
+
+        err(List.of(in, out));
+
+        BlockModelBuilder modelIn = models().cube("block/" + REACTOR_FLUID_PORT.id().getPath() + "_in", in, in, in, in, in, in).texture("particle", in);
+        BlockModelBuilder modelOut = models().cube("block/" + REACTOR_FLUID_PORT.id().getPath() + "_out", out, out, out, out, out, out).texture("particle", out);
+
+        standard(REACTOR_FLUID_PORT.block(), ((blockState, builder) -> builder.modelFile(blockState.getValue(FLUID_PORT_INPUT) ? modelIn : modelOut)));
+    }
+
     private void fluidTank (BlockDefinition<?> block) {
         var side = FluxMachines.getResource("block/fluid_tank_side");
         var top = FluxMachines.getResource("block/fluid_tank_top");
@@ -180,6 +194,16 @@ public class BlockModelProvider extends FMBlockStateProvider {
         BlockModelBuilder modelOn = models().cube("block/" + "solar_panel/" + name + "/on", MACHINE_BOTTOM, modLoc("block/" + block.id().getPath() + "_top_on"), MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE).texture("particle", MACHINE_SIDE);
         BlockModelBuilder modelOff = models().cube("block/" + "solar_panel/" + name + "/off", MACHINE_BOTTOM, modLoc("block/solar_panel_top_off"), MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE, MACHINE_SIDE).texture("particle", MACHINE_SIDE);
         directionBlock(block.block(), (state, builder) -> builder.modelFile(state.getValue(BlockStateProperties.POWERED) ? modelOn : modelOff));
+    }
+
+    private VariantBlockStateBuilder standard (Block block, BiConsumer<BlockState, ConfiguredModel.Builder<?>> model) {
+        var builder = getVariantBuilder(block);
+        builder.forAllStates(state -> {
+            var bld = ConfiguredModel.builder();
+            model.accept(state, bld);
+            return bld.build();
+        });
+        return builder;
     }
 
     /**

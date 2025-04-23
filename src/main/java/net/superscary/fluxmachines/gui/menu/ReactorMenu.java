@@ -4,6 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import net.superscary.fluxmachines.api.gui.GuiPower;
 import net.superscary.fluxmachines.core.block.reactor.ReactorCoreBlock;
 import net.superscary.fluxmachines.core.blockentity.reactor.ReactorCoreBlockEntity;
@@ -33,7 +34,8 @@ public class ReactorMenu extends BaseMenu<ReactorCoreBlock, ReactorCoreBlockEnti
 
 	@Override
 	public void addSlots () {
-
+		this.addSlot(new SlotItemHandler(this.blockEntity.getInventory(), getNextIndex(), 11, 81));
+		this.addSlot(new SlotItemHandler(this.blockEntity.getInventory(), getNextIndex(), 11, 149));
 	}
 
 	@Override

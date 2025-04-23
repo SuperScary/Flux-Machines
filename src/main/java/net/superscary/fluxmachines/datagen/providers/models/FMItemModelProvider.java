@@ -68,6 +68,8 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
         basicItem(FMUpgrades.EMPTY);
 
+        fluidPortBlock();
+
         wallItem(REFRACTORY_WALL, REFRACTORY_BRICK);
 
         blockOff(FLUX_FURNACE);
@@ -128,6 +130,10 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
     private ItemModelBuilder blockOff (BlockDefinition<?> block) {
         return withExistingParent(block.id().getPath(), FluxMachines.getResource("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off"));
+    }
+
+    private ItemModelBuilder fluidPortBlock () {
+        return withExistingParent(REACTOR_FLUID_PORT.id().getPath(), FluxMachines.getResource("block/reactor_fluid_port_out"));
     }
 
     private ItemModelBuilder flatSingleLayer (ItemDefinition<?> item, String texture) {

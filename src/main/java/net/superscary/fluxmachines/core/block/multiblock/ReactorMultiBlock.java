@@ -14,32 +14,33 @@ public class ReactorMultiBlock {
 
 	private static final BlockPattern PATTERN = BlockPatternBuilder.start()
 			.aisle("  S  ",
-				   " SSS ",
-			       "SSSSS",
-				   " SSS ",
+				   " SFS ",
+			       "SFFFS",
+				   " SFS ",
 				   "  S  ")
-			.aisle(" SSS ",
+			.aisle(" SFS ",
 					"S   S",
+					"F   F",
 					"S   S",
+					" SFS ")
+			.aisle("SFFFS",
+					"F   F",
+					"F   F",
+					"F   F",
+					"SFFFS")
+			.aisle(" SFS ",
 					"S   S",
-					" SSS ")
-			.aisle("SSSSS",
+					"F   F",
 					"S   S",
-					"S   S",
-					"S   S",
-					"SSSSS")
-			.aisle(" SSS ",
-					"S   S",
-					"S   S",
-					"S   S",
-					" SSS ")
+					" SFS ")
 			.aisle("  S  ",
-					" SSS ",
-					"SSCSS",
-					" SSS ",
+					" SFS ",
+					"SFCFS",
+					" SFS ",
 					"  S  ")
-			.where('S', BlockInWorld.hasState(s -> s.is(FMTag.Blocks.REACTOR_BLOCK)))
-			.where('C', BlockInWorld.hasState(s -> s.is(FMBlocks.REACTOR_CORE.block())))
+			.where('S', BlockInWorld.hasState(s -> s.is(FMBlocks.REACTOR_FRAME.block()))) // frame only
+			.where('F', BlockInWorld.hasState(s -> s.is(FMTag.Blocks.REACTOR_BLOCK) || s.is(FMTag.Blocks.REACTOR_PART))) // glass or ports
+			.where('C', BlockInWorld.hasState(s -> s.is(FMBlocks.REACTOR_CORE.block()))) // core only
 			.where(' ', BlockInWorld.hasState(BlockBehaviour.BlockStateBase::isAir))
 			.build();
 

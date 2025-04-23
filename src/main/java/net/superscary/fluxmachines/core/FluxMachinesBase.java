@@ -71,11 +71,9 @@ public abstract class FluxMachinesBase implements FluxMachines {
         NeoForge.EVENT_BUS.addListener(BlockHooks::pistonCrush);
         NeoForge.EVENT_BUS.addListener(BlockHooks::calciteToFlux);
         NeoForge.EVENT_BUS.addListener(BlockHooks::leftClickCrucible);
+        NeoForge.EVENT_BUS.addListener(BlockHooks::rightClickReactorBlock);
         NeoForge.EVENT_BUS.addListener(FMVillages.Trades::addCustomTrades);
         NeoForge.EVENT_BUS.addListener(FMVillages.Trades::addWandererTrades);
-
-        // NeoForge.EVENT_BUS.addListener(BlockHooks::rightClickReactorBlock);
-        // NeoForge.EVENT_BUS.addListener(BlockHooks::rightClickRefractoryBlock);
 
     }
 

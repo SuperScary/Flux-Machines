@@ -43,6 +43,8 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(REACTOR_FRAME, "Reactor Frame");
         add(REACTOR_GLASS, "Reactor Glass");
         add(REACTOR_CORE, "Reactor Core");
+        add(REACTOR_FLUID_PORT, "Reactor Fluid Port");
+
         add(FLUX_FURNACE, "Flux Furnace");
         add(COAL_GENERATOR, "Coal Generator");
         add(FLUID_TANK, "Fluid Tank");

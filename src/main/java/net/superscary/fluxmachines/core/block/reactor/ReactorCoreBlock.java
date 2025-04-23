@@ -48,8 +48,7 @@ public class ReactorCoreBlock extends FMBaseEntityBlock<ReactorCoreBlockEntity> 
 			if (ReactorMultiBlock.isValidAtCore(level, pos)) {
 				BlockEntity entity = level.getBlockEntity(pos);
 				if (entity instanceof ReactorCoreBlockEntity blockEntity) {
-					System.out.println("Opening reactor menu");
-					player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("multiblock.fluxmachines.reactor")), pos); // TODO: Fix this
+					player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("multiblock.fluxmachines.reactor")), pos);
 				} else {
 					throw new IllegalStateException("Container provider is missing.");
 				}

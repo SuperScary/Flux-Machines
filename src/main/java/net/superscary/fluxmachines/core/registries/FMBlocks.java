@@ -19,6 +19,7 @@ import net.superscary.fluxmachines.core.block.machine.MachineCasingBlock;
 import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
 import net.superscary.fluxmachines.core.block.misc.FluidTankBlock;
 import net.superscary.fluxmachines.core.block.reactor.ReactorCoreBlock;
+import net.superscary.fluxmachines.core.block.reactor.ReactorFluidPortBlock;
 import net.superscary.fluxmachines.core.item.FacadeBlockItem;
 import net.superscary.fluxmachines.core.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
@@ -50,6 +51,7 @@ public class FMBlocks {
 	public static final BlockDefinition<ReactorBlock> REACTOR_FRAME = reg("reactor_frame", ReactorBlock::new);
 	public static final BlockDefinition<ReactorBlock> REACTOR_GLASS = reg("reactor_glass", ReactorBlock::new);
 	public static final BlockDefinition<ReactorCoreBlock> REACTOR_CORE = reg("reactor_core", ReactorCoreBlock::new);
+	public static final BlockDefinition<ReactorFluidPortBlock> REACTOR_FLUID_PORT = reg("reactor_fluid_port", ReactorFluidPortBlock::new);
 
 	public static final BlockDefinition<DecorativeBlock> LIMESTONE = reg("limestone", DecorativeBlock::new);
 	public static final BlockDefinition<SlabBlock> LIMESTONE_SLAB = reg("limestone_slab", () -> new SlabBlock(Blocks.BRICK_SLAB.properties()));
