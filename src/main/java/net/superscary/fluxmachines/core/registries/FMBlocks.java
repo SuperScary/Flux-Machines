@@ -20,6 +20,7 @@ import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
 import net.superscary.fluxmachines.core.block.misc.FluidTankBlock;
 import net.superscary.fluxmachines.core.block.reactor.ReactorCoreBlock;
 import net.superscary.fluxmachines.core.block.reactor.ReactorFluidPortBlock;
+import net.superscary.fluxmachines.core.block.reactor.ReactorRedstonePortBlock;
 import net.superscary.fluxmachines.core.item.FacadeBlockItem;
 import net.superscary.fluxmachines.core.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
@@ -46,12 +47,20 @@ public class FMBlocks {
 	public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK_RAW = reg("duracite_block_raw", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
 	public static final BlockDefinition<DecorativeBlock> DURACITE_BLOCK = reg("duracite_block", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
 
+	public static final BlockDefinition<DropExperienceBlock> URANIUM_ORE = reg("uranium_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), Blocks.IRON_ORE.properties().requiresCorrectToolForDrops()));
+
 	public static final BlockDefinition<DecorativeBlock> MACHINE_CASING = reg("machine_casing", MachineCasingBlock::new);
+
+	public static final BlockDefinition<DecorativeBlock> LASER_LENS = reg("laser_lens", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
+	public static final BlockDefinition<DecorativeBlock> LASER_FRAME = reg("laser_frame", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
+
+	public static final BlockDefinition<DecorativeBlock> BATTERY_CASING = reg("battery_casing", () -> new DecorativeBlock(Blocks.IRON_BLOCK.properties()));
 
 	public static final BlockDefinition<ReactorBlock> REACTOR_FRAME = reg("reactor_frame", ReactorBlock::new);
 	public static final BlockDefinition<ReactorBlock> REACTOR_GLASS = reg("reactor_glass", ReactorBlock::new);
 	public static final BlockDefinition<ReactorCoreBlock> REACTOR_CORE = reg("reactor_core", ReactorCoreBlock::new);
 	public static final BlockDefinition<ReactorFluidPortBlock> REACTOR_FLUID_PORT = reg("reactor_fluid_port", ReactorFluidPortBlock::new);
+	public static final BlockDefinition<ReactorRedstonePortBlock> REACTOR_REDSTONE_PORT = reg("reactor_redstone_port", ReactorRedstonePortBlock::new);
 
 	public static final BlockDefinition<DecorativeBlock> LIMESTONE = reg("limestone", DecorativeBlock::new);
 	public static final BlockDefinition<SlabBlock> LIMESTONE_SLAB = reg("limestone_slab", () -> new SlabBlock(Blocks.BRICK_SLAB.properties()));

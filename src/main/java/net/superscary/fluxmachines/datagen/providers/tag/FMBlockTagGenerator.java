@@ -49,10 +49,15 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(DURACITE_NETHER_ORE.block())
                 .add(DURACITE_BLOCK.block())
                 .add(DURACITE_BLOCK_RAW.block())
+                .add(URANIUM_ORE.block())
                 .add(REACTOR_FRAME.block())
                 .add(REACTOR_GLASS.block())
                 .add(REACTOR_CORE.block())
-                .add(REACTOR_FLUID_PORT.block());
+                .add(REACTOR_FLUID_PORT.block())
+                .add(REACTOR_REDSTONE_PORT.block())
+                .add(LASER_LENS.block())
+                .add(LASER_FRAME.block())
+                .add(BATTERY_CASING.block());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(MACHINE_CASING.block())
@@ -74,14 +79,22 @@ public class FMBlockTagGenerator extends BlockTagsProvider implements IDataProvi
                 .add(REACTOR_FRAME.block())
                 .add(REACTOR_GLASS.block())
                 .add(REACTOR_CORE.block())
-                .add(REACTOR_FLUID_PORT.block());
+                .add(REACTOR_FLUID_PORT.block())
+                .add(REACTOR_REDSTONE_PORT.block())
+                .add(LASER_LENS.block())
+                .add(LASER_FRAME.block())
+                .add(BATTERY_CASING.block());
+
+        this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(URANIUM_ORE.block());
 
         this.tag(FMTag.Blocks.REACTOR_BLOCK)
                 .add(REACTOR_FRAME.block())
                 .add(REACTOR_GLASS.block());
 
         this.tag(FMTag.Blocks.REACTOR_PART)
-                .add(REACTOR_FLUID_PORT.block());
+                .add(REACTOR_FLUID_PORT.block())
+                .add(REACTOR_REDSTONE_PORT.block());
 
         this.tag(FMTag.Blocks.COKE_OVEN_BLOCK)
                 .add(REFRACTORY_BRICK.block());

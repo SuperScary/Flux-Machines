@@ -1,10 +1,12 @@
 package net.superscary.fluxmachines.core.util.tags;
 
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import net.superscary.fluxmachines.core.FluxMachines;
 
 public class FMTag {
@@ -38,6 +40,16 @@ public class FMTag {
 
         private static TagKey<Item> createTag (String key) {
             return ItemTags.create(FluxMachines.getResource(key));
+        }
+    }
+
+    public static class Fluids {
+
+        public static final TagKey<Fluid> REACTOR_COOLANT = createTag("reactor_coolant");
+        public static final TagKey<Fluid> REACTOR_FUEL = createTag("reactor_fuel");
+
+        private static TagKey<Fluid> createTag (String key) {
+            return FluidTags.create(FluxMachines.getResource(key));
         }
     }
 

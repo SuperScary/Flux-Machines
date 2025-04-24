@@ -18,6 +18,8 @@ public class FMPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> DURACITE_ORE_PLACED_SMALL_KEY = registerKey("duracite_ore_placed_small");
     public static final ResourceKey<PlacedFeature> DURACITE_ORE_PLACED_LARGE_KEY = registerKey("duracite_ore_placed_large");
+    public static final ResourceKey<PlacedFeature> URANIUM_ORE_PLACED_SMALL_KEY = registerKey("uranium_ore_placed_small");
+    public static final ResourceKey<PlacedFeature> URANIUM_ORE_PLACED_LARGE_KEY = registerKey("uranium_ore_placed_large");
 
     public static void bootstrap (BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -27,6 +29,10 @@ public class FMPlacedFeatures {
                 FMOrePlacement.commonOrePlacement(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
         register(context, DURACITE_ORE_PLACED_LARGE_KEY, configuredFeatures.getOrThrow(FMConfiguredFeatures.OVERWORLD_DURACITE_ORE_KEY_LARGE),
                 FMOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
+        register(context, URANIUM_ORE_PLACED_SMALL_KEY, configuredFeatures.getOrThrow(FMConfiguredFeatures.OVERWORLD_URANIUM_ORE_KEY_SMALL),
+                FMOrePlacement.commonOrePlacement(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(0))));
+        register(context, URANIUM_ORE_PLACED_LARGE_KEY, configuredFeatures.getOrThrow(FMConfiguredFeatures.OVERWORLD_URANIUM_ORE_KEY_LARGE),
+                FMOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(0))));
     }
 
     public static ResourceKey<PlacedFeature> registerKey (String name) {

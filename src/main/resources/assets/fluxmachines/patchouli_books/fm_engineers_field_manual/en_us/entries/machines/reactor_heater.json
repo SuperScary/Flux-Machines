@@ -1,0 +1,27 @@
+{
+  "name": "Reactor Heat Generator",
+  "icon": "fluxmachines:laser_frame",
+  "category": "fluxmachines:machines",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Reactor Heat Generator is a multiblock structure that is used to generate heat for the Reactor. It requires a coolant to operate."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "Reactor Heat Generator",
+      "multiblock": {
+        "mapping": {
+          "S": "fluxmachines:laser_frame",
+          "L": "fluxmachines:laser_lens"
+        },
+        "pattern": [
+          ["   ", " S ", " S ", " S ", " S ", " S "],
+          ["   ", "SLS", "L0L", "L L", "L L", "SSS"],
+          ["S S", "SSS", "SSS", "SSS", "SSS",  "SSS"]
+        ],
+        "symmetrical": false
+      }
+    }
+  ]
+}

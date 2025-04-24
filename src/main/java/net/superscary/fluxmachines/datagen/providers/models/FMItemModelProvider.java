@@ -46,6 +46,12 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         handheldItem(DURACITE_INGOT);
         handheldItem(DURACITE_NUGGET);
 
+        handheldItem(RAW_URANIUM);
+        handheldItem(URANIUM_DUST);
+        handheldItem(URANIUM_INGOT);
+        handheldItem(URANIUM_NUGGET);
+        handheldItem(REFINED_URANIUM);
+
         handheldItem(STEEL_SWORD);
         handheldItem(STEEL_PICKAXE);
         handheldItem(STEEL_SHOVEL);
@@ -68,7 +74,8 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
 
         basicItem(FMUpgrades.EMPTY);
 
-        fluidPortBlock();
+        reactorFluidPortBlock();
+        reactorRedstonePortBlock();
 
         wallItem(REFRACTORY_WALL, REFRACTORY_BRICK);
 
@@ -132,8 +139,12 @@ public class FMItemModelProvider extends ItemModelProvider implements IDataProvi
         return withExistingParent(block.id().getPath(), FluxMachines.getResource("block/" + block.id().getPath() + "/" + block.id().getPath() + "_off"));
     }
 
-    private ItemModelBuilder fluidPortBlock () {
+    private ItemModelBuilder reactorFluidPortBlock () {
         return withExistingParent(REACTOR_FLUID_PORT.id().getPath(), FluxMachines.getResource("block/reactor_fluid_port_out"));
+    }
+
+    private ItemModelBuilder reactorRedstonePortBlock () {
+        return withExistingParent(REACTOR_REDSTONE_PORT.id().getPath(), FluxMachines.getResource("block/reactor_redstone_port_out"));
     }
 
     private ItemModelBuilder flatSingleLayer (ItemDefinition<?> item, String texture) {

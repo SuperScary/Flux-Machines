@@ -42,7 +42,8 @@ public class ReactorFluidPortBlock extends ReactorBlock {
 
 		if (level.isClientSide) {
 			boolean current = state.getValue(FLUID_PORT_INPUT);
-			player.displayClientMessage(Component.literal("Fluid Port Input: " + !current), false);
+			if (!current) player.displayClientMessage(Component.translatable("multiblock.fluxmachines.reactor.fluid_port.mode.input"), false);
+			else player.displayClientMessage(Component.translatable("multiblock.fluxmachines.reactor.fluid_port.mode.output"), false);
 		}
 
 		return ItemInteractionResult.sidedSuccess(level.isClientSide);

@@ -41,6 +41,12 @@ public class FMItems {
     public static final ItemDefinition<BaseItem> DURACITE_INGOT = item("duracite_ingot", BaseItem::new);
     public static final ItemDefinition<BaseItem> DURACITE_NUGGET = item("duracite_nugget", BaseItem::new);
 
+    public static final ItemDefinition<BaseItem> RAW_URANIUM = item("uranium_raw", BaseItem::new);
+    public static final ItemDefinition<BaseItem> URANIUM_DUST = item("uranium_dust", BaseItem::new);
+    public static final ItemDefinition<BaseItem> URANIUM_INGOT = item("uranium_ingot", BaseItem::new);
+    public static final ItemDefinition<BaseItem> URANIUM_NUGGET = item("uranium_nugget", BaseItem::new);
+    public static final ItemDefinition<BaseItem> REFINED_URANIUM = item("uranium_refined", BaseItem::new);
+
     public static final ItemDefinition<BaseItem> RUBBER = item("rubber", BaseItem::new);
     public static final ItemDefinition<BaseItem> INDUSTRIAL_SLAG = item("industrial_slag", BaseItem::new);
     public static final ItemDefinition<BaseItem> FERTILIZER = item("fertilizer", FertilizerItem::new);

@@ -22,6 +22,7 @@ import java.util.function.BiConsumer;
 
 import static net.superscary.fluxmachines.core.registries.FMBlocks.*;
 import static net.superscary.fluxmachines.core.util.block.FMBlockStates.FLUID_PORT_INPUT;
+import static net.superscary.fluxmachines.core.util.block.FMBlockStates.RESTONE_PORT_INPUT;
 
 public class BlockModelProvider extends FMBlockStateProvider {
 
@@ -63,6 +64,8 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItem(DURACITE_BLOCK);
         blockWithItem(DURACITE_BLOCK_RAW);
 
+        blockWithItem(URANIUM_ORE);
+
         blockWithItem(REFRACTORY_BRICK);
         blockWithItem(LIMESTONE);
         blockWithItem(LIMESTONE_BRICKS);
@@ -73,6 +76,12 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItemRenderType(REACTOR_GLASS, "translucent");
         blockWithItem(REACTOR_CORE);
         reactorFluidPort();
+        reactorRedstonePort();
+
+        blockWithItemRenderType(LASER_LENS, "translucent");
+        blockWithItem(LASER_FRAME);
+
+        blockWithItem(BATTERY_CASING);
 
         machine(FLUX_FURNACE, "flux_furnace");
         machine(COAL_GENERATOR, "coal_generator");
@@ -178,6 +187,18 @@ public class BlockModelProvider extends FMBlockStateProvider {
         standard(REACTOR_FLUID_PORT.block(), ((blockState, builder) -> builder.modelFile(blockState.getValue(FLUID_PORT_INPUT) ? modelIn : modelOut)));
     }
 
+    private void reactorRedstonePort () {
+        var in = modLoc("block/reactor_redstone_port_in");
+        var out = modLoc("block/reactor_redstone_port_out");
+
+        err(List.of(in, out));
+
+        BlockModelBuilder modelIn = models().cube("block/" + REACTOR_REDSTONE_PORT.id().getPath() + "_in", in, in, in, in, in, in).texture("particle", in);
+        BlockModelBuilder modelOut = models().cube("block/" + REACTOR_REDSTONE_PORT.id().getPath() + "_out", out, out, out, out, out, out).texture("particle", out);
+
+        standard(REACTOR_REDSTONE_PORT.block(), ((blockState, builder) -> builder.modelFile(blockState.getValue(RESTONE_PORT_INPUT) ? modelIn : modelOut)));
+    }
+
     private void fluidTank (BlockDefinition<?> block) {
         var side = FluxMachines.getResource("block/fluid_tank_side");
         var top = FluxMachines.getResource("block/fluid_tank_top");
@@ -208,9 +229,6 @@ public class BlockModelProvider extends FMBlockStateProvider {
 
     /**
      * TODO: Modify for side states for input/output allowance
-     * @param block
-     * @param model
-     * @return
      */
     private VariantBlockStateBuilder directionBlock (Block block, BiConsumer<BlockState, ConfiguredModel.Builder<?>> model) {
         VariantBlockStateBuilder builder = getVariantBuilder(block);

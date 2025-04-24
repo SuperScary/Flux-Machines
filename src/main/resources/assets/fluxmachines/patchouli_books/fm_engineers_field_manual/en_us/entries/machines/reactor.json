@@ -25,15 +25,6 @@
         ],
         "symmetrical": true
       }
-    },
-    {
-      "type": "text",
-      "text": "The Flux Furnace can be powered by connecting it to a Flux Generator or any other FE power source. The Flux Furnace will not work without power."
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "fluxmachines:machine/flux_furnace",
-      "text": "The Flux Furnace can be crafted using the following recipe: 6 Steel Ingots, 1 Coal Generator, 1 Redstone Torch, & 1 Machine Casing."
     }
   ]
 }

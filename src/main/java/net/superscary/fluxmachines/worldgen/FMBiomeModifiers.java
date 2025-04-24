@@ -17,6 +17,8 @@ public class FMBiomeModifiers {
 
     public static final ResourceKey<BiomeModifier> DURACITE_ORE_SMALL = registerKey("duracite_ore_small");
     public static final ResourceKey<BiomeModifier> DURACITE_ORE_LARGE = registerKey("duracite_ore_large");
+    public static final ResourceKey<BiomeModifier> URANIUM_ORE_SMALL = registerKey("uranium_ore_small");
+    public static final ResourceKey<BiomeModifier> URANIUM_ORE_LARGE = registerKey("uranium_ore_large");
 
     public static void bootstrap (BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -29,6 +31,14 @@ public class FMBiomeModifiers {
         context.register(DURACITE_ORE_LARGE, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatures.getOrThrow(FMPlacedFeatures.DURACITE_ORE_PLACED_LARGE_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(URANIUM_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(FMPlacedFeatures.URANIUM_ORE_PLACED_SMALL_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(URANIUM_ORE_LARGE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(FMPlacedFeatures.URANIUM_ORE_PLACED_LARGE_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_STEEL_GEODE, new BiomeModifiers.AddFeaturesBiomeModifier(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), HolderSet.direct(placedFeatures.getOrThrow(FMPlacedFeatures.STEEL_GEODE_PLACED_KEY)), GenerationStep.Decoration.LOCAL_MODIFICATIONS));

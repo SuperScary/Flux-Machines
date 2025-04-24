@@ -39,11 +39,19 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(DURACITE_BLOCK_RAW, "Raw Duracite Block");
         add(DURACITE_BLOCK, "Block of Duracite");
 
+        add(URANIUM_ORE, "Uranium Ore");
+
         add(MACHINE_CASING, "Machine Casing");
         add(REACTOR_FRAME, "Reactor Frame");
         add(REACTOR_GLASS, "Reactor Glass");
         add(REACTOR_CORE, "Reactor Core");
         add(REACTOR_FLUID_PORT, "Reactor Fluid Port");
+        add(REACTOR_REDSTONE_PORT, "Reactor Redstone Port");
+
+        add(LASER_LENS, "Laser Lens");
+        add(LASER_FRAME, "Laser Frame");
+
+        add(BATTERY_CASING, "Battery Casing");
 
         add(FLUX_FURNACE, "Flux Furnace");
         add(COAL_GENERATOR, "Coal Generator");
@@ -77,6 +85,12 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(DURACITE_DUST, "Duracite Dust");
         add(DURACITE_INGOT, "Duracite Ingot");
         add(DURACITE_NUGGET, "Duracite Nugget");
+
+        add(RAW_URANIUM, "Raw Uranium");
+        add(URANIUM_DUST, "Uranium Dust");
+        add(URANIUM_INGOT, "Uranium Ingot");
+        add(URANIUM_NUGGET, "Uranium Nugget");
+        add(REFINED_URANIUM, "Refined Uranium");
 
         add(STEEL_HELMET, "Steel Helmet");
         add(STEEL_CHESTPLATE, "Steel Chestplate");
@@ -145,6 +159,8 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("gui.fluxmachines.press_shift", "Hold §e[SHIFT]§r for more info.");
         add("gui.fluxmachines.upgrade_tooltip", "Compatible Upgrades");
         add("gui.fluxmachines.upgrade_tooltip.item", "§7§o- §7§o%s §7§ox%s");
+        add("gui.fluxmachines.reactor.start", "Start");
+        add("gui.fluxmachines.reactor.stop", "Stop");
 
         add("message.fluxmachines.data_link_tool.copied_data", "§aCopied Data");
         add("message.fluxmachines.data_link_tool.wrote_data", "§aWrote Data");
@@ -166,6 +182,10 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("multiblock.fluxmachines.reactor", "Reactor");
         add("multiblock.fluxmachines.reactor.invalid", "Invalid Reactor Structure");
         add("multiblock.fluxmachines.reactor.valid", "Reactor Structure Validated");
+        add("multiblock.fluxmachines.reactor.fluid_port.mode.input", "Fluid Port Mode: Input");
+        add("multiblock.fluxmachines.reactor.fluid_port.mode.output", "Fluid Port Mode: Output");
+        add("multiblock.fluxmachines.reactor.redstone_port.mode.input", "Redstone Port Mode: Input");
+        add("multiblock.fluxmachines.reactor.redstone_port.mode.output", "Redstone Port Mode: Output");
     }
 
     protected void subtitles () {

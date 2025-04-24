@@ -17,6 +17,7 @@ import net.superscary.fluxmachines.datagen.providers.models.BlockModelProvider;
 import net.superscary.fluxmachines.datagen.providers.models.FMItemModelProvider;
 import net.superscary.fluxmachines.datagen.providers.recipes.*;
 import net.superscary.fluxmachines.datagen.providers.tag.FMBlockTagGenerator;
+import net.superscary.fluxmachines.datagen.providers.tag.FMFluidTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.tag.FMItemTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.tag.FMPoiTagGenerator;
 import net.superscary.fluxmachines.datagen.providers.worldgen.WorldGenProvider;
@@ -46,13 +47,12 @@ public class DataGenerators {
         pack.addProvider(bindRegistries(FMLootTableProvider::new, registries));
 
         // POI
-        //pack.addProvider(pOutput -> new FMPoiTypeTagsProvider(pOutput, registries, existingFileHelper));
         pack.addProvider(packOutput -> new FMPoiTagGenerator(packOutput, registries, existingFileHelper));
 
         // TAGS
         var blockTagsProvider = pack.addProvider(pOutput -> new FMBlockTagGenerator(pOutput, registries, existingFileHelper));
         pack.addProvider(pOutput -> new FMItemTagGenerator(pOutput, registries, blockTagsProvider.contentsGetter(), existingFileHelper));
-        //pack.addProvider(pOutput -> new FMFluidTagsProvider(pOutput, registries, existingFileHelper));
+        pack.addProvider(packOutput -> new FMFluidTagGenerator(packOutput, registries, existingFileHelper));
 
         // MODELS & STATES
         pack.addProvider(pOutput -> new BlockModelProvider(pOutput, existingFileHelper));

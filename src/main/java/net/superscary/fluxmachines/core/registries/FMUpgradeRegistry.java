@@ -48,7 +48,7 @@ public class FMUpgradeRegistry {
 		return supplier;
 	}
 
-	enum UpgradePairs {
+	public enum UpgradePairs {
 		POWERED_CRAFTER (ImmutableList.of(
 				make(SPEED),
 				make(CAPACITY),

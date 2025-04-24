@@ -67,7 +67,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     }
 
     @Override
-    protected void init () {
+    public void init () {
         super.init();
         if (isPoweredMenu()) {
             assignEnergyInfoArea();

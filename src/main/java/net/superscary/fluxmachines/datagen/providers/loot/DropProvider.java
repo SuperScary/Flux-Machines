@@ -44,6 +44,7 @@ public class DropProvider extends BlockLootSubProvider {
                 .put(FMBlocks.DURACITE_ORE.block(), oreBlock(FMBlocks.DURACITE_ORE.block(), FMItems.RAW_DURACITE.asItem()))
                 .put(FMBlocks.DURACITE_NETHER_ORE.block(), oreBlock(FMBlocks.DURACITE_NETHER_ORE.block(), FMItems.RAW_DURACITE.asItem()))
                 .put(FMBlocks.DURACITE_DEEPSLATE_ORE.block(), oreBlock(FMBlocks.DURACITE_DEEPSLATE_ORE.block(), FMItems.RAW_DURACITE.asItem()))
+                .put(FMBlocks.URANIUM_ORE.block(), oreBlock(FMBlocks.URANIUM_ORE.block(), FMItems.RAW_URANIUM.asItem()))
                 .build();
     }
 
