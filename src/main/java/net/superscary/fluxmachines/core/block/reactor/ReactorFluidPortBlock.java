@@ -1,5 +1,6 @@
 package net.superscary.fluxmachines.core.block.reactor;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -16,13 +17,16 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+import net.superscary.fluxmachines.core.block.base.BaseBlock;
+import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
+import net.superscary.fluxmachines.core.blockentity.reactor.ReactorFluidPortBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 import static net.superscary.fluxmachines.core.util.block.FMBlockStates.FLUID_PORT_INPUT;
 
-public class ReactorFluidPortBlock extends ReactorBlock {
+public class ReactorFluidPortBlock extends FMBaseEntityBlock<ReactorFluidPortBlockEntity> {
 
 	public ReactorFluidPortBlock (Properties properties) {
 		super(properties);
@@ -30,6 +34,11 @@ public class ReactorFluidPortBlock extends ReactorBlock {
 
 	public ReactorFluidPortBlock () {
 		this(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
+	}
+
+	@Override
+	public MapCodec<BaseBlock> getCodec () {
+		return simpleCodec(ReactorFluidPortBlock::new);
 	}
 
 	@Override
@@ -59,6 +68,19 @@ public class ReactorFluidPortBlock extends ReactorBlock {
 	protected void createBlockStateDefinition (StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FLUID_PORT_INPUT);
+	}
+
+	public Mode getMode (BlockState state) {
+		return Mode.getMode(state.getValue(FLUID_PORT_INPUT));
+	}
+
+	public enum Mode {
+		INPUT,
+		OUTPUT;
+
+		public static Mode getMode (boolean input) {
+			return input ? INPUT : OUTPUT;
+		}
 	}
 
 }

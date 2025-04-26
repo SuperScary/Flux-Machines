@@ -6,11 +6,7 @@ import net.superscary.fluxmachines.api.energy.FMEnergyStorage;
 
 import java.util.List;
 
-public class EnergyDisplayTooltipArea {
-    private final int xPos;
-    private final int yPos;
-    private final int width;
-    private final int height;
+public class EnergyDisplayTooltipArea extends BarRenderer {
     private final FMEnergyStorage energy;
 
     public EnergyDisplayTooltipArea (int xMin, int yMin, FMEnergyStorage energy) {
@@ -18,10 +14,7 @@ public class EnergyDisplayTooltipArea {
     }
 
     public EnergyDisplayTooltipArea (int xMin, int yMin, FMEnergyStorage energy, int width, int height) {
-        xPos = xMin;
-        yPos = yMin;
-        this.width = width;
-        this.height = height;
+        super(xMin, yMin, width, height);
         this.energy = energy;
     }
 
@@ -29,14 +22,15 @@ public class EnergyDisplayTooltipArea {
         return List.of(Component.literal(energy.getEnergyStored() + " / " + energy.getMaxEnergyStored() + " FE"));
     }
 
+    @Override
     public void render (GuiGraphics guiGraphics) {
-        int stored = (int) (height * (energy.getEnergyStored() / (float) energy.getMaxEnergyStored()));
-        guiGraphics.fillGradient(xPos, yPos + (height - stored), xPos + width, yPos + height, 0xffb51500, 0xff600b00);
+        int stored = (int) (getHeight() * (energy.getEnergyStored() / (float) energy.getMaxEnergyStored()));
+        guiGraphics.fillGradient(getXPos(), getYPos() + (getHeight() - stored), getXPos() + getWidth(), getYPos() + getHeight(), Color.BRIGHT_RED.getArgb(), Color.RED.getArgb());
     }
 
     public void render (GuiGraphics guiGraphics, int x, int y) {
-        int stored = (int) (height * (energy.getEnergyStored() / (float) energy.getMaxEnergyStored()));
-        guiGraphics.fillGradient(x, y + (height - stored), x + width, y + height, 0xffb51500, 0xff600b00);
+        int stored = (int) (getHeight() * (energy.getEnergyStored() / (float) energy.getMaxEnergyStored()));
+        guiGraphics.fillGradient(x, y + (getHeight() - stored), x + getWidth(), y + getHeight(), Color.BRIGHT_RED.getArgb(), Color.RED.getArgb());
     }
 
 }

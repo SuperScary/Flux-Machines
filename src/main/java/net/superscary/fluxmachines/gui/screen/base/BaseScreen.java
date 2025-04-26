@@ -128,7 +128,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
      * @param mouseY Mouse Position Y
      */
     @Override
-    protected void renderLabels (GuiGraphics graphics, int mouseX, int mouseY) {
+    protected void renderLabels (@NotNull GuiGraphics graphics, int mouseX, int mouseY) {
         renderTitles(graphics, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;
@@ -356,7 +356,7 @@ public abstract class BaseScreen<T extends BaseMenu<?, ?>> extends AbstractConta
     }
 
     @SuppressWarnings("SameParameterValue")
-    private boolean isMouseAboveArea (int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
+    protected boolean isMouseAboveArea (int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
     }
 

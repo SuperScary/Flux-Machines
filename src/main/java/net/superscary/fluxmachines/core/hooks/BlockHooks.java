@@ -23,8 +23,7 @@ import net.neoforged.neoforge.event.level.PistonEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
 import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
-import net.superscary.fluxmachines.core.block.multiblock.CokeOvenMultiblock;
-import net.superscary.fluxmachines.core.block.multiblock.ReactorMultiBlock;
+import net.superscary.fluxmachines.core.block.multiblock.Multiblock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.misc.CrucibleBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.reactor.ReactorCoreBlockEntity;
@@ -166,9 +165,9 @@ public class BlockHooks {
             return;
         }
 
-        var corePos = ReactorMultiBlock.getCorePos(level, pos);
+        var corePos = Multiblock.Reactor.getCorePos(level, pos);
 
-        if (ReactorMultiBlock.isValidAtCore(level, pos) && corePos != null) {
+        if (Multiblock.Reactor.isValidAtCore(level, pos) && corePos != null) {
             var entity = level.getBlockEntity(corePos);
             if (entity instanceof ReactorCoreBlockEntity reactorCore) {
                 player.openMenu(new SimpleMenuProvider(reactorCore, Component.translatable("multiblock.fluxmachines.reactor")), corePos);
@@ -194,7 +193,7 @@ public class BlockHooks {
             return;
         }
 
-        if (CokeOvenMultiblock.isValid(level, pos)) {
+        if (Multiblock.CokeOven.isValid(level, pos)) {
             player.displayClientMessage(Component.literal("Oven is valid!"), true);
         } else {
             player.displayClientMessage(Component.literal("Oven is invalid!"), true);

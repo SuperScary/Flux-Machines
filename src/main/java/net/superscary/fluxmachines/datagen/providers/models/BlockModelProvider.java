@@ -77,6 +77,7 @@ public class BlockModelProvider extends FMBlockStateProvider {
         blockWithItem(REACTOR_CORE);
         reactorFluidPort();
         reactorRedstonePort();
+        blockWithItem(REACTOR_POWER_TAP);
 
         blockWithItemRenderType(LASER_LENS, "translucent");
         blockWithItem(LASER_FRAME);

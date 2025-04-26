@@ -47,6 +47,7 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add(REACTOR_CORE, "Reactor Core");
         add(REACTOR_FLUID_PORT, "Reactor Fluid Port");
         add(REACTOR_REDSTONE_PORT, "Reactor Redstone Port");
+        add(REACTOR_POWER_TAP, "Reactor Power Tap");
 
         add(LASER_LENS, "Laser Lens");
         add(LASER_FRAME, "Laser Frame");
@@ -186,6 +187,13 @@ public class FMEnLangProvider extends LanguageProvider implements IDataProvider 
         add("multiblock.fluxmachines.reactor.fluid_port.mode.output", "Fluid Port Mode: Output");
         add("multiblock.fluxmachines.reactor.redstone_port.mode.input", "Redstone Port Mode: Input");
         add("multiblock.fluxmachines.reactor.redstone_port.mode.output", "Redstone Port Mode: Output");
+        add("multiblock.fluxmachines.reactor.temperature.kelvin", "Temp: %s K");
+        add("multiblock.fluxmachines.reactor.temperature.celsius", "Temp: %s °C");
+        add("multiblock.fluxmachines.reactor.temperature.fahrenheit", "Temp: %s °F");
+        add("multiblock.fluxmachines.reactor.efficiency", "Efficiency: %s%%");
+        add("multiblock.fluxmachines.reactor.tooltip.fuel", "Fuel");
+        add("multiblock.fluxmachines.reactor.tooltip.coolant", "Coolant");
+        add("multiblock.fluxmachines.reactor.tooltip.heat", "Heat");
     }
 
     protected void subtitles () {

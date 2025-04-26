@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.DecorativeBlock;
-import net.superscary.fluxmachines.core.block.reactor.ReactorBlock;
+import net.superscary.fluxmachines.core.block.reactor.*;
 import net.superscary.fluxmachines.core.block.cable.CableBlock;
 import net.superscary.fluxmachines.core.block.cable.FacadeBlock;
 import net.superscary.fluxmachines.core.block.machine.CoalGeneratorBlock;
@@ -18,9 +18,6 @@ import net.superscary.fluxmachines.core.Tab;
 import net.superscary.fluxmachines.core.block.machine.MachineCasingBlock;
 import net.superscary.fluxmachines.core.block.misc.CrucibleBlock;
 import net.superscary.fluxmachines.core.block.misc.FluidTankBlock;
-import net.superscary.fluxmachines.core.block.reactor.ReactorCoreBlock;
-import net.superscary.fluxmachines.core.block.reactor.ReactorFluidPortBlock;
-import net.superscary.fluxmachines.core.block.reactor.ReactorRedstonePortBlock;
 import net.superscary.fluxmachines.core.item.FacadeBlockItem;
 import net.superscary.fluxmachines.core.item.base.BaseBlockItem;
 import net.superscary.fluxmachines.core.util.block.BlockDefinition;
@@ -61,6 +58,7 @@ public class FMBlocks {
 	public static final BlockDefinition<ReactorCoreBlock> REACTOR_CORE = reg("reactor_core", ReactorCoreBlock::new);
 	public static final BlockDefinition<ReactorFluidPortBlock> REACTOR_FLUID_PORT = reg("reactor_fluid_port", ReactorFluidPortBlock::new);
 	public static final BlockDefinition<ReactorRedstonePortBlock> REACTOR_REDSTONE_PORT = reg("reactor_redstone_port", ReactorRedstonePortBlock::new);
+	public static final BlockDefinition<ReactorPowerTapBlock> REACTOR_POWER_TAP = reg("reactor_power_tap", ReactorPowerTapBlock::new);
 
 	public static final BlockDefinition<DecorativeBlock> LIMESTONE = reg("limestone", DecorativeBlock::new);
 	public static final BlockDefinition<SlabBlock> LIMESTONE_SLAB = reg("limestone_slab", () -> new SlabBlock(Blocks.BRICK_SLAB.properties()));

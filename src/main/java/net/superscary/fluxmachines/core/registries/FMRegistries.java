@@ -6,6 +6,7 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import net.superscary.fluxmachines.api.manager.IRecipeManager;
 import net.superscary.fluxmachines.core.FluxMachines;
+import net.superscary.fluxmachines.core.util.DeferredCoolant;
 import net.superscary.fluxmachines.core.util.UpgradeMap;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class FMRegistries {
 
 	public static final ResourceKey<Registry<IRecipeManager<?>>> DEFERRED_RECIPE_MANAGER = createRegistryKey("deferred_recipe_manager");
 	public static final ResourceKey<Registry<UpgradeMap<?>>> UPGRADE_MAPS = createRegistryKey("upgrade_map");
+	public static final ResourceKey<Registry<DeferredCoolant<?>>> DEFERRED_COOLANT = createRegistryKey("deferred_coolant");
 
 	public static final Registry<IRecipeManager<?>> RECIPE_MANAGER_REGISTRY = create(DEFERRED_RECIPE_MANAGER);
 	public static final Registry<UpgradeMap<?>> UPGRADE_MAP_REGISTRY = create(UPGRADE_MAPS);

@@ -39,7 +39,7 @@ public class FluidTankScreen  extends BaseScreen<FluidTankMenu> implements GuiFl
     }
 
     @Override
-    protected void renderLabels (GuiGraphics graphics, int mouseX, int mouseY) {
+    protected void renderLabels (@NotNull GuiGraphics graphics, int mouseX, int mouseY) {
         super.renderLabels(graphics, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;

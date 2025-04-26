@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.superscary.fluxmachines.core.FluxMachines;
 import net.superscary.fluxmachines.core.block.base.BaseBlock;
 import net.superscary.fluxmachines.core.block.base.FMBaseEntityBlock;
-import net.superscary.fluxmachines.core.block.multiblock.ReactorMultiBlock;
+import net.superscary.fluxmachines.core.block.multiblock.Multiblock;
 import net.superscary.fluxmachines.core.blockentity.base.FMBasePoweredBlockEntity;
 import net.superscary.fluxmachines.core.blockentity.reactor.ReactorCoreBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +45,7 @@ public class ReactorCoreBlock extends FMBaseEntityBlock<ReactorCoreBlockEntity> 
 	@Override
 	protected @NotNull ItemInteractionResult useItemOn (ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
 		if (!level.isClientSide()) {
-			if (ReactorMultiBlock.isValidAtCore(level, pos)) {
+			if (Multiblock.Reactor.isValidAtCore(level, pos)) {
 				BlockEntity entity = level.getBlockEntity(pos);
 				if (entity instanceof ReactorCoreBlockEntity blockEntity) {
 					player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("multiblock.fluxmachines.reactor")), pos);

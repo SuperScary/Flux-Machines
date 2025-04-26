@@ -194,7 +194,7 @@ public abstract class FMBaseEntityBlock<T extends FMBaseBlockEntity> extends Bas
         return disassemble;
     }
 
-    protected static Direction getConnectedDirection (BlockState state) {
+    public Direction getConnectedDirection (BlockState state) {
         return switch (state.getValue(BlockStateProperties.ATTACH_FACE)) {
             case CEILING -> Direction.DOWN;
             case FLOOR -> Direction.UP;
